@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="windows-1252" standalone="no" ?>
+<Table name="t_ocf" count="2"><Row><Column name="ObjectType" value="Actor"/><Column name="ComplexityWeight" value="1.000000"/></Row><Row><Column name="ObjectType" value="UseCase"/><Column name="ComplexityWeight" value="5.000000"/></Row></Table>

@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="windows-1252" standalone="no" ?>
+<Table name="t_implement" count="3"><Row><Column name="Type" value="Requirement"/></Row><Row><Column name="Type" value="UseCase"/></Row><Row><Column name="Type" value="Component"/></Row></Table>
