@@ -1,78 +1,88 @@
 import os.path
 import pickle
-import shutil
 
 
 class Campo:
+    PATH_INFOCAMPI = "../DataBase/Campi/InfoCampi.txt"
+
     def __init__(self, nome, numero_max_partecipanti, prezzo, attività):
         self.nome = nome
         self.numero_max_partecipanti = numero_max_partecipanti
         self.prezzo = prezzo
         self.attività = attività
         self.path_prenotazioni = f"../DataBase/Campi/Prenotazioni_campo_{self.nome}.txt"
-        open(self.path_prenotazioni, "x")
 
     @classmethod
     def crea_campo(cls, nome, numero_max_partecipanti, prezzo, attività):
-        gia_presente = False
-        with open("/Users/nicola/PycharmProjects/ProgettoIDS/DataBase/Campi/InfoCampi", "rb+") as f:
-            while True:
-                try:
-                    if pickle.load(f).nome == nome:
-                        gia_presente = True
-                        print("Gia presente")
-                except (EOFError, pickle.UnpicklingError):
-                    break
-            if not gia_presente:
-                pickle.dump(Campo(nome, numero_max_partecipanti, prezzo, attività), f, pickle.HIGHEST_PROTOCOL)
+        già_presente = False
+        campi = []
+        if os.path.getsize(Campo.PATH_INFOCAMPI) != 0:
+            with open(Campo.PATH_INFOCAMPI, "rb") as f:
+                campi = pickle.load(f)
+                for i in range(len(campi)):
+                    if campi[i].nome == nome:
+                        già_presente = True
+
+        with open(Campo.PATH_INFOCAMPI, "wb") as f:
+            if not già_presente:
+                nuovo_campo = Campo(nome, numero_max_partecipanti, prezzo, attività)
+                campi.append(nuovo_campo)
+                open(nuovo_campo.path_prenotazioni, "x")
+            pickle.dump(campi, f, pickle.HIGHEST_PROTOCOL)
 
     def modifica_campo(self, nuovo_numero_max_partecipanti, nuovo_prezzo, nuova_attività):
-        with open(os.path.join("DataBase", "Campi","InfoCampi"), "rb+") as f:
-            with open(os.path.join("DataBase", "temp"), "wb") as temp:
+        campi = []
+        if os.path.getsize(Campo.PATH_INFOCAMPI) != 0:
+            with open(Campo.PATH_INFOCAMPI, "rb") as f:
+                campi = pickle.load(f)
+                indice = campi.index(self)
+                self.numero_max_partecipanti = nuovo_numero_max_partecipanti
+                self.prezzo = nuovo_prezzo
+                self.attività = nuova_attività
+                campi[indice] = self
 
-                while True:
-                    try:
-                        campo = pickle.load(f)
-                        if campo.nome == self.nome:
-                            self.numero_max_partecipanti = nuovo_numero_max_partecipanti
-                            self.prezzo = nuovo_prezzo
-                            self.attività = nuova_attività
+        with open(Campo.PATH_INFOCAMPI, "wb") as f:
+            pickle.dump(campi, f, pickle.HIGHEST_PROTOCOL)
 
-                            pickle.dump(self, temp, pickle.HIGHEST_PROTOCOL)
-                        else:
-                            pickle.dump(campo, temp, pickle.HIGHEST_PROTOCOL)
+    #da vedere se chiamarlo su se stesso o con la classe
+    def elimina_campo(self):
+        campi = []
+        if os.path.getsize(Campo.PATH_INFOCAMPI) != 0:
+            with open(Campo.PATH_INFOCAMPI, "rb") as f:
+                campi = pickle.load(f)
+                campi.remove(self)
+                os.remove(self.path_prenotazioni)
+        with open(Campo.PATH_INFOCAMPI, "wb") as f:
+            pickle.dump(campi, f, pickle.HIGHEST_PROTOCOL)
 
-                    except (EOFError, pickle.UnpicklingError):
-                        break
-
-            shutil.copy("DataBase/temp", "DataBase/Campi/InfoCampi")
-            os.remove(os.path.join("DataBase", "temp"))
-
-    @classmethod
-    def elimina_campo(cls, nome):
-        pass
-
+    #TODO cerca se si può controllare che un elemento sia prensente o meno in una lista
     @classmethod
     def cerca_campo(cls, nome):
-        with open("/Users/nicola/PycharmProjects/ProgettoIDS/DataBase/Campi/InfoCampi", "rb") as f:
-            while True:
-                try:
-                    campo = pickle.load(f)
-                    if campo.nome == nome:
-                            return campo
-                except (EOFError, pickle.UnpicklingError):
-                    break
+        if os.path.getsize(Campo.PATH_INFOCAMPI) != 0:
+            with open(Campo.PATH_INFOCAMPI, "rb") as f:
+                campi = pickle.load(f)
+                for i in range(len(campi)):
+                    if campi[i].nome == nome:
+                        return campi[i]
 
-    def controlla_disponibilità(self, ora_prenotazione_inizio, ora_prenotazione_fine, giorno_prenotazione, mese_prenotazione, anno_prenotazione):
-        with open(self.path_prenotazioni, "r") as f:
-            for riga in f:
-                ora_inizio, ora_fine, giorno, mese, anno = riga.split(",")
-                if giorno_prenotazione == int(giorno) and mese_prenotazione == int(mese) and anno_prenotazione == int(anno):
-                    if ora_prenotazione_inizio >= int(ora_inizio) and ora_prenotazione_inizio < int(ora_fine) or ora_prenotazione_fine > int(ora_inizio) and ora_prenotazione_fine <= int(ora_fine):
+    def controlla_disponibilità(self, data_attività):
+            with open(self.path_prenotazioni, "rb") as f:
+                prenotazioni = pickle.load(f)
+                print(prenotazioni)
+                for i in range(len(prenotazioni)):
+                    if prenotazioni[i].data_attività.year == data_attività.year and prenotazioni[i].data_attività.month == data_attività.month and prenotazioni[i].data_attività.day == data_attività.day and prenotazioni[i].data_attività.hour == data_attività.hour:
                         return False
-            return True
+                return True
 
     def __str__(self):
-        return f"nome: {self.nome}\nnumero max partecipanti: {self.numero_max_partecipanti}\n" \
-               f"prezzo: {self.prezzo}\nattività: {self.attività}\n"
+        return f"nome: {self.nome}\nnumero max partecipanti: {self.numero_max_partecipanti}\nprezzo: {self.prezzo}\nattività: {self.attività}\n"
+
+    def __eq__(self, other):
+        return isinstance(other, Campo) and self.nome == other.nome and self.prezzo == other.prezzo and self.numero_max_partecipanti == other.numero_max_partecipanti and self.attività == other.attività
+
+
+
+
+
+
 
