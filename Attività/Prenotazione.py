@@ -32,10 +32,22 @@ class Prenotazione:
                     pickle.dump(prenotazioni,f,pickle.HIGHEST_PROTOCOL)
         else:
             with open(campo.path_prenotazioni, "wb") as f:
-                prenotazioni.append(Prenotazione(Cliente.get_account_connesso(), data_attività, nome_campo, partecipanti))
+                nuova_prenotazione = Prenotazione(Cliente.get_account_connesso(), data_attività, nome_campo, partecipanti)
+                prenotazioni.append(nuova_prenotazione)
+                print(type(nuova_prenotazione))
                 pickle.dump(prenotazioni, f, pickle.HIGHEST_PROTOCOL)
 
-    def modifica_prenotazione(self):
+    @classmethod
+    def get_prenotazioni(cls, campo):
+        if os.path.getsize(campo.path_prenotazioni) != 0:
+            with open(campo.path_prenotazioni, "rb+") as f:
+                return pickle.load(f)
+
+    def filtra_prenotazione(self):
+        pass
+
+
+    def aggiugni_partecipante(self):
         pass
 
     #TODO da fare mi raddopia le prenotazioni invece di toglierle
@@ -65,3 +77,5 @@ class Prenotazione:
                         for j in range(len(prenotazioni)):
                             if prenotazioni[i].cliente.nome == cliente:
                                 return prenotazioni[i]
+
+
