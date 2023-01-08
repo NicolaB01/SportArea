@@ -71,8 +71,7 @@ class Campo:
         return None
 
 
-    def controlla_disponibilità(self, data_attività):
-           prenotazioni = Prenotazione.get_prenotazioni(self)
+
 
 #Campo.crea_campo("maradona", 20000, 60, "calcio")
-Campo.cerca_campo("maradona").controlla_disponibilità("2023/02/12/15")
+#Campo.cerca_campo("maradona").controlla_disponibilità("2023/02/12/15")
