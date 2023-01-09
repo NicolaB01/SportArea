@@ -8,8 +8,8 @@ from email.mime.text import MIMEText
 
 
 class Cliente:
-    PATH_INFO_CLIENTI = os.path.join("../DataBase", "Utenti", "Credenziali.txt")
-    PATH_ACCOUNT_CONNESSO = os.path.join("../DataBase", "Utenti", "Account_connesso.txt")
+    PATH_INFO_CLIENTI = os.path.join("DataBase", "Utenti", "Credenziali.txt")
+    PATH_ACCOUNT_CONNESSO = os.path.join("DataBase", "Utenti", "Account_connesso.txt")
 
     def __init__(self, nome, cognome, codice_fiscale, email, data_nascita, numero_telefono, pwd):
         self.nome = nome
@@ -56,7 +56,6 @@ class Cliente:
             if not già_presente:
                 nuovo_account = Cliente(nome, cognome, codice, email, nascita, tel, pwd)
                 account.append(nuovo_account)
-                print(type(nuovo_account))
 
             pickle.dump(account, f, pickle.HIGHEST_PROTOCOL)
 
@@ -70,17 +69,18 @@ class Cliente:
             return True
         return
 
-    def modifica_account(self, nuovo_nome, nuovo_cognome, nuovo_cf, nuovo_telefono, nuova_password):
+    def modifica_account(self, nuovo_nome, nuovo_cognome, nuovo_cf, nuovo_telefono, nuova_password, nuova_data_nascita):
         if os.path.getsize(Cliente.PATH_INFO_CLIENTI) != 0:
             with open(Cliente.PATH_INFO_CLIENTI, "rb") as f:
                 clienti = pickle.load(f)
-                print(clienti)
+
                 indice = clienti.index(self)
                 self.nome = nuovo_nome
                 self.cognome = nuovo_cognome
                 self.codice_fiscale = nuovo_cf
                 self.numero_telefono = nuovo_telefono
                 self.pwd = nuova_password
+                self.data_nascita = nuova_data_nascita
                 clienti[indice] = self
 
             with open(Cliente.PATH_INFO_CLIENTI, "wb") as f:

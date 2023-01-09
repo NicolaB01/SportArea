@@ -3,14 +3,14 @@ import pickle
 
 
 class Campo:
-    PATH_INFOCAMPI = "../DataBase/Campi/InfoCampi.txt"
+    PATH_INFOCAMPI = os.path.join("DataBase","Campi", "InfoCampi")
 
     def __init__(self, nome, numero_max_partecipanti, prezzo, attività):
         self.nome = nome
         self.numero_max_partecipanti = numero_max_partecipanti
         self.prezzo = prezzo
         self.attività = attività
-        self.path_prenotazioni = f"../DataBase/Campi/Prenotazioni_campo_{self.nome}.txt"
+        self.path_prenotazioni = os.path.join("DataBase", "Campi", f"Prenotazioni_campo_{self.nome}.txt")
 
     def __str__(self):
         return f"""
@@ -65,6 +65,7 @@ class Campo:
         if os.path.getsize(Campo.PATH_INFOCAMPI) != 0:
             with open(Campo.PATH_INFOCAMPI, "rb") as f:
                 campi = pickle.load(f)
+                print(campi)
                 for i in range(len(campi)):
                     if campi[i].nome == nome:
                         return campi[i]
@@ -73,5 +74,4 @@ class Campo:
 
 
 
-#Campo.crea_campo("maradona", 20000, 60, "calcio")
-#Campo.cerca_campo("maradona").controlla_disponibilità("2023/02/12/15")
+Campo.crea_campo("maradona", 20000, 60, "calcio")

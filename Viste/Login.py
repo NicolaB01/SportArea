@@ -1,49 +1,56 @@
-from PyQt5.QtWidgets import QMainWindow, QLineEdit, QPushButton, QMessageBox
-from PyQt5 import uic
+import pickle
+
+from PyQt6 import uic
+from PyQt6.QtWidgets import QMainWindow, QMessageBox
 
 from Attività.Cliente import Cliente
-from Viste.Account_home import Account_home
+from Viste.Amministratore import Amministratore
+from Viste.Home_cliente import Home_cliente
+from Viste.Register import Register
 
 
 class Login(QMainWindow):
-    def __init__(self):
-        super(Login, self).__init__()
-        uic.loadUi("C:\\Users\\Nicola\\PycharmProjects\\SportArea\\GUI\\SportArea_Login.ui", self)
+    def __init__(self, pagina_precedente):
+        super().__init__()
+        uic.loadUi("/Users/nicola/PycharmProjects/ProgettoIDS/UI/SportArea-LogIn.ui", self)
+        self.pagina_precedente = pagina_precedente
 
-        self.accedi = self.findChild(QPushButton, "accedi_btn")
-        self.accedi.clicked.connect(self.funzione_accedi)
+        self.accedi.clicked.connect(self.menu_accedi)
+        self.registrati.clicked.connect(self.menu_registrati)
+        self.back.clicked.connect(self.torna_indietro)
 
-        self.registrati = self.findChild(QPushButton, "registrati_bnt")
-        self.accedi.clicked.connect(self.funzione_registrati)
+    def menu_accedi(self):
+        email = self.email.text().strip()
+        password = self.pwd.text()
 
-        self.email_line = self.findChild(QLineEdit, "email_lineedit")
-
-        self.password_line = self.findChild(QLineEdit, "password_lineedit")
-
-
-
-
-    def funzione_accedi(self):
-        self.email = self.email_line.text()
-        self.password = self.password_line.text()
-
-        cliente = Cliente.cerca_account(self.email)
-        print(cliente)
-        if cliente is not None:
-            if cliente.pwd == self.password:
-                self.account_home = Account_home()
-                self.account_home.show()
-                self.close()
-            else:
-                QMessageBox.about(self, "Errore!", "Password errata")
+        if email == "admin" and password == "password":
+            self.home_amministratore = Amministratore(self)
+            self.home_amministratore.show()
+            self.close()
         else:
-            QMessageBox.about(self, "Errore!", "Account errato")
+            accaout_connesso = Cliente.cerca_account(email)
+            if accaout_connesso is not None:
+                if accaout_connesso.pwd == password:
+                    with open(Cliente.PATH_ACCOUNT_CONNESSO, "wb") as f:
+                        pickle.dump(accaout_connesso, f, pickle.HIGHEST_PROTOCOL)
 
-    def funzione_registrati(self):
-        pass
+                    self.homepage = Home_cliente(self)
+                    self.homepage.show()
+                    self.close()
+                else:
+                    QMessageBox.warning(self, "Attenzione!", "Password errata!")
+            else:
+                QMessageBox.warning(self, "Attenzione!", "Cliente non trovato con questa email")
 
-    def torna_inidetro(self):
-        pass
+    def menu_registrati(self):
+        self.registati_menu = Register(self)
+        self.registati_menu.show()
+        self.close()
 
-    def recupera_pwd(self):
-        pass
+    def torna_indietro(self):
+        self.pagina_precedente.show()
+        self.close()
+
+    def keyPressEvent(self, event):
+        if (event.key() == 16777220) or (event.key() == 43):
+            self.menu_accedi()

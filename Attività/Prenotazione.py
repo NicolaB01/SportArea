@@ -44,9 +44,35 @@ class Prenotazione:
 
                 pickle.dump(prenotazioni, f, pickle.HIGHEST_PROTOCOL)
 
+    #ridà una lista di prenotaioni
     @classmethod
     def filtra_prenotazione(cls, attività, giorno, mese, anno, ora_inizio):
-        pass
+        campi_idonei = []
+        with open(Campo.PATH_INFOCAMPI, "rb") as f:
+            campi = pickle.load(f)
+            for campo in campi:
+                if campo.attività == attività:
+                    campi_idonei.append(campo)
+
+        prenotazioni_disponibili = {}
+        for campo in campi_idonei:
+            lista_ore = list(range(ora_inizio, 22))
+            with open(campo.path_prenotazioni, "rb") as f:
+                prenotazioni_effetuate = pickle.load(f)
+                for prenotazione in prenotazioni_effetuate:
+                    anno_prenotazione, mese_prenotazione, giorno_prenotazione, ora_prenotazione = prenotazione.spliy("/")
+
+                    if anno_prenotazione == anno and mese_prenotazione == mese and giorno_prenotazione == giorno:
+                        if ora_prenotazione >= ora_inizio:
+                            lista_ore.remove(ora_prenotazione)
+
+                prenotazioni_disponibili[campo] = lista_ore
+
+        return prenotazioni_disponibili
+
+
+
+
 
 
     def aggiugni_partecipante(self):
@@ -86,4 +112,5 @@ class Prenotazione:
                         for j in range(len(prenotazioni)):
                             if prenotazioni[i].cliente.nome == cliente:
                                 return prenotazioni[i]
+
 
