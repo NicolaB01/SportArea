@@ -789,8 +789,8 @@ text-decoration: underline solid;
                <string>Torna all'account</string>
               </property>
               <property name="icon">
-               <iconset resource="test.qrc">
-                <normaloff>:/icons/icons/reply.png</normaloff>:/icons/icons/reply.png</iconset>
+               <iconset>
+                <normaloff>icons/reply.png</normaloff>icons/reply.png</iconset>
               </property>
               <property name="iconSize">
                <size>
@@ -853,8 +853,8 @@ text-decoration: underline solid;
                <string>Modifica</string>
               </property>
               <property name="icon">
-               <iconset resource="test.qrc">
-                <normaloff>:/icons/icons/edit-button.png</normaloff>:/icons/icons/edit-button.png</iconset>
+               <iconset>
+                <normaloff>icons/edit-button.png</normaloff>icons/edit-button.png</iconset>
               </property>
               <property name="iconSize">
                <size>

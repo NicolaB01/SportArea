@@ -165,8 +165,8 @@ width:80px;
                  <string>Accedi</string>
                 </property>
                 <property name="icon">
-                 <iconset resource="test.qrc">
-                  <normaloff>:/icons/icons/user.png</normaloff>:/icons/icons/user.png</iconset>
+                 <iconset>
+                  <normaloff>icons/user.png</normaloff>icons/user.png</iconset>
                 </property>
                 <property name="iconSize">
                  <size>
@@ -259,8 +259,8 @@ width:80px;
                  <string>Registrati</string>
                 </property>
                 <property name="icon">
-                 <iconset resource="test.qrc">
-                  <normaloff>:/icons/icons/write.png</normaloff>:/icons/icons/write.png</iconset>
+                 <iconset>
+                  <normaloff>icons/write.png</normaloff>icons/write.png</iconset>
                 </property>
                 <property name="iconSize">
                  <size>

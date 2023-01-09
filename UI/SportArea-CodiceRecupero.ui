@@ -290,7 +290,7 @@ color:rgb(22, 29, 111);
                  <number>1</number>
                 </property>
                 <item>
-                 <widget class="QLineEdit" name="email">
+                 <widget class="QLineEdit" name="codice_1">
                   <property name="minimumSize">
                    <size>
                     <width>30</width>
@@ -340,7 +340,7 @@ width:60px;
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="email_2">
+                 <widget class="QLineEdit" name="codice_2">
                   <property name="maximumSize">
                    <size>
                     <width>30</width>
@@ -384,7 +384,7 @@ width:60px;
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="email_4">
+                 <widget class="QLineEdit" name="codice_3">
                   <property name="maximumSize">
                    <size>
                     <width>30</width>
@@ -457,7 +457,7 @@ color:rgb(22, 29, 111);
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="email_3">
+                 <widget class="QLineEdit" name="codice_4">
                   <property name="maximumSize">
                    <size>
                     <width>30</width>
@@ -501,7 +501,7 @@ width:60px;
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="email_6">
+                 <widget class="QLineEdit" name="codice_5">
                   <property name="maximumSize">
                    <size>
                     <width>30</width>
@@ -545,7 +545,7 @@ width:60px;
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="email_5">
+                 <widget class="QLineEdit" name="codice_6">
                   <property name="maximumSize">
                    <size>
                     <width>30</width>

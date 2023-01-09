@@ -244,8 +244,8 @@ width:55px;
                <string>Account</string>
               </property>
               <property name="icon">
-               <iconset resource="test.qrc">
-                <normaloff>:/icons/icons/user.png</normaloff>:/icons/icons/user.png</iconset>
+               <iconset>
+                <normaloff>icons/user.png</normaloff>icons/user.png</iconset>
               </property>
               <property name="iconSize">
                <size>
@@ -302,8 +302,8 @@ width:55px;
                <string>Portafoglio</string>
               </property>
               <property name="icon">
-               <iconset resource="test.qrc">
-                <normaloff>:/icons/icons/piggybank.png</normaloff>:/icons/icons/piggybank.png</iconset>
+               <iconset>
+                <normaloff>icons/piggybank.png</normaloff>icons/piggybank.png</iconset>
               </property>
               <property name="iconSize">
                <size>
@@ -360,8 +360,8 @@ width:55px;
                <string>Prenota</string>
               </property>
               <property name="icon">
-               <iconset resource="test.qrc">
-                <normaloff>:/icons/icons/edit-button.png</normaloff>:/icons/icons/edit-button.png</iconset>
+               <iconset>
+                <normaloff>icons/edit-button.png</normaloff>icons/edit-button.png</iconset>
               </property>
               <property name="iconSize">
                <size>
@@ -418,8 +418,8 @@ width:55px;
                <string>Prenotazioni</string>
               </property>
               <property name="icon">
-               <iconset resource="test.qrc">
-                <normaloff>:/icons/icons/guideline.png</normaloff>:/icons/icons/guideline.png</iconset>
+               <iconset>
+                <normaloff>icons/to-do-list.png</normaloff>icons/to-do-list.png</iconset>
               </property>
               <property name="iconSize">
                <size>
@@ -476,8 +476,8 @@ width:55px;
                <string>Amici</string>
               </property>
               <property name="icon">
-               <iconset resource="test.qrc">
-                <normaloff>:/icons/icons/high-five.png</normaloff>:/icons/icons/high-five.png</iconset>
+               <iconset>
+                <normaloff>icons/high-five.png</normaloff>icons/high-five.png</iconset>
               </property>
               <property name="iconSize">
                <size>
@@ -571,8 +571,8 @@ width:55px;
                  <string>Log out</string>
                 </property>
                 <property name="icon">
-                 <iconset resource="test.qrc">
-                  <normaloff>:/icons/icons/exit.png</normaloff>:/icons/icons/exit.png</iconset>
+                 <iconset>
+                  <normaloff>icons/exit.png</normaloff>icons/exit.png</iconset>
                 </property>
                 <property name="iconSize">
                  <size>

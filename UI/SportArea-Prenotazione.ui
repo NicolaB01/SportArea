@@ -1482,8 +1482,8 @@ text-decoration: underline solid;
             <string>Torna all'account</string>
            </property>
            <property name="icon">
-            <iconset resource="test.qrc">
-             <normaloff>:/icons/icons/reply.png</normaloff>:/icons/icons/reply.png</iconset>
+            <iconset>
+             <normaloff>icons/reply.png</normaloff>icons/reply.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -1552,8 +1552,8 @@ text-decoration: underline solid;
             <string>Cerca</string>
            </property>
            <property name="icon">
-            <iconset resource="test.qrc">
-             <normaloff>:/icons/icons/information-sign.png</normaloff>:/icons/icons/information-sign.png</iconset>
+            <iconset>
+             <normaloff>icons/information.png</normaloff>icons/information.png</iconset>
            </property>
            <property name="iconSize">
             <size>

@@ -422,8 +422,8 @@ width:55px;
                  <string>Ricarica</string>
                 </property>
                 <property name="icon">
-                 <iconset resource="test.qrc">
-                  <normaloff>:/icons/icons/coin.png</normaloff>:/icons/icons/coin.png</iconset>
+                 <iconset>
+                  <normaloff>icons/coin.png</normaloff>icons/coin.png</iconset>
                 </property>
                 <property name="iconSize">
                  <size>
@@ -522,8 +522,8 @@ width:55px;
                  <string>Torna all'account</string>
                 </property>
                 <property name="icon">
-                 <iconset resource="test.qrc">
-                  <normaloff>:/icons/icons/reply.png</normaloff>:/icons/icons/reply.png</iconset>
+                 <iconset>
+                  <normaloff>icons/reply.png</normaloff>icons/reply.png</iconset>
                 </property>
                 <property name="iconSize">
                  <size>

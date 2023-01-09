@@ -229,8 +229,8 @@ color:rgb(22, 29, 111)
                <string>Prenotazioni attive</string>
               </property>
               <property name="icon">
-               <iconset resource="test.qrc">
-                <normaloff>:/icons/icons/hourglass.png</normaloff>:/icons/icons/hourglass.png</iconset>
+               <iconset>
+                <normaloff>icons/hourglass.png</normaloff>icons/hourglass.png</iconset>
               </property>
               <property name="iconSize">
                <size>
@@ -292,8 +292,8 @@ color:rgb(22, 29, 111)
                <string>Prenotazioni passate</string>
               </property>
               <property name="icon">
-               <iconset resource="test.qrc">
-                <normaloff>:/icons/icons/to-do-list.png</normaloff>:/icons/icons/to-do-list.png</iconset>
+               <iconset>
+                <normaloff>icons/to-do-list.png</normaloff>icons/to-do-list.png</iconset>
               </property>
               <property name="iconSize">
                <size>
@@ -373,8 +373,8 @@ color:rgb(22, 29, 111)
                  <string>Torna all'account</string>
                 </property>
                 <property name="icon">
-                 <iconset resource="test.qrc">
-                  <normaloff>:/icons/icons/reply.png</normaloff>:/icons/icons/reply.png</iconset>
+                 <iconset>
+                  <normaloff>icons/reply.png</normaloff>icons/reply.png</iconset>
                 </property>
                 <property name="iconSize">
                  <size>

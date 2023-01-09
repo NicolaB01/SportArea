@@ -193,8 +193,8 @@ color:rgb(22, 29, 111)
                 <string>Torna indietro</string>
                </property>
                <property name="icon">
-                <iconset resource="test.qrc">
-                 <normaloff>:/icons/icons/reply.png</normaloff>:/icons/icons/reply.png</iconset>
+                <iconset>
+                 <normaloff>icons/reply.png</normaloff>icons/reply.png</iconset>
                </property>
                <property name="iconSize">
                 <size>
@@ -660,8 +660,8 @@ color:rgb(22, 29, 111)
                  <string>Accetta</string>
                 </property>
                 <property name="icon">
-                 <iconset resource="test.qrc">
-                  <normaloff>:/icons/icons/confirm.png</normaloff>:/icons/icons/confirm.png</iconset>
+                 <iconset>
+                  <normaloff>icons/confirm.png</normaloff>icons/confirm.png</iconset>
                 </property>
                 <property name="iconSize">
                  <size>
@@ -729,8 +729,8 @@ color:rgb(22, 29, 111)
                  <string>Rifiuta</string>
                 </property>
                 <property name="icon">
-                 <iconset resource="test.qrc">
-                  <normaloff>:/icons/icons/bin.png</normaloff>:/icons/icons/bin.png</iconset>
+                 <iconset>
+                  <normaloff>icons/bin.png</normaloff>icons/bin.png</iconset>
                 </property>
                 <property name="iconSize">
                  <size>

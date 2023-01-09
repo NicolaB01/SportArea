@@ -481,8 +481,8 @@ width:55px;
                  <string>Torna indietro</string>
                 </property>
                 <property name="icon">
-                 <iconset resource="test.qrc">
-                  <normaloff>:/icons/icons/reply.png</normaloff>:/icons/icons/reply.png</iconset>
+                 <iconset>
+                  <normaloff>icons/reply.png</normaloff>icons/reply.png</iconset>
                 </property>
                 <property name="iconSize">
                  <size>
