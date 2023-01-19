@@ -342,6 +342,9 @@ image: url(:/icons/icons/down-arrow.png);
 
 </string>
                 </property>
+                <property name="maximum">
+                 <double>999.000000000000000</double>
+                </property>
                </widget>
               </item>
               <item>
