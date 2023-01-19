@@ -309,9 +309,6 @@ color:rgb(22, 29, 111);
                     <pointsize>18</pointsize>
                    </font>
                   </property>
-                  <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
-                  </property>
                   <property name="styleSheet">
                    <string notr="true">QLineEdit:focus
 {
@@ -353,9 +350,6 @@ width:60px;
                     <pointsize>18</pointsize>
                    </font>
                   </property>
-                  <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
-                  </property>
                   <property name="styleSheet">
                    <string notr="true">QLineEdit:focus
 {
@@ -396,9 +390,6 @@ width:60px;
                     <family>Arial</family>
                     <pointsize>18</pointsize>
                    </font>
-                  </property>
-                  <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
                   </property>
                   <property name="styleSheet">
                    <string notr="true">QLineEdit:focus
@@ -470,9 +461,6 @@ color:rgb(22, 29, 111);
                     <pointsize>18</pointsize>
                    </font>
                   </property>
-                  <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
-                  </property>
                   <property name="styleSheet">
                    <string notr="true">QLineEdit:focus
 {
@@ -514,9 +502,6 @@ width:60px;
                     <pointsize>18</pointsize>
                    </font>
                   </property>
-                  <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
-                  </property>
                   <property name="styleSheet">
                    <string notr="true">QLineEdit:focus
 {
@@ -557,9 +542,6 @@ width:60px;
                     <family>Arial</family>
                     <pointsize>18</pointsize>
                    </font>
-                  </property>
-                  <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
                   </property>
                   <property name="styleSheet">
                    <string notr="true">QLineEdit:focus

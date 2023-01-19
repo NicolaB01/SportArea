@@ -244,6 +244,9 @@ font:25px bold;</string>
                     <bold>true</bold>
                    </font>
                   </property>
+                  <property name="focusPolicy">
+                   <enum>Qt::StrongFocus</enum>
+                  </property>
                   <property name="styleSheet">
                    <string notr="true">color: rgb(22, 29, 111);</string>
                   </property>
@@ -265,6 +268,9 @@ font:25px bold;</string>
                     <width>180</width>
                     <height>0</height>
                    </size>
+                  </property>
+                  <property name="focusPolicy">
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                   <property name="styleSheet">
                    <string notr="true">QComboBox
@@ -314,7 +320,7 @@ image-size: 20px 20px;
                    <bool>false</bool>
                   </property>
                   <property name="currentText">
-                   <string>Calcetto a 5</string>
+                   <string/>
                   </property>
                   <property name="sizeAdjustPolicy">
                    <enum>QComboBox::AdjustToContents</enum>
@@ -328,31 +334,6 @@ image-size: 20px 20px;
                   <property name="modelColumn">
                    <number>0</number>
                   </property>
-                  <item>
-                   <property name="text">
-                    <string>Calcetto a 5</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Tennis coppie</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Tennis singolo</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Padle coppie </string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Padle singolo</string>
-                   </property>
-                  </item>
                  </widget>
                 </item>
                 <item>
@@ -511,6 +492,9 @@ QCalendarWidget QSpinBox{
                     <bold>true</bold>
                    </font>
                   </property>
+                  <property name="focusPolicy">
+                   <enum>Qt::StrongFocus</enum>
+                  </property>
                   <property name="styleSheet">
                    <string notr="true">color: rgb(22, 29, 111);</string>
                   </property>
@@ -532,6 +516,9 @@ QCalendarWidget QSpinBox{
                     <width>120</width>
                     <height>0</height>
                    </size>
+                  </property>
+                  <property name="focusPolicy">
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                   <property name="styleSheet">
                    <string notr="true">QComboBox
@@ -581,7 +568,7 @@ image-size: 20px 20px;
                    <bool>false</bool>
                   </property>
                   <property name="currentText">
-                   <string>10:00</string>
+                   <string/>
                   </property>
                   <property name="sizeAdjustPolicy">
                    <enum>QComboBox::AdjustToContents</enum>
@@ -595,46 +582,6 @@ image-size: 20px 20px;
                   <property name="modelColumn">
                    <number>0</number>
                   </property>
-                  <item>
-                   <property name="text">
-                    <string>10:00</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>11:00</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>12:00</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>13:00</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>14:00</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>15:00</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>16:00</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>17:00</string>
-                   </property>
-                  </item>
                  </widget>
                 </item>
                 <item>
@@ -756,629 +703,11 @@ background-color: rgba(255, 255, 255, 0);
                     <rect>
                      <x>0</x>
                      <y>0</y>
-                     <width>233</width>
-                     <height>1193</height>
+                     <width>248</width>
+                     <height>320</height>
                     </rect>
                    </property>
-                   <layout class="QVBoxLayout" name="verticalLayout_2">
-                    <item>
-                     <widget class="QPushButton" name="pusButton_prenotazione">
-                      <property name="minimumSize">
-                       <size>
-                        <width>150</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="font">
-                       <font>
-                        <family>Arial</family>
-                        <pointsize>15</pointsize>
-                        <weight>50</weight>
-                        <bold>false</bold>
-                       </font>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">QPushButton
-{
-color:rgb(22, 29, 111);
-background-color: rgba(255, 255, 255, 0);
-border: 3px solid rgb(136, 216, 208);
-padding-left:-10px;
-padding-right:-10px;
-}
-
-QPushButton:hover
-{
-color:rgb(22, 29, 111);
-background-color: rgba(255, 255, 255, 0);
-border-radius:30px;
-}
-
-QPushButton:pressed
-{
-color:rgb(22, 29, 111);
-background-color: rgb(136, 216, 208);
-border-radius:30px;
-}
-
-
-
-
-</string>
-                      </property>
-                      <property name="text">
-                       <string>Campo: &quot;Campo1&quot;
-ora: 13:00
-partecipanti: 10
-prezzo: 50€</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QPushButton" name="pushButton_3">
-                      <property name="font">
-                       <font>
-                        <family>Arial</family>
-                        <pointsize>15</pointsize>
-                        <weight>50</weight>
-                        <bold>false</bold>
-                       </font>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">QPushButton
-{
-color:rgb(22, 29, 111);
-background-color: rgba(255, 255, 255, 0);
-border: 3px solid rgb(136, 216, 208);
-padding-left:-10px;
-padding-right:-10px;
-}
-
-QPushButton:hover
-{
-color:rgb(22, 29, 111);
-background-color: rgba(255, 255, 255, 0);
-border-radius:30px;
-}
-
-QPushButton:pressed
-{
-color:rgb(22, 29, 111);
-background-color: rgb(136, 216, 208);
-border-radius:30px;
-}
-
-
-
-
-</string>
-                      </property>
-                      <property name="text">
-                       <string>Campo: &quot;Campo1&quot;
-ora: 13:00
-partecipanti: 10
-prezzo: 50€</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QPushButton" name="pushButton_5">
-                      <property name="font">
-                       <font>
-                        <family>Arial</family>
-                        <pointsize>15</pointsize>
-                        <weight>50</weight>
-                        <bold>false</bold>
-                       </font>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">QPushButton
-{
-color:rgb(22, 29, 111);
-background-color: rgba(255, 255, 255, 0);
-border: 3px solid rgb(136, 216, 208);
-padding-left:-10px;
-padding-right:-10px;
-}
-
-QPushButton:hover
-{
-color:rgb(22, 29, 111);
-background-color: rgba(255, 255, 255, 0);
-border-radius:30px;
-}
-
-QPushButton:pressed
-{
-color:rgb(22, 29, 111);
-background-color: rgb(136, 216, 208);
-border-radius:30px;
-}
-
-
-
-
-</string>
-                      </property>
-                      <property name="text">
-                       <string>Campo: &quot;Campo1&quot;
-ora: 13:00
-partecipanti: 10
-prezzo: 50€</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QPushButton" name="pushButton_6">
-                      <property name="font">
-                       <font>
-                        <family>Arial</family>
-                        <pointsize>15</pointsize>
-                        <weight>50</weight>
-                        <bold>false</bold>
-                       </font>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">QPushButton
-{
-color:rgb(22, 29, 111);
-background-color: rgba(255, 255, 255, 0);
-border: 3px solid rgb(136, 216, 208);
-padding-left:-10px;
-padding-right:-10px;
-}
-
-QPushButton:hover
-{
-color:rgb(22, 29, 111);
-background-color: rgba(255, 255, 255, 0);
-border-radius:30px;
-}
-
-QPushButton:pressed
-{
-color:rgb(22, 29, 111);
-background-color: rgb(136, 216, 208);
-border-radius:30px;
-}
-
-
-
-
-</string>
-                      </property>
-                      <property name="text">
-                       <string>Campo: &quot;Campo1&quot;
-ora: 13:00
-partecipanti: 10
-prezzo: 50€</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QPushButton" name="pushButton_7">
-                      <property name="font">
-                       <font>
-                        <family>Arial</family>
-                        <pointsize>15</pointsize>
-                        <weight>50</weight>
-                        <bold>false</bold>
-                       </font>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">QPushButton
-{
-color:rgb(22, 29, 111);
-background-color: rgba(255, 255, 255, 0);
-border: 3px solid rgb(136, 216, 208);
-padding-left:-10px;
-padding-right:-10px;
-}
-
-QPushButton:hover
-{
-color:rgb(22, 29, 111);
-background-color: rgba(255, 255, 255, 0);
-border-radius:30px;
-}
-
-QPushButton:pressed
-{
-color:rgb(22, 29, 111);
-background-color: rgb(136, 216, 208);
-border-radius:30px;
-}
-
-
-
-
-</string>
-                      </property>
-                      <property name="text">
-                       <string>Campo: &quot;Campo1&quot;
-ora: 13:00
-partecipanti: 10
-prezzo: 50€</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QPushButton" name="pushButton_8">
-                      <property name="font">
-                       <font>
-                        <family>Arial</family>
-                        <pointsize>15</pointsize>
-                        <weight>50</weight>
-                        <bold>false</bold>
-                       </font>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">QPushButton
-{
-color:rgb(22, 29, 111);
-background-color: rgba(255, 255, 255, 0);
-border: 3px solid rgb(136, 216, 208);
-padding-left:-10px;
-padding-right:-10px;
-}
-
-QPushButton:hover
-{
-color:rgb(22, 29, 111);
-background-color: rgba(255, 255, 255, 0);
-border-radius:30px;
-}
-
-QPushButton:pressed
-{
-color:rgb(22, 29, 111);
-background-color: rgb(136, 216, 208);
-border-radius:30px;
-}
-
-
-
-
-</string>
-                      </property>
-                      <property name="text">
-                       <string>Campo: &quot;Campo1&quot;
-ora: 13:00
-partecipanti: 10
-prezzo: 50€</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QPushButton" name="pushButton_9">
-                      <property name="font">
-                       <font>
-                        <family>Arial</family>
-                        <pointsize>15</pointsize>
-                        <weight>50</weight>
-                        <bold>false</bold>
-                       </font>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">QPushButton
-{
-color:rgb(22, 29, 111);
-background-color: rgba(255, 255, 255, 0);
-border: 3px solid rgb(136, 216, 208);
-padding-left:-10px;
-padding-right:-10px;
-}
-
-QPushButton:hover
-{
-color:rgb(22, 29, 111);
-background-color: rgba(255, 255, 255, 0);
-border-radius:30px;
-}
-
-QPushButton:pressed
-{
-color:rgb(22, 29, 111);
-background-color: rgb(136, 216, 208);
-border-radius:30px;
-}
-
-
-
-
-</string>
-                      </property>
-                      <property name="text">
-                       <string>Campo: &quot;Campo1&quot;
-ora: 13:00
-partecipanti: 10
-prezzo: 50€</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QPushButton" name="pushButton_10">
-                      <property name="font">
-                       <font>
-                        <family>Arial</family>
-                        <pointsize>15</pointsize>
-                        <weight>50</weight>
-                        <bold>false</bold>
-                       </font>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">QPushButton
-{
-color:rgb(22, 29, 111);
-background-color: rgba(255, 255, 255, 0);
-border: 3px solid rgb(136, 216, 208);
-padding-left:-10px;
-padding-right:-10px;
-}
-
-QPushButton:hover
-{
-color:rgb(22, 29, 111);
-background-color: rgba(255, 255, 255, 0);
-border-radius:30px;
-}
-
-QPushButton:pressed
-{
-color:rgb(22, 29, 111);
-background-color: rgb(136, 216, 208);
-border-radius:30px;
-}
-
-
-
-
-</string>
-                      </property>
-                      <property name="text">
-                       <string>Campo: &quot;Campo1&quot;
-ora: 13:00
-partecipanti: 10
-prezzo: 50€</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QPushButton" name="pushButton_11">
-                      <property name="font">
-                       <font>
-                        <family>Arial</family>
-                        <pointsize>15</pointsize>
-                        <weight>50</weight>
-                        <bold>false</bold>
-                       </font>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">QPushButton
-{
-color:rgb(22, 29, 111);
-background-color: rgba(255, 255, 255, 0);
-border: 3px solid rgb(136, 216, 208);
-padding-left:-10px;
-padding-right:-10px;
-}
-
-QPushButton:hover
-{
-color:rgb(22, 29, 111);
-background-color: rgba(255, 255, 255, 0);
-border-radius:30px;
-}
-
-QPushButton:pressed
-{
-color:rgb(22, 29, 111);
-background-color: rgb(136, 216, 208);
-border-radius:30px;
-}
-
-
-
-
-</string>
-                      </property>
-                      <property name="text">
-                       <string>Campo: &quot;Campo1&quot;
-ora: 13:00
-partecipanti: 10
-prezzo: 50€</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QPushButton" name="pushButton_12">
-                      <property name="font">
-                       <font>
-                        <family>Arial</family>
-                        <pointsize>15</pointsize>
-                        <weight>50</weight>
-                        <bold>false</bold>
-                       </font>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">QPushButton
-{
-color:rgb(22, 29, 111);
-background-color: rgba(255, 255, 255, 0);
-border: 3px solid rgb(136, 216, 208);
-padding-left:-10px;
-padding-right:-10px;
-}
-
-QPushButton:hover
-{
-color:rgb(22, 29, 111);
-background-color: rgba(255, 255, 255, 0);
-border-radius:30px;
-}
-
-QPushButton:pressed
-{
-color:rgb(22, 29, 111);
-background-color: rgb(136, 216, 208);
-border-radius:30px;
-}
-
-
-
-
-</string>
-                      </property>
-                      <property name="text">
-                       <string>Campo: &quot;Campo1&quot;
-ora: 13:00
-partecipanti: 10
-prezzo: 50€</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QPushButton" name="pushButton_13">
-                      <property name="font">
-                       <font>
-                        <family>Arial</family>
-                        <pointsize>15</pointsize>
-                        <weight>50</weight>
-                        <bold>false</bold>
-                       </font>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">QPushButton
-{
-color:rgb(22, 29, 111);
-background-color: rgba(255, 255, 255, 0);
-border: 3px solid rgb(136, 216, 208);
-padding-left:-10px;
-padding-right:-10px;
-}
-
-QPushButton:hover
-{
-color:rgb(22, 29, 111);
-background-color: rgba(255, 255, 255, 0);
-border-radius:30px;
-}
-
-QPushButton:pressed
-{
-color:rgb(22, 29, 111);
-background-color: rgb(136, 216, 208);
-border-radius:30px;
-}
-
-
-
-
-</string>
-                      </property>
-                      <property name="text">
-                       <string>Campo: &quot;Campo1&quot;
-ora: 13:00
-partecipanti: 10
-prezzo: 50€</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QPushButton" name="pushButton_14">
-                      <property name="font">
-                       <font>
-                        <family>Arial</family>
-                        <pointsize>15</pointsize>
-                        <weight>50</weight>
-                        <bold>false</bold>
-                       </font>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">QPushButton
-{
-color:rgb(22, 29, 111);
-background-color: rgba(255, 255, 255, 0);
-border: 3px solid rgb(136, 216, 208);
-padding-left:-10px;
-padding-right:-10px;
-}
-
-QPushButton:hover
-{
-color:rgb(22, 29, 111);
-background-color: rgba(255, 255, 255, 0);
-border-radius:30px;
-}
-
-QPushButton:pressed
-{
-color:rgb(22, 29, 111);
-background-color: rgb(136, 216, 208);
-border-radius:30px;
-}
-
-
-
-
-</string>
-                      </property>
-                      <property name="text">
-                       <string>Campo: &quot;Campo1&quot;
-ora: 13:00
-partecipanti: 10
-prezzo: 50€</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QPushButton" name="pushButton_15">
-                      <property name="font">
-                       <font>
-                        <family>Arial</family>
-                        <pointsize>15</pointsize>
-                        <weight>50</weight>
-                        <bold>false</bold>
-                       </font>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">QPushButton
-{
-color:rgb(22, 29, 111);
-background-color: rgba(255, 255, 255, 0);
-border: 3px solid rgb(136, 216, 208);
-padding-left:-10px;
-padding-right:-10px;
-}
-
-QPushButton:hover
-{
-color:rgb(22, 29, 111);
-background-color: rgba(255, 255, 255, 0);
-border-radius:30px;
-}
-
-QPushButton:pressed
-{
-color:rgb(22, 29, 111);
-background-color: rgb(136, 216, 208);
-border-radius:30px;
-}
-
-
-
-
-</string>
-                      </property>
-                      <property name="text">
-                       <string>Campo: &quot;Campo1&quot;
-ora: 13:00
-partecipanti: 10
-prezzo: 50€</string>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
+                   <layout class="QVBoxLayout" name="verticalLayout_2"/>
                   </widget>
                  </widget>
                 </item>
@@ -1454,6 +783,9 @@ prezzo: 50€</string>
              <bold>true</bold>
             </font>
            </property>
+           <property name="focusPolicy">
+            <enum>Qt::StrongFocus</enum>
+           </property>
            <property name="layoutDirection">
             <enum>Qt::LeftToRight</enum>
            </property>
@@ -1524,6 +856,9 @@ text-decoration: underline solid;
              <weight>75</weight>
              <bold>true</bold>
             </font>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::StrongFocus</enum>
            </property>
            <property name="styleSheet">
             <string notr="true">
