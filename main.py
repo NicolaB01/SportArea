@@ -2,7 +2,7 @@ import sys
 
 from PyQt6.QtWidgets import QApplication
 
-from Viste.Home import Home
+from Viste.Accesso.Home import Home
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

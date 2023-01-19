@@ -1,116 +1,128 @@
-import datetime
 import os.path
 import pickle
+import time
+import datetime
+
+from Attività.Campo import Campo
 from Attività.Cliente import Cliente
-from Campo import Campo
+from Attività.Ricevuta import Ricevuta
+from Path.Path_database import *
 
 
 class Prenotazione:
-    FASCE_ORARIE = list(range(8, 23))
-
-    def __init__(self, cliente, data_attività, campo, partecipanti):
+    def __init__(self, cliente, data_attività, nome_campo, partecipanti):
         self.cliente = cliente
         self.data_attività = data_attività
-        self.campo = campo
+        self.nome_campo = nome_campo
         self.partecipanti = partecipanti
-        self.modificabile = True
+        self.attiva = True
 
     def __str__(self):
-        return f"""
-            cliente         :{self.cliente}
-            data attività   :{self.data_attività}
-            campo           :{self.campo}
-            partecipanti    :{self.partecipanti}
-            """
+        return f"Cliente:\t\t{self.cliente.nome}" \
+               f"\nData attività:\t{self.data_attività}" \
+               f"\nCampo:\t\t{self.nome_campo}" \
+               f"\nPartecipanti:\t{self.partecipanti} "
 
     def __eq__(self, other):
-        return isinstance(other,
-                          Prenotazione) and self.cliente == other.cliente and self.data_prenotazione == other.data_prenotazione and self.campo == other.campo and self.partecipanti == other.partecipanti
+        return isinstance(other, Prenotazione) and \
+               self.cliente == other.cliente and \
+               self.data_attività == other.data_attività and \
+               self.nome_campo == other.nome_campo
 
     @classmethod
-    def prenota_campo(cls, nome_campo, data_attività, partecipanti):
-        campo = Campo.cerca_campo(nome_campo)
-        prenotazioni = []
-        if os.path.getsize(campo.path_prenotazioni) != 0:
-            with open(campo.path_prenotazioni, "rb") as f:
-                prenotazioni = pickle.load(f)
-                prenotazioni.append(Prenotazione(Cliente.get_account_connesso(), data_attività, nome_campo, partecipanti))
+    def prenota_campo(cls, campo, data_attività, partecipanti):
+        prenotazioni = cls.get_prenotazioni_campo(campo)
+        prenotazioni.append(Prenotazione(Cliente.get_account_connesso(), data_attività, campo.nome, partecipanti))
 
-            with open(campo.path_prenotazioni, "wb") as f:
-                pickle.dump(prenotazioni, f, pickle.HIGHEST_PROTOCOL)
-        else:
-            with open(campo.path_prenotazioni, "wb") as f:
-                prenotazioni.append(Prenotazione(Cliente.get_account_connesso(), data_attività, nome_campo, partecipanti))
+        cls.set_prenotazioni_campo(campo, prenotazioni)
 
-                pickle.dump(prenotazioni, f, pickle.HIGHEST_PROTOCOL)
-
-    #ridà una lista di prenotaioni
     @classmethod
-    def filtra_prenotazione(cls, attività, giorno, mese, anno, ora_inizio):
+    def filtra_prenotazione(cls, attività, data):
         campi_idonei = []
-        with open(Campo.PATH_INFOCAMPI, "rb") as f:
-            campi = pickle.load(f)
-            for campo in campi:
-                if campo.attività == attività:
-                    campi_idonei.append(campo)
+        campi = Campo.get_campi()
+        for campo in campi:
+            if campo.attività == attività:
+                campi_idonei.append(campo)
 
         prenotazioni_disponibili = {}
         for campo in campi_idonei:
-            lista_ore = list(range(ora_inizio, 22))
-            with open(campo.path_prenotazioni, "rb") as f:
-                prenotazioni_effetuate = pickle.load(f)
-                for prenotazione in prenotazioni_effetuate:
-                    anno_prenotazione, mese_prenotazione, giorno_prenotazione, ora_prenotazione = prenotazione.spliy("/")
+            lista_ore = list(range(data.hour, 22))
+            prenotazioni_effetuate = cls.get_prenotazioni_campo(campo)
+            for prenotazione in prenotazioni_effetuate:
+                if prenotazione.data_attività.strftime("%x") == data.strftime("%x") and prenotazione.data_attività.hour >= data.hour:
+                    lista_ore.remove(prenotazione.data_attività.hour)
 
-                    if anno_prenotazione == anno and mese_prenotazione == mese and giorno_prenotazione == giorno:
-                        if ora_prenotazione >= ora_inizio:
-                            lista_ore.remove(ora_prenotazione)
-
-                prenotazioni_disponibili[campo] = lista_ore
+            prenotazioni_disponibili[campo.nome] = lista_ore
 
         return prenotazioni_disponibili
 
-
-
-
-
-
-    def aggiugni_partecipante(self):
-        pass
-
-    # TODO da fare mi raddopia le prenotazioni invece di toglierle
-    def elimina_prenotazione(self):
-        with open(Campo.PATH_INFOCAMPI, "rb") as f:
-            campi = pickle.load(f)
-            for i in range(len(campi)):
-                campo = Campo.cerca_campo(campi[i].nome)
-                if os.path.getsize(campo.path_prenotazioni) != 0:
-                    with open(campo.path_prenotazioni, "rb+") as f:
-                        prenotazioni = pickle.load(f)
-                        for j in range(len(prenotazioni)):
-                            if prenotazioni[j] == self:
-                                prenotazioni.remove(self)
-                                print(prenotazioni)
-                        pickle.dump(prenotazioni, f, pickle.HIGHEST_PROTOCOL)
+    @classmethod
+    def set_prenotazioni_campo(cls, campo, prenotazioni):
+        with open(campo.path_prenotazioni, "wb") as f:
+            pickle.dump(prenotazioni, f, pickle.HIGHEST_PROTOCOL)
 
     @classmethod
-    def get_prenotazioni(cls, nome_campo):
-        campo = Campo.cerca_campo(nome_campo)
+    def get_prenotazioni_campo(cls, campo):
         if os.path.getsize(campo.path_prenotazioni) != 0:
-            with open(campo.path_prenotazioni, "rb+") as f:
+            with open(campo.path_prenotazioni, "rb") as f:
                 return pickle.load(f)
+        return []
 
     @classmethod
-    def cerca_prenotazione(cls, cliente):
-        with open(Campo.PATH_INFOCAMPI, "rb") as f:
-            campi = pickle.load(f)
-            for i in range(len(campi)):
-                campo = Campo.cerca_campo(campi[i].nome)
-                if os.path.getsize(campo.path_prenotazioni) != 0:
-                    with open(campo.path_prenotazioni, "rb+") as f:
-                        prenotazioni = pickle.load(f)
-                        for j in range(len(prenotazioni)):
-                            if prenotazioni[i].cliente.nome == cliente:
-                                return prenotazioni[i]
+    def get_prenotazione_data(cls, campo, data):
+        prenotazioni = cls.get_prenotazioni_campo(campo)
+        for prenotazione in prenotazioni:
+            if prenotazione.data_attività == data:
+                return prenotazione
+        return None
+
+    def elimina_prenotazione(self):
+        campo = Campo.cerca_campo(self.nome_campo)
+        prenotazioni = self.get_prenotazioni_campo(campo)
+        prenotazioni.remove(self)
+
+        self.set_prenotazioni_campo(campo, prenotazioni)
+
+    def salva_prenotazione(self):
+        campo = Campo.cerca_campo(self.nome_campo)
+        prenotazioni = self.get_prenotazioni_campo(campo)
+        prenotazioni[prenotazioni.index(self)] = self
+
+        self.set_prenotazioni_campo(campo, prenotazioni)
+
+    @classmethod
+    def get_prenotazioni_cliente_connesso(cls):
+        prenotazioni_per_campo = {}
+        campi = Campo.get_campi()
+        for campo in campi:
+            prenotazioni_effetuate = []
+            prenotazioni = cls.get_prenotazioni_campo(campo)
+            for prenotazione in prenotazioni:
+                if prenotazione.cliente.email == Cliente.get_account_connesso().email:
+                    prenotazioni_effetuate.append(prenotazione)
+
+            prenotazioni_effetuate.sort(key=lambda x: x.data_attività)
+            prenotazioni_per_campo[campo.nome] = prenotazioni_effetuate
+
+            return prenotazioni_per_campo
+
+    @classmethod
+    def controlla_scadenza_prenotazioni(cls):
+        while True:
+            campi = Campo.get_campi()
+            for campo in campi:
+                prenotazioni = cls.get_prenotazioni_campo(campo)
+                for prenotazione in prenotazioni:
+                    if datetime.datetime.now() > prenotazione.data_attività:
+                        ricevuta = Ricevuta(datetime.datetime.now(), campo.prezzo, prenotazione)
+                        ricevuta.salva_ricevuta()
+                        prenotazione.attiva = False
+
+                cls.set_prenotazioni_campo(campo, prenotazioni)
+
+            time.sleep(60)
+
+
+
 
 
