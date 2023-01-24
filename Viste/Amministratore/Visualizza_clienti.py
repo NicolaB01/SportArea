@@ -27,7 +27,7 @@ class Visualizza_clienti(QMainWindow):
             vertical_layout.addWidget(self.crea_label_cliente(cliente))
 
         if len(scroll_area_widget_contents.findChildren(QLabel)) == 0:
-            vertical_layout.addWidget(Gestore_viste.crea_label_comunicazione("Al momento non ci sono clienti nel database"))
+            vertical_layout.addWidget(Gestore_viste.crea_label_comunicazione_admin("Al momento non ci sono clienti nel database"))
 
         self.scrollArea_clienti.setWidget(scroll_area_widget_contents)
 

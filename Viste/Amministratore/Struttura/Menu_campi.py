@@ -31,10 +31,8 @@ class Menu_campi(QMainWindow):
         for campo in campi:
             vertical_layout.addWidget(self.crea_checkBox(campo))
 
-        Gestore_viste.crea_label_comunicazione("La lista dei campi è vuota!\nCreane uno premendo Nuovo Campo")
-
         if len(scroll_area_widget_contents.findChildren(QCheckBox)) == 0:
-            vertical_layout.addWidget(Gestore_viste.crea_label_comunicazione("La lista dei campi è vuota!\nCreane uno premendo Nuovo Campo"))
+            vertical_layout.addWidget(Gestore_viste.crea_label_comunicazione_admin("La lista dei campi è vuota!\nCreane uno premendo Nuovo Campo"))
 
         self.scrollArea_campi.setWidget(scroll_area_widget_contents)
 

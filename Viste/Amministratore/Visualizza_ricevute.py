@@ -33,7 +33,7 @@ class Visualizza_ricevute(QMainWindow):
             vertical_layout.addWidget(self.crea_label_ricevuta(ricevuta))
 
         if len(scroll_area_widget_contents.findChildren(QLabel)) == 0:
-            vertical_layout.addWidget(Gestore_viste.crea_label_comunicazione("Al momento non ci sono ricevute nel database"))
+            vertical_layout.addWidget(Gestore_viste.crea_label_comunicazione_admin("Al momento non ci sono ricevute nel database"))
 
         self.scrollArea_ricevute.setWidget(scroll_area_widget_contents)
 
