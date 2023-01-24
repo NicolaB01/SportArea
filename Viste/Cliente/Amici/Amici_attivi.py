@@ -29,7 +29,7 @@ class Amici_attivi(QMainWindow):
             vertical_layout.addWidget(self.crea_checkBox(amico))
 
         if len(scroll_area_widget_contents.findChildren(QCheckBox)) == 0:
-            vertical_layout.addWidget(Gestore_viste.crea_label_comunicazione("La lista degli amici è vuota"))
+            vertical_layout.addWidget(Gestore_viste.crea_label_comunicazione_cliente("La lista degli amici è vuota"))
 
         self.scrollArea_amici.setWidget(scroll_area_widget_contents)
 

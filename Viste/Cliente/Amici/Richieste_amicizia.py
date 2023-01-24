@@ -30,7 +30,7 @@ class Richieste_amicizia(QMainWindow):
             vertical_layout.addWidget(self.crea_checkBox(amico_attesa))
 
         if len(scroll_area_widget_contents.findChildren(QCheckBox)) == 0:
-            vertical_layout.addWidget(Gestore_viste.crea_label_comunicazione("Non ci sono richieste di amicizia in attesa"))
+            vertical_layout.addWidget(Gestore_viste.crea_label_comunicazione_cliente("Non ci sono richieste di amicizia in attesa"))
 
         self.scrollArea_richieste.setWidget(scroll_area_widget_contents)
 

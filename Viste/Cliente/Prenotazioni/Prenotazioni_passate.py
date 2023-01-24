@@ -30,7 +30,7 @@ class Prenotazioni_passate(QMainWindow):
                     vertical_layout.addWidget(self.crea_label_prenotazione_passata(nome_campo, prenotazione.data_attività))
 
         if len(scroll_area_widget_contents.findChildren(QLabel)) == 0:
-            vertical_layout.addWidget(Gestore_viste.crea_label_comunicazione("Non ci sono prenotazioni Passate"))
+            vertical_layout.addWidget(Gestore_viste.crea_label_comunicazione_cliente("Non ci sono prenotazioni Passate"))
 
         self.scrollArea_prenotazioniPassate.setWidget(scroll_area_widget_contents)
 
