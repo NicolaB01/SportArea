@@ -82,14 +82,26 @@ class Cerca_prenotazioni(QMainWindow):
 
         prenotazioni_filtrate_diponibili = Prenotazione.filtra_prenotazione(attività, data_attività)
 
+        ore_prenotabili = {}
         for nome_campo, orari_dionibili in prenotazioni_filtrate_diponibili.items():
             for ora in orari_dionibili:
                 bottone_prenotazione = self.crea_bottoni_prenotazioni(nome_campo, ora)
                 bottone_prenotazione.clicked.connect((lambda n_campo=nome_campo, data=datetime.datetime(self.anno, self.mese, self.giorno, int(ora)): lambda: self.prenota(n_campo, data))())
-                vertical_layout.addWidget(bottone_prenotazione)
+                if ora not in ore_prenotabili.keys():
+                    ore_prenotabili.setdefault(ora, [bottone_prenotazione])
+                else:
+                    bottoni = ore_prenotabili.get(ora)
+                    bottoni.append(bottone_prenotazione)
+                    ore_prenotabili[ora] = bottoni
+
+        ore_prenotabili = dict(sorted(ore_prenotabili.items(), key=lambda x: x[0]))
+
+        for bottoni in ore_prenotabili.values():
+            for bottone in bottoni:
+                vertical_layout.addWidget(bottone)
 
         if len(scroll_area_widget_contents.findChildren(QPushButton)) == 0:
-            vertical_layout.addWidget(Gestore_viste.crea_label_comunicazione("Non ci sono più prenotazioni disponibili"))
+            vertical_layout.addWidget(Gestore_viste.crea_label_comunicazione_cliente("Non ci sono più prenotazioni disponibili"))
 
         self.scrollArea_prenotazioni.setWidget(scroll_area_widget_contents)
 

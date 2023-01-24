@@ -56,7 +56,7 @@ class Prenota(QMainWindow):
             vertical_layout.addWidget(self.crea_checkBox(amico.email, amico.nome, amico.cognome))
 
         if len(scroll_area_widget_contents.findChildren(QCheckBox)) == 0:
-            vertical_layout.addWidget(self.crea_label_comunicazione("Nesun amico trovato"))
+            vertical_layout.addWidget(Gestore_viste.crea_label_comunicazione_cliente("Nesun amico trovato"))
 
         self.scrollArea_amici.setWidget(scroll_area_widget_contents)
 
@@ -69,7 +69,7 @@ class Prenota(QMainWindow):
             vertical_layout.addWidget(self.crea_checkBox(email_partecipante))
 
         if len(scroll_area_widget_contents.findChildren(QCheckBox)) == 0:
-            vertical_layout.addWidget(Gestore_viste.crea_label_comunicazione("Non sono stati aggiunti dei partecipanti"))
+            vertical_layout.addWidget(Gestore_viste.crea_label_comunicazione_cliente("Non sono stati aggiunti dei partecipanti"))
 
         self.scrollArea_partecipanti.setWidget(scroll_area_widget_contents)
 
