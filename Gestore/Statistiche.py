@@ -68,15 +68,19 @@ class Statistiche:
     @classmethod
     def stat_attività(cls):
         ricevute = Ricevuta.get_ricevute()
-
         attività = {}
+
         for ricevuta in ricevute:
+            anno_ricevute = int(ricevuta.prenotazione.data_attività.year)
+            attività_prenotazione = {}
             try:
                 campo = Campo.cerca_campo(ricevuta.prenotazione.nome_campo)
-                if campo.attività not in attività:
-                    attività.setdefault(campo.attività, 1)
-                else:
-                    attività[campo.attività] += 1
+
+                attività.setdefault(anno_ricevute, attività_prenotazione)
+                if campo.attività in attività[anno_ricevute].keys():
+                    attività[anno_ricevute][campo.attività] += 1
+
+                attività[anno_ricevute].setdefault(campo.attività, 1)
             except ExceptionCampoInesistente:
                 pass
 
@@ -84,13 +88,16 @@ class Statistiche:
 
     @classmethod
     def prenotazioni_totali(cls):
+        return len(Ricevuta.get_ricevute())
+
+    @classmethod
+    def prenotazioni_annuali(cls, anno):
         prenotazioni = cls.stat_attività()
-        prenotazioni_tot = 0
-        for numero_prenotazioni in prenotazioni.values():
-            prenotazioni_tot += numero_prenotazioni
+        prenotazioni_annuali = 0
+        for attività in prenotazioni[anno].values():
+            prenotazioni_annuali += attività
 
-        return prenotazioni_tot
-
+        return prenotazioni_annuali
 
     @classmethod
     def stat_iscrizioni(cls):
@@ -109,7 +116,7 @@ class Statistiche:
                 iscrizioni_mensili.setdefault(mese, 0)
                 iscrizioni_annuali.setdefault(anno_iscrizione, iscrizioni_mensili)
 
-            iscrizioni_annuali[(anno_iscrizione)][calendar.month_abbr[mese_iscrizione]] += 1
+            iscrizioni_annuali[anno_iscrizione][calendar.month_abbr[mese_iscrizione]] += 1
 
         return iscrizioni_annuali
 
@@ -130,6 +137,3 @@ class Statistiche:
     def iscrizioni_medie_annuali(cls, anno):
         iscritti = cls.iscrizioni_annuali(anno)
         return iscritti / cls.NUMERO_MESI
-
-
-
