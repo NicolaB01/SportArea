@@ -42,5 +42,3 @@ class Visualizza_prenotazioni(QMainWindow):
 
     def closeEvent(self, event):
         self.nuovo_processo.terminate()
-
-

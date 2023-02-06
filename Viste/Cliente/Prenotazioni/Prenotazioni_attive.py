@@ -101,8 +101,3 @@ class Prenotazioni_attive(QMainWindow):
 
     def closeEvent(self, event):
         self.nuovo_processo.terminate()
-
-
-
-
-
