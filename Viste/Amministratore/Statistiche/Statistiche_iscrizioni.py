@@ -3,6 +3,7 @@ import datetime
 import numpy as np
 from PyQt6 import uic
 from PyQt6.QtWidgets import QMainWindow, QVBoxLayout
+from matplotlib import ticker
 
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
@@ -34,6 +35,7 @@ class Grafico_iscrizioni(FigureCanvas):
                                  self.statistiche_iscrizioni[anno].values(), label="Iscrizioni", color="royalblue")
         self.axes.axhline(Statistiche.iscrizioni_medie_annuali(anno), color="r", label="Media")
         self.axes.legend(facecolor='#A5C9CA', framealpha=0)
+        self.axes.margins(0.2, 0.2)
 
         barre = self.axes.patches
         for rect, label in zip(barre, self.statistiche_iscrizioni[anno].values()):
