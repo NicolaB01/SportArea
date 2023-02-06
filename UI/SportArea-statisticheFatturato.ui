@@ -90,7 +90,7 @@ color:rgb(44, 51, 51);</string>
         </widget>
        </item>
        <item>
-        <widget class="QWidget" name="widget_2" native="true">
+        <widget class="QWidget" name="frame_grafico" native="true">
          <property name="styleSheet">
           <string notr="true"/>
          </property>
