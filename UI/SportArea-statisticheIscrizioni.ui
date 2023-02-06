@@ -201,6 +201,9 @@ padding:5px;
                    <pointsize>20</pointsize>
                   </font>
                  </property>
+                 <property name="styleSheet">
+                  <string notr="true">color: rgb(31, 38, 39);</string>
+                 </property>
                  <property name="text">
                   <string/>
                  </property>
