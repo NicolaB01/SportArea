@@ -3,7 +3,7 @@ import calendar
 from Attività.Campo import Campo
 from Attività.Cliente import Cliente
 from Attività.Ricevuta import Ricevuta
-from Gestore.Eccezioni import ExceptionAnnoNonPresente
+from Gestore.Eccezioni import ExceptionAnnoNonPresente, ExceptionCampoInesistente
 
 
 class Statistiche:
@@ -36,7 +36,7 @@ class Statistiche:
         entrate_annuali = cls.stat_bilancio()
         ricavo = 0
         if anno in entrate_annuali.keys():
-            for incassi_mensili in entrate_annuali[anno]:
+            for incassi_mensili in entrate_annuali[anno].values():
                 ricavo += incassi_mensili
             return ricavo
         else:
@@ -59,22 +59,38 @@ class Statistiche:
     @classmethod
     def età_media(cls):
         età_clienti = cls.stat_anagrafiche()
-        età_totale = [x for x in età_clienti]
+        età_totale = 0
+        for età in età_clienti:
+            età_totale += età
         numero_clienti = len(Cliente.get_clienti())
         return età_totale/numero_clienti
 
     @classmethod
     def stat_attività(cls):
         ricevute = Ricevuta.get_ricevute()
+
         attività = {}
         for ricevuta in ricevute:
-            campo = Campo.cerca_campo(ricevuta.prenotazione.nome_campo)
-            if campo.attività not in attività:
-                attività.setdefault(campo.attività, 1)
-            else:
-                attività[campo.attività] += 1
+            try:
+                campo = Campo.cerca_campo(ricevuta.prenotazione.nome_campo)
+                if campo.attività not in attività:
+                    attività.setdefault(campo.attività, 1)
+                else:
+                    attività[campo.attività] += 1
+            except ExceptionCampoInesistente:
+                pass
 
         return attività
+
+    @classmethod
+    def prenotazioni_totali(cls):
+        prenotazioni = cls.stat_attività()
+        prenotazioni_tot = 0
+        for numero_prenotazioni in prenotazioni.values():
+            prenotazioni_tot += numero_prenotazioni
+
+        return prenotazioni_tot
+
 
     @classmethod
     def stat_iscrizioni(cls):
@@ -93,16 +109,18 @@ class Statistiche:
                 iscrizioni_mensili.setdefault(mese, 0)
                 iscrizioni_annuali.setdefault(anno_iscrizione, iscrizioni_mensili)
 
-            iscrizioni_annuali[anno_iscrizione][calendar.month_abbr[mese_iscrizione]] += 1
+            iscrizioni_annuali[(anno_iscrizione)][calendar.month_abbr[mese_iscrizione]] += 1
 
         return iscrizioni_annuali
 
     @classmethod
     def iscrizioni_annuali(cls, anno):
-        iscrizioni_annuali = cls.stat_bilancio()
+        anno = int(anno)
+        iscrizioni_annuali = cls.stat_iscrizioni()
         iscritti = 0
+
         if anno in iscrizioni_annuali.keys():
-            for iscrizioni_mensili in iscrizioni_annuali[anno]:
+            for iscrizioni_mensili in iscrizioni_annuali[anno].values():
                 iscritti += iscrizioni_mensili
             return iscritti
         else:
