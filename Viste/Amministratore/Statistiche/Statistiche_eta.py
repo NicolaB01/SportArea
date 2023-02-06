@@ -1,3 +1,4 @@
+import numpy as np
 from PyQt6 import uic
 from PyQt6.QtWidgets import QMainWindow, QVBoxLayout
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
@@ -13,9 +14,6 @@ class Grafico_età_media(FigureCanvas):
         super(Grafico_età_media, self).__init__(self.fig)
         self.axes = self.fig.add_subplot(111)
         self.statistiche_età = Statistiche.stat_anagrafiche()
-        self.hist = None
-        self.linea_media = None
-        self.legenda = None
 
     def update_chart(self):
         self.fig.set_facecolor("#A5C9CA")
@@ -23,14 +21,13 @@ class Grafico_età_media(FigureCanvas):
         self.axes.xaxis.set_label_position('top')
         self.axes.set_ylabel("Numero di iscritti")
 
-        if self.hist or self.linea_media or self.legenda:
-            self.hist.remove()
-            self.linea_media.remove()
-            self.legenda.remove()
+        self.axes.clear()
 
-        self.hist = self.axes.hist(self.statistiche_età, range(0,111,5), label="Fasce d'età", color="royalblue")
-        self.linea_media = self.axes.axvline(Statistiche.età_media(), color = "r", label="Età media")
-        self.legenda = self.axes.legend(facecolor='#A5C9CA', framealpha=0)
+        self.axes.hist(self.statistiche_età, range(0,100,5), label="Fasce d'età", color="royalblue")
+        self.axes.axvline(Statistiche.età_media(), color = "r", label="Età media")
+        self.axes.legend(facecolor='#A5C9CA', framealpha=0)
+        self.axes.set_xticks(np.arange(0, 100, 5))
+
 
         self.draw()
 

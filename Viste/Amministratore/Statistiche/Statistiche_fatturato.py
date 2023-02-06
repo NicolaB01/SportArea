@@ -16,9 +16,6 @@ class Grafico_fatturato(FigureCanvas):
         super(Grafico_fatturato, self).__init__(self.fig)
         self.axes = self.fig.add_subplot(111)
         self.statistiche_fatturato = Statistiche.stat_bilancio()
-        self.bar = None
-        self.linea_media = None
-        self.legenda = None
 
     def update_chart(self, anno):
         anno = int(anno)
@@ -29,14 +26,13 @@ class Grafico_fatturato(FigureCanvas):
         self.axes.xaxis.set_label_position('top')
         self.axes.set_ylabel("Incassi")
 
-        if self.bar or self.linea_media or self.legenda:
-            self.bar.remove()
-            self.linea_media.remove()
-            self.legenda.remove()
+        self.axes.clear()
 
-        self.bar = self.axes.plot(self.statistiche_fatturato[anno].keys(), self.statistiche_fatturato[anno].values(), label="Incassi", marker=".", color="royalblue")
-        self.linea_media = self.axes.axhline(Statistiche.guadagno_medio_annuale(anno), color = "r", label="Media")
-        self.legenda = self.axes.legend(facecolor='#A5C9CA', framealpha=0)
+        media = Statistiche.guadagno_medio_annuale(anno)
+        self.axes.plot(self.statistiche_fatturato[anno].keys(), self.statistiche_fatturato[anno].values(), label="Incassi", marker=".", color="royalblue")
+        self.axes.axhline(media, color = "r", label="Media")
+        self.axes.legend(facecolor='#A5C9CA', framealpha=0)
+        self.axes.fill_between(self.statistiche_fatturato[anno].keys(), self.statistiche_fatturato[anno].values(), media, alpha=0.1, color="royalblue")
 
         self.draw()
 

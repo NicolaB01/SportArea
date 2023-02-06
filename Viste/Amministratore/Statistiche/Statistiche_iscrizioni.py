@@ -1,5 +1,6 @@
 import datetime
 
+import numpy as np
 from PyQt6 import uic
 from PyQt6.QtWidgets import QMainWindow, QVBoxLayout
 
@@ -17,9 +18,6 @@ class Grafico_iscrizioni(FigureCanvas):
         super(Grafico_iscrizioni, self).__init__(self.fig)
         self.axes = self.fig.add_subplot(111)
         self.statistiche_iscrizioni = Statistiche.stat_iscrizioni()
-        self.bar = None
-        self.linea_media = None
-        self.legenda = None
 
     def update_chart(self, anno):
         anno = int(anno)
@@ -30,15 +28,18 @@ class Grafico_iscrizioni(FigureCanvas):
         self.axes.xaxis.set_label_position('top')
         self.axes.set_ylabel("Numero di iscritti")
 
-        if self.bar or self.linea_media or self.legenda:
-            self.bar.remove()
-            self.linea_media.remove()
-            self.legenda.remove()
+        self.axes.clear()
 
-        self.bar = self.axes.bar(self.statistiche_iscrizioni[anno].keys(),
+        self.axes.bar(self.statistiche_iscrizioni[anno].keys(),
                                  self.statistiche_iscrizioni[anno].values(), label="Iscrizioni", color="royalblue")
-        self.linea_media = self.axes.axhline(Statistiche.iscrizioni_medie_annuali(anno), color="r", label="Media")
-        self.legenda = self.axes.legend(facecolor='#A5C9CA', framealpha=0)
+        self.axes.axhline(Statistiche.iscrizioni_medie_annuali(anno), color="r", label="Media")
+        self.axes.legend(facecolor='#A5C9CA', framealpha=0)
+
+        barre = self.axes.patches
+        for rect, label in zip(barre, self.statistiche_iscrizioni[anno].values()):
+            height = rect.get_height()
+            if label:
+                self.axes.text(rect.get_x() + rect.get_width() / 2, height + 0.01, int(label), ha = "center", va = "bottom")
 
         self.draw()
 

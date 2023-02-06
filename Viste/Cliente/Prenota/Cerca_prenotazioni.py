@@ -49,7 +49,7 @@ class Cerca_prenotazioni(QMainWindow):
         vertical_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
 
         try:
-            self.is_data_passata(data_attività)
+            #self.is_data_passata(data_attività)
             if datetime.datetime.now().strftime("%H") > data_attività.strftime("%H") and datetime.datetime.now().strftime("%x").__eq__(data_attività.strftime("%x")):
                 raise ExceptionOra("")
             self.is_data_festiva(data_attività)
@@ -74,7 +74,6 @@ class Cerca_prenotazioni(QMainWindow):
         if data_attività.weekday() == 6:
             raise ExceptionGiornoFestivo("Il cantro sportivo è chiuso")
 
-    #TODO mettere i bottoni ordinati per ora non per campi usa un dizionario es {ora: [lista bottoni per quell'ora ad esempio ordinati in base all'ordine alfabetico del campo}
     def riempi_scrollArea(self, attività, data_attività):
         scroll_area_widget_contents = QWidget()
         vertical_layout = QVBoxLayout(scroll_area_widget_contents)
