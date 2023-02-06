@@ -82,7 +82,7 @@
 color:rgb(44, 51, 51);</string>
          </property>
          <property name="text">
-          <string>Numero iscrizioni</string>
+          <string>Età degli iscritti</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -311,120 +311,52 @@ padding:5px;
               <property name="frameShadow">
                <enum>QFrame::Raised</enum>
               </property>
-              <layout class="QVBoxLayout" name="verticalLayout">
+              <layout class="QHBoxLayout" name="horizontalLayout">
                <item>
-                <layout class="QHBoxLayout" name="horizontalLayout">
-                 <item>
-                  <widget class="QLabel" name="title2_2">
-                   <property name="font">
-                    <font>
-                     <family>Arial</family>
-                     <pointsize>18</pointsize>
-                    </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">
+                <widget class="QLabel" name="etamedia">
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>35</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>Arial</family>
+                   <pointsize>18</pointsize>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">
 color:rgb(44, 51, 51);</string>
-                   </property>
-                   <property name="text">
-                    <string>Iscrizioni totali:</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLabel" name="numero_iscrizioni_tot">
-                   <property name="font">
-                    <font>
-                     <family>Arial</family>
-                     <pointsize>18</pointsize>
-                    </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">
-color:rgb(44, 51, 51);</string>
-                   </property>
-                   <property name="text">
-                    <string/>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
+                 </property>
+                 <property name="text">
+                  <string>Età media:</string>
+                 </property>
+                </widget>
                </item>
                <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_2">
-                 <item>
-                  <widget class="QLabel" name="title2_3">
-                   <property name="font">
-                    <font>
-                     <family>Arial</family>
-                     <pointsize>18</pointsize>
-                    </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">
+                <widget class="QLabel" name="eta_media">
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>35</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>Arial</family>
+                   <pointsize>18</pointsize>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">
 color:rgb(44, 51, 51);</string>
-                   </property>
-                   <property name="text">
-                    <string>Iscrizioni annuali:</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLabel" name="numero_iscrizioni_annue">
-                   <property name="font">
-                    <font>
-                     <family>Arial</family>
-                     <pointsize>18</pointsize>
-                    </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">
-color:rgb(44, 51, 51);</string>
-                   </property>
-                   <property name="text">
-                    <string/>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-               <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_3">
-                 <item>
-                  <widget class="QLabel" name="title2_4">
-                   <property name="font">
-                    <font>
-                     <family>Arial</family>
-                     <pointsize>18</pointsize>
-                    </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">
-color:rgb(44, 51, 51);</string>
-                   </property>
-                   <property name="text">
-                    <string>Iscrizioni medie:</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLabel" name="numero_iscrizioni_media">
-                   <property name="font">
-                    <font>
-                     <family>Arial</family>
-                     <pointsize>18</pointsize>
-                    </font>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">
-color:rgb(44, 51, 51);</string>
-                   </property>
-                   <property name="text">
-                    <string/>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
                </item>
               </layout>
              </widget>
