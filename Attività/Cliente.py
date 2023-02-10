@@ -81,41 +81,6 @@ class Cliente:
         if self.get_account_connesso() == self:
             self.set_cliente_connesso(self)
 
-    def richiesta_amicizia(self, email):
-        nuovo_amico = self.cerca_account(email)
-
-        if nuovo_amico == self:
-            raise ExceptionEmailFormat("Non puoi mandare l'amicizia a te stesso")
-
-        if self in nuovo_amico.amici_attesa or nuovo_amico in self.amici_attivi or nuovo_amico in self.amici_attesa:
-            raise ExceptionAmicizia(f"{nuovo_amico.nome} {nuovo_amico.cognome} è già presente nella tua lista di amici")
-
-        nuovo_amico.amici_attesa.append(self)
-        nuovo_amico.salva_modifiche_account()
-
-    def accetta_amicizia(self, email):
-        nuovo_amico = self.cerca_account(email)
-        self.amici_attesa.remove(nuovo_amico)
-        self.amici_attivi.append(nuovo_amico)
-
-        nuovo_amico.amici_attivi.append(self)
-
-        self.salva_modifiche_account()
-        nuovo_amico.salva_modifiche_account()
-
-    def rifiuta_amicizia(self, email):
-        self.amici_attesa.remove(self.cerca_account(email))
-
-        self.salva_modifiche_account()
-
-    def rimuovi_amicizia(self, email):
-        amico = self.cerca_account(email)
-        self.amici_attivi.remove(amico)
-        amico.amici_attivi.remove(self)
-
-        self.salva_modifiche_account()
-        amico.salva_modifiche_account()
-
     def preleva(self, prelievo):
         if prelievo > self.saldo:
             raise ExceptionSaldoInsufficente("Il tuo saldo è insufficente")

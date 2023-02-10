@@ -107,22 +107,19 @@ class Prenotazione:
 
         return prenotazioni_per_campo
 
-    #TODO cambia con schedule e multiprocess
     @classmethod
     def controlla_scadenza_prenotazioni(cls):
-        while True:
-            campi = Campo.get_campi()
-            for campo in campi:
-                prenotazioni = cls.get_prenotazioni_campo(campo)
-                for prenotazione in prenotazioni:
-                    if datetime.datetime.now() > prenotazione.data_attività:
-                        ricevuta = Ricevuta(datetime.datetime.now(), campo.prezzo, prenotazione)
-                        ricevuta.salva_ricevuta()
-                        prenotazione.attiva = False
+        campi = Campo.get_campi()
+        for campo in campi:
+            prenotazioni = cls.get_prenotazioni_campo(campo)
+            for prenotazione in prenotazioni:
+                if datetime.datetime.now() > prenotazione.data_attività:
+                    ricevuta = Ricevuta(datetime.datetime.now(), campo.prezzo, prenotazione)
+                    ricevuta.salva_ricevuta()
+                    prenotazione.attiva = False
 
-                cls.set_prenotazioni_campo(campo, prenotazioni)
+            cls.set_prenotazioni_campo(campo, prenotazioni)
 
-            time.sleep(60)
 
 
 
