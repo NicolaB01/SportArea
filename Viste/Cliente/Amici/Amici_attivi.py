@@ -3,6 +3,7 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFont
 from PyQt6.QtWidgets import QMainWindow, QCheckBox, QWidget, QVBoxLayout, QLabel
 
+from Attività.Amicizia import Amicizia
 from Attività.Cliente import Cliente
 from Gestore.Gestore_viste import Gestore_viste
 from Path.Path_viste import PATH_AMICI_ATTIVI
@@ -52,7 +53,7 @@ class Amici_attivi(QMainWindow):
         scroll_area_widget_contents = self.scrollArea_amici.findChild(QWidget)
         for widget in scroll_area_widget_contents.findChildren(QCheckBox):
             if widget.isChecked():
-                Cliente.get_account_connesso().rimuovi_amicizia(widget.objectName())
+                Amicizia(widget.objectName()).rimuovi_amicizia()
 
         self.refresh()
 

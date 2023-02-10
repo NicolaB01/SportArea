@@ -1,6 +1,7 @@
 from PyQt6 import uic
 from PyQt6.QtWidgets import QMainWindow, QMessageBox
 
+from Attività.Amicizia import Amicizia
 from Attività.Cliente import Cliente
 from Gestore.Eccezioni import ExceptionEmailFormat, ExceptionAmicizia, ExceptionEmailSconosciuta
 from Path.Path_viste import PATH_MENU_AMICIZIA
@@ -32,10 +33,8 @@ class Menu_amicizia(QMainWindow):
     def manda_amicizia(self):
         try:
             email = self.lineEdit_email.text()
-            Cliente.get_account_connesso().richiesta_amicizia(email)
+            Amicizia(email).richiesta_amicizia()
         except ExceptionEmailSconosciuta as e:
-            QMessageBox.warning(self, "Attenzione", e.__str__())
-        except ExceptionEmailFormat as e:
             QMessageBox.warning(self, "Attenzione", e.__str__())
         except ExceptionAmicizia as e:
             QMessageBox.about(self, "Comunicazione", e.__str__())
