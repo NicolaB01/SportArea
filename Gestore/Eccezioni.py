@@ -92,3 +92,9 @@ class ExceptionCampoInesistente(Exception):
 class ExceptionAnnoNonPresente(Exception):
     def __init__(self):
         super().__init__()
+
+
+class ExceptionEmailUtilizzata(Exception):
+    def __init__(self, msg):
+        super().__init__(msg)
+

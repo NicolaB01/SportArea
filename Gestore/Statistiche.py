@@ -63,7 +63,10 @@ class Statistiche:
         for età in età_clienti:
             età_totale += età
         numero_clienti = len(Cliente.get_clienti())
-        return età_totale/numero_clienti
+        if numero_clienti != 0:
+            return età_totale/numero_clienti
+        else:
+            return numero_clienti
 
     @classmethod
     def stat_attività(cls):
