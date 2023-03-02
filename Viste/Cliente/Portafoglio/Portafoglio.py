@@ -18,7 +18,7 @@ class Portafoglio(QMainWindow):
         self.back.clicked.connect(self.torna_indietro)
 
     def refresh(self):
-        self.label_saldo.setText(str(self.cliente.saldo))
+        self.label_saldo.setText(str(self.cliente.get_saldo()))
 
     def ricarica(self):
         self.cliente.deposito(self.doubleSpinBox_ricarica.value())

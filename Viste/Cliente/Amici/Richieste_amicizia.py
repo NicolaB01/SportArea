@@ -69,4 +69,3 @@ class Richieste_amicizia(QMainWindow):
     def torna_indietro(self):
         self.pagina_precedente.show()
         self.close()
-

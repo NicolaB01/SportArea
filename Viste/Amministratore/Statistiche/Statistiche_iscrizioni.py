@@ -1,14 +1,13 @@
 import datetime
 
-import numpy as np
 from PyQt6 import uic
 from PyQt6.QtWidgets import QMainWindow, QVBoxLayout
-from matplotlib import ticker
 
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 
 from Attività.Cliente import Cliente
+from Gestore.Eccezioni import ExceptionAnnoNonPresente
 from Gestore.Statistiche import Statistiche
 from Path.Path_viste import PATH_STATISTICHE_ISCRIZIONI
 
@@ -30,18 +29,17 @@ class Grafico_iscrizioni(FigureCanvas):
         self.axes.set_ylabel("Numero di iscritti")
 
         self.axes.clear()
+        if anno in self.statistiche_iscrizioni.keys():
+            self.axes.bar(self.statistiche_iscrizioni[anno].keys(), self.statistiche_iscrizioni[anno].values(), label="Iscrizioni", color="royalblue")
+            self.axes.axhline(Statistiche.iscrizioni_medie_annuali(anno), color="r", label="Media")
+            self.axes.legend(facecolor='#A5C9CA', framealpha=0)
+            self.axes.margins(0.2, 0.2)
 
-        self.axes.bar(self.statistiche_iscrizioni[anno].keys(),
-                                 self.statistiche_iscrizioni[anno].values(), label="Iscrizioni", color="royalblue")
-        self.axes.axhline(Statistiche.iscrizioni_medie_annuali(anno), color="r", label="Media")
-        self.axes.legend(facecolor='#A5C9CA', framealpha=0)
-        self.axes.margins(0.2, 0.2)
-
-        barre = self.axes.patches
-        for rect, label in zip(barre, self.statistiche_iscrizioni[anno].values()):
-            height = rect.get_height()
-            if label:
-                self.axes.text(rect.get_x() + rect.get_width() / 2, height + 0.01, int(label), ha = "center", va = "bottom")
+            barre = self.axes.patches
+            for rect, label in zip(barre, self.statistiche_iscrizioni[anno].values()):
+                height = rect.get_height()
+                if label:
+                    self.axes.text(rect.get_x() + rect.get_width() / 2, height + 0.01, int(label), ha="center", va="bottom")
 
         self.draw()
 
@@ -68,9 +66,14 @@ class Statistiche_iscrizioni(QMainWindow):
     def refresh(self):
         anno_ricerca = int(self.anno.text())
 
-        self.numero_iscrizioni_tot.setText(str(len(Cliente.get_clienti())))
-        self.numero_iscrizioni_annue.setText(str(Statistiche.iscrizioni_annuali(anno_ricerca)))
-        self.numero_iscrizioni_media.setText(str(round(Statistiche.iscrizioni_medie_annuali(anno_ricerca), 2)))
+        try:
+            self.numero_iscrizioni_tot.setText(str(len(Cliente.get_clienti())))
+            self.numero_iscrizioni_annue.setText(str(Statistiche.iscrizioni_annuali(anno_ricerca)))
+            self.numero_iscrizioni_media.setText(str(round(Statistiche.iscrizioni_medie_annuali(anno_ricerca), 2)))
+        except ExceptionAnnoNonPresente:
+            self.numero_iscrizioni_tot.setText(str(0))
+            self.numero_iscrizioni_annue.setText(str(0))
+            self.numero_iscrizioni_media.setText(str(0))
 
         if anno_ricerca-1 in self.statistiche_iscrizioni.keys():
             self.pushButton_prima.setEnabled(True)

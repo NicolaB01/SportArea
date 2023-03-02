@@ -28,7 +28,8 @@ class Grafico_attività(FigureCanvas):
         if self.pie:
             self.axes.clear()
 
-        self.pie = self.axes.pie(self.statistiche_attività[anno].values(), wedgeprops={"edgecolor": "black"}, labels=self.statistiche_attività[anno].keys(), autopct="%1.1f%%")
+        if anno in self.statistiche_attività.keys():
+            self.pie = self.axes.pie(self.statistiche_attività[anno].values(), wedgeprops={"edgecolor": "black"}, labels=self.statistiche_attività[anno].keys(), autopct="%1.1f%%")
 
         self.draw()
 
@@ -57,7 +58,11 @@ class Statistiche_attivita(QMainWindow):
     def refresh(self):
         anno_ricerca = int(self.anno.text())
 
-        self.prenotazioni_annuali.setText(str(Statistiche.prenotazioni_annuali(anno_ricerca)))
+        if anno_ricerca in self.statistiche_prenotazioni.keys():
+            self.prenotazioni_annuali.setText(str(Statistiche.prenotazioni_annuali(anno_ricerca)))
+        else:
+            self.prenotazioni_annuali.setText(str(0))
+
 
         if anno_ricerca-1 in self.statistiche_prenotazioni.keys():
             self.pushButton_prima.setEnabled(True)

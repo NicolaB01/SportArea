@@ -3,6 +3,7 @@ from PyQt6.QtWidgets import QMainWindow, QMessageBox
 
 from Attività.Cliente import Cliente
 from Gestore.Eccezioni import *
+from Gestore.Gestore_cliente import Gestore_cliente
 from Path.Path_viste import PATH_REGISTER
 
 
@@ -25,15 +26,7 @@ class Register(QMainWindow):
         password = self.lineEdit_pwd.text().strip()
 
         try:
-            Cliente.check_nome(nome)
-            Cliente.check_congome(cognome)
-            Cliente.check_email(email)
-            Cliente.check_pwd(password)
-            Cliente.check_CF(CF)
-            Cliente.check_data_nascita(data_nascita)
-            Cliente.check_teleono(telefono)
-
-            Cliente.registra_account(nome, cognome, CF, email, data_nascita, telefono, password)
+            Gestore_cliente.registra_cliente(nome, cognome, CF, email, data_nascita, telefono, password)
 
             self.torna_indietro()
 
@@ -51,6 +44,9 @@ class Register(QMainWindow):
             QMessageBox.warning(self, "Attenzione", e.__str__())
         except ExceptionTelefonoFormat as e:
             QMessageBox.warning(self, "Attenzione", e.__str__())
+        except ExceptionEmailUtilizzata as e:
+            QMessageBox.warning(self, "Attenzione", e.__str__())
+
 
     def torna_indietro(self):
         self.pagina_precedente.show()
