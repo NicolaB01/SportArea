@@ -2,7 +2,8 @@ import datetime
 import os
 import pickle
 
-from Gestore.Eccezioni import ExceptionEmailSconosciuta, ExceptionPassword, ExceptionSaldoInsufficente
+from Gestore.Eccezioni import ExceptionEmailSconosciuta, ExceptionPassword, ExceptionSaldoInsufficente, \
+    ExceptionEmailUtilizzata
 from Path.Path_database import PATH_INFO_CLIENTI, PATH_ACCOUNT_CONNESSO
 
 
@@ -34,6 +35,17 @@ class Cliente:
                           Cliente) and self.email == other.email
 
     @classmethod
+    def crea(cls, nome, cognome, CF, email, data_nascita, telefono, pwd):
+        try:
+            Cliente.cerca_account(email)
+            raise ExceptionEmailUtilizzata("Email già in uso")
+        except ExceptionEmailSconosciuta:
+            clienti = Cliente.get_clienti()
+            nuovo_cliente = Cliente(nome, cognome, CF, email, data_nascita, telefono, pwd)
+            clienti.append(nuovo_cliente)
+            Cliente.set_clienti(clienti)
+
+    @classmethod
     def login_account(cls, email, pwd):
         account = Cliente.cerca_account(email)
         if account.pwd != pwd:
@@ -41,20 +53,22 @@ class Cliente:
 
         cls.set_cliente_connesso(account)
 
-    def modifica_account(self, nuovo_nome, nuovo_cognome, nuovo_cf, nuovo_telefono, nuova_password, nuova_data_nascita):
-        clienti = self.get_clienti()
-        indice = clienti.index(self)
+    @classmethod
+    def modifica_account(cls, nuovo_nome, nuovo_cognome, nuovo_cf, nuovo_telefono, nuova_password, nuova_data_nascita):
+        clienti = cls.get_clienti()
+        account_connesso = cls.get_account_connesso()
+        indice = clienti.index(account_connesso)
 
-        self.nome = nuovo_nome
-        self.cognome = nuovo_cognome
-        self.codice_fiscale = nuovo_cf
-        self.numero_telefono = nuovo_telefono
-        self.pwd = nuova_password
-        self.data_nascita = nuova_data_nascita
+        account_connesso.nome = nuovo_nome
+        account_connesso.cognome = nuovo_cognome
+        account_connesso.codice_fiscale = nuovo_cf
+        account_connesso.numero_telefono = nuovo_telefono
+        account_connesso.pwd = nuova_password
+        account_connesso.data_nascita = nuova_data_nascita
 
-        clienti[indice] = self
+        clienti[indice] = account_connesso
 
-        self.salva_modifiche_account()
+        account_connesso.salva_modifiche_account()
 
     def salva_modifiche_account(self):
         clienti = self.get_clienti()
