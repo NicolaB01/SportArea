@@ -5,6 +5,7 @@ from PyQt6.QtWidgets import QMainWindow, QMessageBox
 
 from Attività.Cliente import Cliente
 from Gestore.Eccezioni import ExceptionEmailSconosciuta
+from Gestore.Gestore_email import Gestore_email
 from Path.Path_viste import PATH_EMAIL_RECUPERO
 from Viste.Accesso.RecuperaPassword.Codice_recupero import Codice_recupero
 
@@ -26,7 +27,7 @@ class Email_recupero(QMainWindow):
 
             self.conferma_codice_recupero = Codice_recupero(self.pagina_precedente, email)
             self.conferma_codice_recupero.show()
-            threading.Thread(target=Cliente.invia_email_recupero_pwd, args=(email,)).start()
+            threading.Thread(target=Gestore_email.invia_email_recupero_pwd, args=(email,)).start()
             self.close()
         except ExceptionEmailSconosciuta as e:
             QMessageBox.about(self, "Attenzione!", e.__str__())

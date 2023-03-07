@@ -5,6 +5,7 @@ from PyQt6.QtWidgets import QMainWindow, QMessageBox
 
 from Attività.Cliente import Cliente
 from Gestore.Eccezioni import *
+from Gestore.Gestore_cliente import Gestore_cliente
 from Path.Path_viste import PATH_MODIFICA_ACCOUNT
 
 
@@ -40,19 +41,9 @@ class Modifica_account(QMainWindow):
         nuova_password_conferma = self.lineEdit_confermapwd.text().strip()
 
         try:
-            Cliente.check_nome(nuovo_nome)
-            Cliente.check_congome(nuovo_cognome)
-            Cliente.check_pwd(nuova_password, nuova_password_conferma)
-            Cliente.check_CF(nuovo_CF)
-            Cliente.check_data_nascita(nuova_data_nascita)
-            Cliente.check_teleono(nuovo_telefono)
-
-            Cliente.get_account_connesso().modifica_account(nuovo_nome, nuovo_cognome, nuovo_CF, nuovo_telefono, nuova_password, nuova_data_nascita)
-            time.sleep(0.15)
+            Gestore_cliente.modifica_cliente(nuovo_nome, nuovo_cognome, nuovo_CF, nuovo_telefono, nuova_password, nuova_password_conferma, nuova_data_nascita)
             self.pagina_precedente.refresh()
             self.torna_indietro()
-
-        #TODO considera che basta una sola eccezione generale siccome passi l'errore come messaggio
         except ExceptionNomeFormat as e:
             QMessageBox.warning(self, "Attenzione", e.__str__())
         except ExceptionCognomeFormat as e:

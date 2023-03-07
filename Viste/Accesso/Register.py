@@ -27,7 +27,6 @@ class Register(QMainWindow):
 
         try:
             Gestore_cliente.registra_cliente(nome, cognome, CF, email, data_nascita, telefono, password)
-
             self.torna_indietro()
 
         except ExceptionNomeFormat as e:

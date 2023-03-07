@@ -5,6 +5,8 @@ from PyQt6.QtWidgets import QMainWindow, QMessageBox
 
 from Attività.Cliente import Cliente
 from Gestore.Eccezioni import ExceptionPassword, ExceptionTentativi, ExceptionCodiceRecupero
+from Gestore.Gestore_cliente import Gestore_cliente
+from Gestore.Gestore_email import Gestore_email
 from Path.Path_viste import PATH_CODICE_RECUPERO
 
 
@@ -25,27 +27,21 @@ class Codice_recupero(QMainWindow):
         codice_da_verificare = self.codice_1.text()+self.codice_2.text()+self.codice_3.text()+ " " + self.codice_4.text()+self.codice_5.text()+self.codice_6.text()
 
         try:
-            Cliente.check_pwd(nuova_pwd, conferma_nuova_pwd)
-            self.check_tentativi()
-            Cliente.verifica_codice_recupero_password(self.email, codice_da_verificare, nuova_pwd)
-
+            Gestore_email.verifica_codice_recupero_password(self.email, codice_da_verificare, nuova_pwd, conferma_nuova_pwd)
             self.torna_indietro()
 
         except ExceptionPassword as e:
             QMessageBox.warning(self, "Attenzione", e.__str__())
-
-        except ExceptionTentativi as e:
-            QMessageBox.warning(self, "Attenzione", e.__str__())
-            Cliente.codice_di_verifica = " ".join([str(random.randint(0, 999)).zfill(3) for _ in range(2)])
-            self.torna_indietro()
-
         except ExceptionCodiceRecupero as e:
             self.tenattivi -= 1
-            QMessageBox.warning(self, "Attenzione!", f"{e.__str__()}, tentativi rimanenti {self.tenattivi}")
+            self.check_tentativi()
 
     def check_tentativi(self):
         if self.tenattivi == 0:
-            raise ExceptionTentativi("Troppi tentativi, il codice di recupero è resettato")
+            QMessageBox.warning(self, "Attenzione", "Troppi tentativi, il codice di recupero è resettato")
+            self.torna_indietro()
+        else:
+            QMessageBox.warning(self, "Attenzione!", f"Tentativi rimanenti {self.tenattivi}")
 
     def torna_indietro(self):
         self.pagina_precedente.show()
