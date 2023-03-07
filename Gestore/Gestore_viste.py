@@ -1,4 +1,3 @@
-# TODO vedi se na vale la pena cambia il label di errore ds tutte le viste e metterlo qui
 from PyQt6.QtGui import QFont
 from PyQt6.QtWidgets import QLabel
 

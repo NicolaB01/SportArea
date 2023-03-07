@@ -1,31 +1,13 @@
-import random
 import re
-import smtplib
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
 
 from Attività.Cliente import Cliente
 from Gestore.Eccezioni import ExceptionNomeFormat, ExceptionCognomeFormat, ExceptionCFFormat, ExceptionEmailFormat, \
-    ExceptionDataNascitaFormat, ExceptionTelefonoFormat, ExceptionPassword, ExceptionCodiceRecupero, \
-    ExceptionEmailSconosciuta, ExceptionEmailUtilizzata
+    ExceptionDataNascitaFormat, ExceptionTelefonoFormat, ExceptionPassword, ExceptionCodiceRecupero
 
 
 class Gestore_cliente:
     @classmethod
     def registra_cliente(cls, nome, cognome, CF, email, data_nascita, telefono, pwd):
-        cls.check_parametri(nome, cognome, CF, email, data_nascita, telefono, pwd)
-
-        try:
-            Cliente.cerca_account(email)
-            raise ExceptionEmailUtilizzata("Email già in uso")
-        except ExceptionEmailSconosciuta:
-            clienti = Cliente.get_clienti()
-            nuovo_cliente = Cliente(nome, cognome, CF, email, data_nascita, telefono, pwd)
-            clienti.append(nuovo_cliente)
-            Cliente.set_clienti(clienti)
-
-    @classmethod
-    def check_parametri(cls, nome, cognome, CF, email, data_nascita, telefono, pwd):
         cls.check_nome(nome)
         cls.check_congome(cognome)
         cls.check_CF(CF)
@@ -33,6 +15,17 @@ class Gestore_cliente:
         cls.check_data_nascita(data_nascita)
         cls.check_teleono(telefono)
         cls.check_pwd(pwd)
+        Cliente.crea(nome, cognome, CF, email, data_nascita, telefono, pwd)
+
+    @classmethod
+    def modifica_cliente(cls, nuovo_nome, nuovo_cognome, nuovo_CF, nuovo_telefono, nuova_password, nuova_password_conferma, nuova_data_nascita):
+        cls.check_nome(nuovo_nome)
+        cls.check_congome(nuovo_cognome)
+        cls.check_CF(nuovo_CF)
+        cls.check_data_nascita(nuova_data_nascita)
+        cls.check_teleono(nuovo_telefono)
+        cls.check_pwd(nuova_password, nuova_password_conferma)
+        Cliente.modifica_account(nuovo_nome, nuovo_cognome, nuovo_CF, nuovo_telefono, nuova_password, nuova_data_nascita)
 
     @classmethod
     def check_nome(cls, nome):
@@ -78,31 +71,3 @@ class Gestore_cliente:
             raise ExceptionPassword(
                 "La password deve essere di almeno 8 caratteri, maiuscole, minuscole, numeri e caratteri speciali")
 
-    @classmethod
-    def invia_email_recupero_pwd(cls, email):
-        cls.codice_di_verifica = " ".join([str(random.randint(0, 999)).zfill(3) for _ in range(2)])
-
-        mittente = "nbiagioli01@gmail.com"
-        oggetto = f"Inserisci questo codice: [{Cliente.codice_di_verifica}] per poter reimpostare la password"
-
-        msg = MIMEMultipart()
-        msg['From'] = mittente
-        msg['To'] = email
-        msg['Subject'] = "Recupero password"
-        msg.attach(MIMEText(oggetto))
-
-        with smtplib.SMTP("smtp.gmail.com", 587) as smtp:
-            smtp.ehlo()
-            smtp.starttls()
-            smtp.login(mittente, "nxnbnjutflbvvugv")
-            smtp.send_message(msg)
-
-    @classmethod
-    def verifica_codice_recupero_password(cls, email, codice_da_verificare, nuova_pwd):
-        if cls.codice_di_verifica != codice_da_verificare:
-            raise ExceptionCodiceRecupero("Il codice di recupero non coincide")
-
-        cliente = cls.cerca_account(email)
-        cliente.pwd = nuova_pwd
-
-        cliente.salva_modifiche_account()
