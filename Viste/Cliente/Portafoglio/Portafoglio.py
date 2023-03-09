@@ -1,7 +1,10 @@
+import threading
+
 from PyQt6 import uic
 from PyQt6.QtWidgets import QMainWindow
 
 from Gestore.Gestore_cliente import Gestore_cliente
+from Gestore.Gestore_email import Gestore_email
 from Path.Path_viste import PATH_PORTAFOGLIO
 
 
@@ -21,7 +24,9 @@ class Portafoglio(QMainWindow):
         self.label_saldo.setText(str(self.cliente.get_saldo()))
 
     def ricarica(self):
-        self.cliente.deposito(self.doubleSpinBox_ricarica.value())
+        importo = self.doubleSpinBox_ricarica.value()
+        self.cliente.deposito(importo)
+        threading.Thread(target=Gestore_email.invia_email_ricarica_portafoglio, args=(self.cliente.get_email(), importo)).start()
         self.doubleSpinBox_ricarica.setValue(0.0)
         self.refresh()
 

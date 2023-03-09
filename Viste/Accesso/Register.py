@@ -1,7 +1,10 @@
+import threading
+
 from PyQt6 import uic
 from PyQt6.QtWidgets import QMainWindow, QMessageBox
 
 from Attivita.Cliente import Cliente
+from Gestore.Gestore_email import Gestore_email
 from Utils.Eccezioni import *
 from Gestore.Gestore_cliente import Gestore_cliente
 from Path.Path_viste import PATH_REGISTER
@@ -35,6 +38,7 @@ class Register(QMainWindow):
             Gestore_cliente.check_pwd(password)
 
             Cliente.crea(nome, cognome, CF, email, data_nascita, telefono, password)
+            threading.Thread(target=Gestore_email.invia_email_crea_account, args=(Gestore_cliente.cerca_account(email),)).start()
             self.torna_indietro()
 
         except ExceptionNomeFormat as e:

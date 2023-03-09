@@ -1,9 +1,12 @@
+import threading
+
 from PyQt6 import uic
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFont
 from PyQt6.QtWidgets import QMainWindow, QMessageBox, QWidget, QVBoxLayout, QCheckBox
 
 from Attivita.Prenotazione import Prenotazione
+from Gestore.Gestore_email import Gestore_email
 from Utils.Eccezioni import ExceptionEmailSconosciuta, ExceptionSaldoInsufficente
 from Gestore.Gestore_campo import Gestore_campo
 from Gestore.Gestore_cliente import Gestore_cliente
@@ -121,7 +124,7 @@ class Prenota(QMainWindow):
             try:
                 Gestore_cliente.get_account_connesso().preleva(self.campo.get_prezzo())
                 Prenotazione.crea_prenotazione(self.campo, self.data, self.partecipanti)
-                QMessageBox.about(self, "Comunicazione", "Il prezzo della tua prenotazione ti è stato completamente rimborsato")
+                threading.Thread(target=Gestore_email.invia_email_prenotazione, args=(Gestore_cliente.get_account_connesso(), Gestore_prenotazione.filtra_prenotazione_data(self.campo, self.data), self.campo.get_attività())).start()
                 self.home_cliente.show()
                 self.close()
             except ExceptionSaldoInsufficente as e:

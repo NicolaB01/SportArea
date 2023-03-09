@@ -1,6 +1,10 @@
+import threading
+
 from PyQt6 import uic
 from PyQt6.QtWidgets import QMainWindow, QMessageBox
 
+from Gestore.Gestore_cliente import Gestore_cliente
+from Gestore.Gestore_email import Gestore_email
 from Utils.Eccezioni import ExceptionAmicizia, ExceptionEmailSconosciuta
 from Gestore.Gestore_amicizia import Gestore_amicizia
 from Path.Path_viste import PATH_MENU_AMICIZIA
@@ -33,6 +37,7 @@ class Menu_amicizia(QMainWindow):
         try:
             email = self.lineEdit_email.text()
             Gestore_amicizia(email).invia_richiesta_amicizia()
+            threading.Thread(target=Gestore_email.invia_email_richiesta_amicizia, args=(Gestore_cliente.cerca_account(email),)).start()
         except ExceptionEmailSconosciuta as e:
             QMessageBox.warning(self, "Attenzione", e.__str__())
         except ExceptionAmicizia as e:

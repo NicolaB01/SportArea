@@ -1,7 +1,10 @@
+import threading
+
 from PyQt6 import uic
 from PyQt6.QtWidgets import QMainWindow, QMessageBox
 
 from Attivita.Cliente import Cliente
+from Gestore.Gestore_email import Gestore_email
 from Utils.Eccezioni import *
 from Gestore.Gestore_cliente import Gestore_cliente
 from Path.Path_viste import PATH_MODIFICA_ACCOUNT
@@ -47,7 +50,7 @@ class Modifica_account(QMainWindow):
             Gestore_cliente.check_pwd(nuova_password, nuova_password_conferma)
 
             Cliente.modifica_account(nuovo_nome, nuovo_cognome, nuovo_CF, nuovo_telefono, nuova_password, nuova_data_nascita)
-
+            threading.Thread(target=Gestore_email.invia_email_modifica_account, args=(Gestore_cliente.get_account_connesso().get_email(),)).start()
             self.pagina_precedente.refresh()
             self.torna_indietro()
 

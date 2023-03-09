@@ -1,8 +1,8 @@
 from PyQt6 import uic
 from PyQt6.QtWidgets import QMainWindow, QMessageBox
 
+from Gestore.Gestore_cliente import Gestore_cliente
 from Utils.Eccezioni import ExceptionPassword, ExceptionCodiceRecupero
-from Gestore.Gestore_email import Gestore_email
 from Path.Path_viste import PATH_CODICE_RECUPERO
 
 
@@ -23,7 +23,7 @@ class Codice_recupero(QMainWindow):
         codice_da_verificare = self.codice_1.text()+self.codice_2.text()+self.codice_3.text()+ " " + self.codice_4.text()+self.codice_5.text()+self.codice_6.text()
 
         try:
-            Gestore_email.verifica_codice_recupero_password(self.email, codice_da_verificare, nuova_pwd, conferma_nuova_pwd)
+            Gestore_cliente.verifica_codice_recupero_password(self.email, codice_da_verificare, nuova_pwd, conferma_nuova_pwd)
             self.torna_indietro()
 
         except ExceptionPassword as e:
