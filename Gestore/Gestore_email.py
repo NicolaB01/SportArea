@@ -3,8 +3,7 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-from Attività.Cliente import Cliente
-from Gestore.Eccezioni import ExceptionCodiceRecupero
+from Utils.Eccezioni import ExceptionCodiceRecupero
 from Gestore.Gestore_cliente import Gestore_cliente
 
 
@@ -38,7 +37,7 @@ class Gestore_email:
 
         Gestore_cliente.check_pwd(nuova_pwd, conferma_nuova_pwd)
 
-        cliente = Cliente.cerca_account(email)
+        cliente = Gestore_cliente.cerca_account(email)
         cliente.pwd = nuova_pwd
 
         cliente.salva_modifiche_account()

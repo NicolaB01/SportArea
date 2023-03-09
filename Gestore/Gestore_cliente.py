@@ -1,31 +1,63 @@
+import os
+import pickle
 import re
 
-from Attività.Cliente import Cliente
-from Gestore.Eccezioni import ExceptionNomeFormat, ExceptionCognomeFormat, ExceptionCFFormat, ExceptionEmailFormat, \
-    ExceptionDataNascitaFormat, ExceptionTelefonoFormat, ExceptionPassword, ExceptionCodiceRecupero
+from Utils.Eccezioni import ExceptionNomeFormat, ExceptionCognomeFormat, ExceptionCFFormat, ExceptionEmailFormat, \
+    ExceptionDataNascitaFormat, ExceptionTelefonoFormat, ExceptionPassword, \
+    ExceptionEmailSconosciuta
+from Path.Path_database import PATH_INFO_CLIENTI, PATH_ACCOUNT_CONNESSO
 
 
 class Gestore_cliente:
     @classmethod
-    def registra_cliente(cls, nome, cognome, CF, email, data_nascita, telefono, pwd):
-        cls.check_nome(nome)
-        cls.check_congome(cognome)
-        cls.check_CF(CF)
-        cls.check_email(email)
-        cls.check_data_nascita(data_nascita)
-        cls.check_teleono(telefono)
-        cls.check_pwd(pwd)
-        Cliente.crea(nome, cognome, CF, email, data_nascita, telefono, pwd)
+    def login_account(cls, email, pwd):
+        account = cls.cerca_account(email)
+        if account.get_pwd() != pwd:
+            raise ExceptionPassword("La password non è corretta")
+
+        cls.set_cliente_connesso(account)
 
     @classmethod
-    def modifica_cliente(cls, nuovo_nome, nuovo_cognome, nuovo_CF, nuovo_telefono, nuova_password, nuova_password_conferma, nuova_data_nascita):
-        cls.check_nome(nuovo_nome)
-        cls.check_congome(nuovo_cognome)
-        cls.check_CF(nuovo_CF)
-        cls.check_data_nascita(nuova_data_nascita)
-        cls.check_teleono(nuovo_telefono)
-        cls.check_pwd(nuova_password, nuova_password_conferma)
-        Cliente.modifica_account(nuovo_nome, nuovo_cognome, nuovo_CF, nuovo_telefono, nuova_password, nuova_data_nascita)
+    def cerca_account(cls, email):
+        clienti = cls.get_clienti()
+        for cliente in clienti:
+            if cliente.get_email() == email:
+                return cliente
+
+        raise ExceptionEmailSconosciuta("Non ci sono account con questa email")
+
+    @classmethod
+    def salva_modifiche_account(cls, account):
+        clienti = cls.get_clienti()
+        indice = clienti.index(account)
+        clienti[indice] = account
+
+        cls.set_clienti(clienti)
+
+        if cls.get_account_connesso().__eq__(account):
+            cls.set_cliente_connesso(account)
+
+    @classmethod
+    def get_clienti(cls):
+        if os.path.getsize(PATH_INFO_CLIENTI) != 0:
+            with open(PATH_INFO_CLIENTI, "rb") as f:
+                return pickle.load(f)
+        return []
+
+    @classmethod
+    def set_clienti(cls, clienti):
+        with open(PATH_INFO_CLIENTI, "wb") as f:
+            pickle.dump(clienti, f, pickle.HIGHEST_PROTOCOL)
+
+    @classmethod
+    def get_account_connesso(cls):
+        with open(PATH_ACCOUNT_CONNESSO, "rb") as f:
+            return pickle.load(f)
+
+    @classmethod
+    def set_cliente_connesso(cls, cliente):
+        with open(PATH_ACCOUNT_CONNESSO, "wb") as f:
+            pickle.dump(cliente, f, pickle.HIGHEST_PROTOCOL)
 
     @classmethod
     def check_nome(cls, nome):
