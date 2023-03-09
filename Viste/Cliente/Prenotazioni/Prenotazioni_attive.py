@@ -64,7 +64,7 @@ class Prenotazioni_attive(QMainWindow):
                 giorno, mese, anno, ora, nome_campo = widget.objectName().split("/")
                 data_prenotazione = datetime.datetime(int(anno), int(mese), int(giorno), int(ora))
                 try:
-                    self.is_modificabile(data_prenotazione)
+                    Gestore_prenotazione.is_modificabile(data_prenotazione)
                     self.aggiungi_partecipanti = Prenota(self, self, nome_campo, data_prenotazione, True)
                     self.aggiungi_partecipanti.show()
                     self.close()
