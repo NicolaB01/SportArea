@@ -1,8 +1,7 @@
 import os.path
-import pickle
 
-from Gestore.Eccezioni import ExceptionCampoInesistente
-from Path.Path_database import PATH_INFO_CAMPI
+from Utils.Eccezioni import ExceptionCampoInesistente
+from Gestore.Gestore_campo import Gestore_campo
 
 
 class Campo:
@@ -19,44 +18,47 @@ class Campo:
                f"\nprezzo:\t{self.prezzo}" \
                f"\nattività:\t{self.attività}"
 
-    #TODO si possono lasciare solo il controllo del nome in quanto il campo è univoco sotto quell'aspetto
     def __eq__(self, other):
         return isinstance(other,
                           Campo) and self.nome == other.nome and self.prezzo == other.prezzo and self.numero_max_partecipanti == other.numero_max_partecipanti and self.attività == other.attività
 
     @classmethod
     def crea_campo(cls, nome, numero_max_partecipanti, prezzo, attività):
-        campi = cls.get_campi()
+        campi = Gestore_campo.get_campi()
         try:
-            cls.cerca_campo(nome)
+            Gestore_campo.cerca_campo(nome)
         except ExceptionCampoInesistente:
             nuovo_campo = Campo(nome, numero_max_partecipanti, prezzo, attività)
             campi.append(nuovo_campo)
-            cls.set_campi(campi)
+            Gestore_campo.set_campi(campi)
             open(nuovo_campo.path_prenotazioni, "x")
 
     def elimina_campo(self):
-        campi = self.get_campi()
+        campi = Gestore_campo.get_campi()
         campi.remove(self)
         os.remove(self.path_prenotazioni)
-        self.set_campi(campi)
+        Gestore_campo.set_campi(campi)
 
-    @classmethod
-    def cerca_campo(cls, nome):
-        campi = cls.get_campi()
-        for campo in campi:
-            if campo.nome == nome:
-                return campo
-        raise ExceptionCampoInesistente()
+    def get_nome_campo(self):
+        return self.nome
 
-    @classmethod
-    def get_campi(cls):
-        if os.path.getsize(PATH_INFO_CAMPI) != 0:
-            with open(PATH_INFO_CAMPI, "rb") as f:
-                return pickle.load(f)
-        return []
+    def set_nome_campo(self, nome):
+        self.nome = nome
 
-    @classmethod
-    def set_campi(cls, campi):
-        with open(PATH_INFO_CAMPI, "wb") as f:
-            pickle.dump(campi, f, pickle.HIGHEST_PROTOCOL)
+    def get_numero_max_partecipanti(self):
+        return self.numero_max_partecipanti
+
+    def set_numero_max_partecipanti(self, numero_max_partecipanti):
+        self.numero_max_partecipanti = numero_max_partecipanti
+
+    def get_prezzo(self):
+        return self.prezzo
+
+    def set_prezzp(self, prezzo):
+        self.prezzo = prezzo
+
+    def get_attività(self):
+        return self.attività
+
+    def set_attività(self, attività):
+        self.attività = attività

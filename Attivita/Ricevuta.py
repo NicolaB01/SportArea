@@ -1,6 +1,4 @@
-import os.path
-import pickle
-from Path.Path_database import *
+from Gestore.Gestore_ricevuta import Gestore_ricevuta
 
 
 class Ricevuta():
@@ -20,21 +18,32 @@ class Ricevuta():
         return isinstance(other,
                           Ricevuta) and self.prezzo == other.prezzo and self.prenotazione == other.prenotazione
 
+    @classmethod
+    def crea(cls, data_emissione, prezzo, prenotazione):
+        ricevuta = Ricevuta(data_emissione, prezzo, prenotazione)
+        ricevuta.salva_ricevuta()
+
     def salva_ricevuta(self):
-        ricevute = self.get_ricevute()
+        ricevute = Gestore_ricevuta.get_ricevute()
 
         if self not in ricevute:
             ricevute.append(self)
-            self.set_ricevute(ricevute)
+            Gestore_ricevuta.set_ricevute(ricevute)
 
-    @classmethod
-    def get_ricevute(cls):
-        if os.path.getsize(PATH_RICEVUTE) != 0:
-            with open(PATH_RICEVUTE, "rb") as f:
-                return pickle.load(f)
-        return []
+    def get_data_emissione(self):
+        return self.data_emissione
 
-    @classmethod
-    def set_ricevute(cls, ricevute):
-        with open(PATH_RICEVUTE, "wb") as f:
-            pickle.dump(ricevute, f, pickle.HIGHEST_PROTOCOL)
+    def set_data_emissione(self, data_emissione):
+        self.data_emissione = data_emissione
+
+    def get_prezzo(self):
+        return self.prezzo
+
+    def set_prezzo(self, prezzo):
+        self.prezzo = prezzo
+
+    def get_prenotazione(self):
+        return self.prenotazione
+
+    def set_prenotazione(self, prenotazione):
+        self.prenotazione = prenotazione

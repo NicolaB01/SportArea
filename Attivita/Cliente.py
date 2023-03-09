@@ -1,10 +1,7 @@
 import datetime
-import os
-import pickle
 
-from Gestore.Eccezioni import ExceptionEmailSconosciuta, ExceptionPassword, ExceptionSaldoInsufficente, \
-    ExceptionEmailUtilizzata
-from Path.Path_database import PATH_INFO_CLIENTI, PATH_ACCOUNT_CONNESSO
+from Utils.Eccezioni import ExceptionEmailUtilizzata, ExceptionEmailSconosciuta, ExceptionSaldoInsufficente
+from Gestore.Gestore_cliente import Gestore_cliente
 
 
 class Cliente:
@@ -37,83 +34,41 @@ class Cliente:
     @classmethod
     def crea(cls, nome, cognome, CF, email, data_nascita, telefono, pwd):
         try:
-            Cliente.cerca_account(email)
+            Gestore_cliente.cerca_account(email)
             raise ExceptionEmailUtilizzata("Email già in uso")
         except ExceptionEmailSconosciuta:
-            clienti = Cliente.get_clienti()
+            clienti = Gestore_cliente.get_clienti()
             nuovo_cliente = Cliente(nome, cognome, CF, email, data_nascita, telefono, pwd)
             clienti.append(nuovo_cliente)
-            Cliente.set_clienti(clienti)
+            Gestore_cliente.set_clienti(clienti)
 
     @classmethod
-    def login_account(cls, email, pwd):
-        account = Cliente.cerca_account(email)
-        if account.pwd != pwd:
-            raise ExceptionPassword("La password non è corretta")
-
-        cls.set_cliente_connesso(account)
-
-    @classmethod
-    def modifica_account(cls, nuovo_nome, nuovo_cognome, nuovo_cf, nuovo_telefono, nuova_password, nuova_data_nascita):
-        clienti = cls.get_clienti()
-        account_connesso = cls.get_account_connesso()
+    def modifica_account(cls, nuovo_nome, nuovo_cognome, nuovo_CF, nuovo_telefono, nuova_password, nuova_data_nascita):
+        clienti = Gestore_cliente.get_clienti()
+        account_connesso = Gestore_cliente.get_account_connesso()
         indice = clienti.index(account_connesso)
 
-        account_connesso.nome = nuovo_nome
-        account_connesso.cognome = nuovo_cognome
-        account_connesso.codice_fiscale = nuovo_cf
-        account_connesso.numero_telefono = nuovo_telefono
-        account_connesso.pwd = nuova_password
-        account_connesso.data_nascita = nuova_data_nascita
+        account_connesso.set_nome(nuovo_nome)
+        account_connesso.set_cognome(nuovo_cognome)
+        account_connesso.set_codice_fiscale(nuovo_CF)
+        account_connesso.set_numero_telefono(nuovo_telefono)
+        account_connesso.set_pwd(nuova_password)
+        account_connesso.set_data_nascita(nuova_data_nascita)
 
         clienti[indice] = account_connesso
 
-        account_connesso.salva_modifiche_account()
-
-    def salva_modifiche_account(self):
-        clienti = self.get_clienti()
-        indice = clienti.index(self)
-        clienti[indice] = self
-
-        self.set_clienti(clienti)
-
-        if self.get_account_connesso() == self:
-            self.set_cliente_connesso(self)
-
-    def get_saldo(self):
-        return self.saldo
+        Gestore_cliente.salva_modifiche_account(account_connesso)
 
     def preleva(self, prelievo):
-        if prelievo > self.saldo:
+        if prelievo > self.get_saldo():
             raise ExceptionSaldoInsufficente("Il tuo saldo è insufficente")
 
-        self.saldo -= prelievo
-        self.salva_modifiche_account()
+        self.set_saldo(self.get_saldo() - prelievo)
+        Gestore_cliente.salva_modifiche_account(self)
 
     def deposito(self, deposito):
-        self.saldo += deposito
-        self.salva_modifiche_account()
-
-    @classmethod
-    def cerca_account(cls, email):
-        clienti = cls.get_clienti()
-        for cliente in clienti:
-            if cliente.email == email:
-                return cliente
-
-        raise ExceptionEmailSconosciuta("Non ci sono account con questa email")
-
-    @classmethod
-    def get_clienti(cls):
-        if os.path.getsize(PATH_INFO_CLIENTI) != 0:
-            with open(PATH_INFO_CLIENTI, "rb") as f:
-                return pickle.load(f)
-        return []
-
-    @classmethod
-    def get_account_connesso(cls):
-        with open(PATH_ACCOUNT_CONNESSO, "rb") as f:
-            return pickle.load(f)
+        self.set_saldo(self.get_saldo() + deposito)
+        Gestore_cliente.salva_modifiche_account(self)
 
     def età(self):
         oggi = datetime.datetime.now()
@@ -121,18 +76,62 @@ class Cliente:
         data_nascita = datetime.datetime(int(anno), int(mese), int(giorno))
         return oggi.year - data_nascita.year - ((oggi.month, oggi.day) < (data_nascita.month, data_nascita.day))
 
-    @classmethod
-    def set_clienti(cls, clienti):
-        with open(PATH_INFO_CLIENTI, "wb") as f:
-            pickle.dump(clienti, f, pickle.HIGHEST_PROTOCOL)
+    def get_nome(self):
+        return self.nome
 
-    @classmethod
-    def set_cliente_connesso(cls, cliente):
-        with open(PATH_ACCOUNT_CONNESSO, "wb") as f:
-            pickle.dump(cliente, f, pickle.HIGHEST_PROTOCOL)
+    def set_nome(self, nome):
+        self.nome = nome
+
+    def get_cognome(self):
+        return self.cognome
+
+    def set_cognome(self, cognome):
+        self.cognome = cognome
+
+    def get_CF(self):
+        return self.codice_fiscale
+
+    def set_CF(self, CF):
+        self.codice_fiscale = CF
+
+    def get_email(self):
+        return self.email
+
+    def set_email(self, email):
+        self.email = email
+
+    def get_data_nascita(self):
+        return self.data_nascita
+
+    def set_data_nascita(self, data_nascita):
+        self.data_nascita = data_nascita
+
+    def get_numero_telefono(self):
+        return self.numero_telefono
+
+    def set_numero_telefono(self, numero_telefono):
+        self.numero_telefono = numero_telefono
+
+    def get_pwd(self):
+        return self.pwd
+
+    def set_pwd(self, pwd):
+        self.pwd = pwd
+
+    def get_saldo(self):
+        return self.saldo
+
+    def set_saldo(self, saldo):
+        self.saldo = saldo
 
     def get_amici_attivi(self):
         return self.amici_attivi
 
+    def set_amici_attivi(self, amici_attivi):
+        self.amici_attivi = amici_attivi
+
     def get_amici_attesa(self):
         return self.amici_attesa
+
+    def set_amici_attesa(self, amici_attesa):
+        self.amici_attesa = amici_attesa

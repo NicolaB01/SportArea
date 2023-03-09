@@ -1,12 +1,6 @@
-import os.path
-import pickle
-import time
-import datetime
-
-from Attivita.Campo import Campo
-from Attivita.Cliente import Cliente
-from Attivita.Ricevuta import Ricevuta
-from Gestore.Eccezioni import ExceptionPrenotazioneInesistente
+from Gestore.Gestore_campo import Gestore_campo
+from Gestore.Gestore_cliente import Gestore_cliente
+from Gestore.Gestore_prenotazione import Gestore_prenotazione
 
 
 class Prenotazione:
@@ -30,78 +24,47 @@ class Prenotazione:
                self.nome_campo == other.nome_campo
 
     @classmethod
-    def prenota_campo(cls, campo, data_attività, partecipanti):
-        prenotazioni = cls.get_prenotazioni_campo(campo)
-        prenotazioni.append(Prenotazione(Cliente.get_account_connesso(), data_attività, campo.nome, partecipanti))
+    def crea_prenotazione(cls, campo, data_attività, partecipanti):
+        prenotazioni = Gestore_prenotazione.get_prenotazioni_campo(campo)
+        nuova_prenotazione = Prenotazione(Gestore_cliente.get_account_connesso(), data_attività, campo.nome, partecipanti)
+        prenotazioni.append(nuova_prenotazione)
 
-        cls.set_prenotazioni_campo(campo, prenotazioni)
-
-    @classmethod
-    def set_prenotazioni_campo(cls, campo, prenotazioni):
-        with open(campo.path_prenotazioni, "wb") as f:
-            pickle.dump(prenotazioni, f, pickle.HIGHEST_PROTOCOL)
-
-    @classmethod
-    def get_prenotazioni_campo(cls, campo):
-        if os.path.getsize(campo.path_prenotazioni) != 0:
-            with open(campo.path_prenotazioni, "rb") as f:
-                return pickle.load(f)
-        return []
-
-    @classmethod
-    def get_prenotazione_data(cls, campo, data):
-        prenotazioni = cls.get_prenotazioni_campo(campo)
-        for prenotazione in prenotazioni:
-            if prenotazione.data_attività == data:
-                return prenotazione
-
-        raise ExceptionPrenotazioneInesistente()
+        Gestore_prenotazione.set_prenotazioni_campo(campo, prenotazioni)
 
     def elimina_prenotazione(self):
-        campo = Campo.cerca_campo(self.nome_campo)
-        prenotazioni = self.get_prenotazioni_campo(campo)
+        campo = Gestore_campo.cerca_campo(self.get_nome_campo())
+        prenotazioni = Gestore_prenotazione.get_prenotazioni_campo(campo)
         prenotazioni.remove(self)
 
-        self.set_prenotazioni_campo(campo, prenotazioni)
+        Gestore_prenotazione.set_prenotazioni_campo(campo, prenotazioni)
 
     def salva_prenotazione(self):
-        campo = Campo.cerca_campo(self.nome_campo)
-        prenotazioni = self.get_prenotazioni_campo(campo)
+        campo = Gestore_campo.cerca_campo(self.get_nome_campo())
+        prenotazioni = Gestore_prenotazione.get_prenotazioni_campo(campo)
         prenotazioni[prenotazioni.index(self)] = self
 
-        self.set_prenotazioni_campo(campo, prenotazioni)
+        Gestore_prenotazione.set_prenotazioni_campo(campo, prenotazioni)
 
-    @classmethod
-    def get_prenotazioni_cliente_connesso(cls):
-        prenotazioni_per_campo = {}
-        campi = Campo.get_campi()
-        for campo in campi:
-            prenotazioni_effetuate = []
-            prenotazioni = cls.get_prenotazioni_campo(campo)
-            for prenotazione in prenotazioni:
-                if prenotazione.cliente.email == Cliente.get_account_connesso().email:
-                    prenotazioni_effetuate.append(prenotazione)
+    def get_cliente(self):
+        return self.cliente
 
-            prenotazioni_effetuate.sort(key=lambda x: x.data_attività)
-            prenotazioni_per_campo[campo.nome] = prenotazioni_effetuate
+    def set_cliente(self, cliente):
+        self.cliente = cliente
 
-        return prenotazioni_per_campo
+    def get_data_attività(self):
+        return self.data_attività
 
-    @classmethod
-    def controlla_scadenza_prenotazioni(cls):
-        campi = Campo.get_campi()
-        for campo in campi:
-            prenotazioni = cls.get_prenotazioni_campo(campo)
-            for prenotazione in prenotazioni:
-                if datetime.datetime.now() > prenotazione.data_attività:
-                    ricevuta = Ricevuta(datetime.datetime.now(), campo.prezzo, prenotazione)
-                    ricevuta.salva_ricevuta()
-                    prenotazione.attiva = False
+    def set_data_attività(self, data_attività):
+        self.data_attività = data_attività
 
-            cls.set_prenotazioni_campo(campo, prenotazioni)
+    def get_nome_campo(self):
+        return self.nome_campo
 
+    def set_nome_campo(self, nome_campo):
+        self.nome_campo = nome_campo
 
+    def get_partecipanti(self):
+        return self.partecipanti
 
-
-
-
+    def set_partecipanti(self, partecipanti):
+        self.partecipanti = partecipanti
