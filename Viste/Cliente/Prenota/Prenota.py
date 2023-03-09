@@ -1,12 +1,13 @@
 from PyQt6 import uic
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFont
-from PyQt6.QtWidgets import QMainWindow, QMessageBox, QWidget, QVBoxLayout, QCheckBox, QLabel
+from PyQt6.QtWidgets import QMainWindow, QMessageBox, QWidget, QVBoxLayout, QCheckBox
 
-from Attività.Campo import Campo
-from Attività.Cliente import Cliente
-from Attività.Prenotazione import Prenotazione
-from Gestore.Eccezioni import ExceptionPrenotazioneInesistente, ExceptionEmailSconosciuta, ExceptionSaldoInsufficente
+from Attivita.Prenotazione import Prenotazione
+from Utils.Eccezioni import ExceptionEmailSconosciuta, ExceptionSaldoInsufficente
+from Gestore.Gestore_campo import Gestore_campo
+from Gestore.Gestore_cliente import Gestore_cliente
+from Gestore.Gestore_prenotazione import Gestore_prenotazione
 from Gestore.Gestore_viste import Gestore_viste
 from Path.Path_viste import PATH_CONFERMA_PRENOTAZIONE
 
@@ -17,10 +18,10 @@ class Prenota(QMainWindow):
         uic.loadUi(PATH_CONFERMA_PRENOTAZIONE, self)
         self.pagina_precedente = pagina_precedente
         self.home_cliente = home_cliente
-        self.campo = Campo.cerca_campo(nome_campo)
+        self.campo = Gestore_campo.cerca_campo(nome_campo)
         self.data = data
         self.aggiungi_partecipanti = aggiungi_partecipanti
-        self.partecipanti = self.imposta_partecipanti()
+        self.partecipanti = Gestore_prenotazione.imposta_partecipanti(self.campo, self.data)
 
         self.refresh()
 
@@ -29,20 +30,13 @@ class Prenota(QMainWindow):
         self.logout_conferma.clicked.connect(self.conferma_prenotazione)
         self.back.clicked.connect(self.torna_indietro)
 
-    def imposta_partecipanti(self):
-        try:
-            prenotazione = Prenotazione.get_prenotazione_data(self.campo, self.data)
-            return prenotazione.partecipanti
-        except ExceptionPrenotazioneInesistente:
-            return []
-
     def refresh(self):
-        self.label_attivita.setText(f"Attività: {self.campo.attività}")
-        self.label_campo.setText(f"Campo: {self.campo.nome}")
+        self.label_attivita.setText(f"Attività: {self.campo.get_attività()}")
+        self.label_campo.setText(f"Campo: {self.campo.get_nome_campo()}")
         self.label_ora.setText(f"Ora: {self.data.strftime('%H')}:00")
         self.label_data.setText(f"Data: {self.data.strftime('%x')}")
-        self.label_Npartecipanti.setText(f"Numero partecipanti: {self.campo.numero_max_partecipanti}")
-        self.label_prezzo.setText(f"Prezzo: {self.campo.prezzo}")
+        self.label_Npartecipanti.setText(f"Numero partecipanti: {self.campo.get_numero_max_partecipanti()}")
+        self.label_prezzo.setText(f"Prezzo: {self.campo.get_prezzo()}")
 
         self.aggiugni_amici_scrollArea()
         self.aggiungi_partecipanti_scrollArea()
@@ -52,7 +46,7 @@ class Prenota(QMainWindow):
         vertical_layout = QVBoxLayout(scroll_area_widget_contents)
         vertical_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
 
-        for amico in Cliente.get_account_connesso().amici_attivi:
+        for amico in Gestore_cliente.get_account_connesso().get_amici_attivi():
             vertical_layout.addWidget(self.crea_checkBox(amico.email, amico.nome, amico.cognome))
 
         if len(scroll_area_widget_contents.findChildren(QCheckBox)) == 0:
@@ -109,8 +103,8 @@ class Prenota(QMainWindow):
                     self.partecipanti.append(widget.objectName())
         try:
             if self.lineEdit_email.text():
-                account = Cliente.cerca_account(self.lineEdit_email.text())
-                if account.email not in self.partecipanti and account.email != Cliente.get_account_connesso().email:
+                account = Gestore_cliente.cerca_account(self.lineEdit_email.text())
+                if account.email not in self.partecipanti and not account.__eq__(Gestore_cliente.get_account_connesso()):
                     self.partecipanti.append(account.email)
         except ExceptionEmailSconosciuta as e:
             QMessageBox.warning(self, "Attenzione", e.__str__())
@@ -119,14 +113,14 @@ class Prenota(QMainWindow):
 
     def conferma_prenotazione(self):
         if self.aggiungi_partecipanti:
-            prenotazione = Prenotazione.get_prenotazione_data(self.campo, self.data)
+            prenotazione = Gestore_prenotazione.filtra_prenotazione_data(self.campo, self.data)
             prenotazione.partecipanti = self.partecipanti
             prenotazione.salva_prenotazione()
             self.torna_indietro()
         else:
             try:
-                Cliente.get_account_connesso().preleva(self.campo.prezzo)
-                Prenotazione.prenota_campo(self.campo, self.data, self.partecipanti)
+                Gestore_cliente.get_account_connesso().preleva(self.campo.get_prezzo())
+                Prenotazione.crea_prenotazione(self.campo, self.data, self.partecipanti)
                 QMessageBox.about(self, "Comunicazione", "Il prezzo della tua prenotazione ti è stato completamente rimborsato")
                 self.home_cliente.show()
                 self.close()

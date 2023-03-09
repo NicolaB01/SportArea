@@ -6,7 +6,7 @@ from PyQt6.QtWidgets import QMainWindow, QVBoxLayout
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 
-from Gestore.Statistiche import Statistiche
+from Gestore.Gestore_statistiche import Gestore_statistiche
 from Path.Path_viste import PATH_STATISTICHE_FATTURATO
 
 
@@ -15,7 +15,7 @@ class Grafico_fatturato(FigureCanvas):
         self.fig = Figure(figsize=(10, 3), dpi=90)
         super(Grafico_fatturato, self).__init__(self.fig)
         self.axes = self.fig.add_subplot(111)
-        self.statistiche_fatturato = Statistiche.stat_bilancio()
+        self.statistiche_fatturato = Gestore_statistiche.stat_bilancio()
 
     def update_chart(self, anno):
         anno = int(anno)
@@ -29,7 +29,7 @@ class Grafico_fatturato(FigureCanvas):
         self.axes.clear()
 
         if anno in self.statistiche_fatturato.keys():
-            media = Statistiche.guadagno_medio_annuale(anno)
+            media = Gestore_statistiche.guadagno_medio_annuale(anno)
             self.axes.plot(self.statistiche_fatturato[anno].keys(), self.statistiche_fatturato[anno].values(), label="Incassi", marker=".", color="royalblue")
             self.axes.fill_between(self.statistiche_fatturato[anno].keys(), self.statistiche_fatturato[anno].values(), media, alpha=0.1, color="royalblue")
             self.axes.axhline(media, color="r", label="Media")
@@ -44,7 +44,7 @@ class Statistiche_fatturato(QMainWindow):
         uic.loadUi(PATH_STATISTICHE_FATTURATO, self)
         self.pagina_precedente = pagina_precedente
         self.anno.setText(str(datetime.datetime.now().year))
-        self.statistiche_fatturato = Statistiche.stat_bilancio()
+        self.statistiche_fatturato = Gestore_statistiche.stat_bilancio()
 
         self.grafico = Grafico_fatturato()
         self.grafico.update_chart(self.anno.text())
@@ -61,8 +61,8 @@ class Statistiche_fatturato(QMainWindow):
         anno_ricerca = int(self.anno.text())
 
         if anno_ricerca in self.statistiche_fatturato.keys():
-            self.fatturato_annuo.setText(str(Statistiche.guadagno_annuale(anno_ricerca)))
-            self.fatturato_medio.setText(str(round(Statistiche.guadagno_medio_annuale(anno_ricerca), 2)))
+            self.fatturato_annuo.setText(str(Gestore_statistiche.guadagno_annuale(anno_ricerca)))
+            self.fatturato_medio.setText(str(round(Gestore_statistiche.guadagno_medio_annuale(anno_ricerca), 2)))
         else:
             self.fatturato_annuo.setText(str(0))
             self.fatturato_medio.setText(str(0))

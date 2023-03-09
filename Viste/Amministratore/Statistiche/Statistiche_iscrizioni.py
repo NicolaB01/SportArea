@@ -6,9 +6,9 @@ from PyQt6.QtWidgets import QMainWindow, QVBoxLayout
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 
-from Attività.Cliente import Cliente
-from Gestore.Eccezioni import ExceptionAnnoNonPresente
-from Gestore.Statistiche import Statistiche
+from Utils.Eccezioni import ExceptionAnnoNonPresente
+from Gestore.Gestore_cliente import Gestore_cliente
+from Gestore.Gestore_statistiche import Gestore_statistiche
 from Path.Path_viste import PATH_STATISTICHE_ISCRIZIONI
 
 
@@ -17,7 +17,7 @@ class Grafico_iscrizioni(FigureCanvas):
         self.fig = Figure(figsize=(10, 3), dpi=90)
         super(Grafico_iscrizioni, self).__init__(self.fig)
         self.axes = self.fig.add_subplot(111)
-        self.statistiche_iscrizioni = Statistiche.stat_iscrizioni()
+        self.statistiche_iscrizioni = Gestore_statistiche.stat_iscrizioni()
 
     def update_chart(self, anno):
         anno = int(anno)
@@ -31,7 +31,7 @@ class Grafico_iscrizioni(FigureCanvas):
         self.axes.clear()
         if anno in self.statistiche_iscrizioni.keys():
             self.axes.bar(self.statistiche_iscrizioni[anno].keys(), self.statistiche_iscrizioni[anno].values(), label="Iscrizioni", color="royalblue")
-            self.axes.axhline(Statistiche.iscrizioni_medie_annuali(anno), color="r", label="Media")
+            self.axes.axhline(Gestore_statistiche.iscrizioni_medie_annuali(anno), color="r", label="Media")
             self.axes.legend(facecolor='#A5C9CA', framealpha=0)
             self.axes.margins(0.2, 0.2)
 
@@ -50,7 +50,7 @@ class Statistiche_iscrizioni(QMainWindow):
         uic.loadUi(PATH_STATISTICHE_ISCRIZIONI, self)
         self.pagina_precedente = pagina_precedente
         self.anno.setText(str(datetime.datetime.now().year))
-        self.statistiche_iscrizioni = Statistiche.stat_iscrizioni()
+        self.statistiche_iscrizioni = Gestore_statistiche.stat_iscrizioni()
 
         self.grafico = Grafico_iscrizioni()
         self.grafico.update_chart(self.anno.text())
@@ -67,9 +67,9 @@ class Statistiche_iscrizioni(QMainWindow):
         anno_ricerca = int(self.anno.text())
 
         try:
-            self.numero_iscrizioni_tot.setText(str(len(Cliente.get_clienti())))
-            self.numero_iscrizioni_annue.setText(str(Statistiche.iscrizioni_annuali(anno_ricerca)))
-            self.numero_iscrizioni_media.setText(str(round(Statistiche.iscrizioni_medie_annuali(anno_ricerca), 2)))
+            self.numero_iscrizioni_tot.setText(str(len(Gestore_cliente.get_clienti())))
+            self.numero_iscrizioni_annue.setText(str(Gestore_statistiche.iscrizioni_annuali(anno_ricerca)))
+            self.numero_iscrizioni_media.setText(str(round(Gestore_statistiche.iscrizioni_medie_annuali(anno_ricerca), 2)))
         except ExceptionAnnoNonPresente:
             self.numero_iscrizioni_tot.setText(str(0))
             self.numero_iscrizioni_annue.setText(str(0))

@@ -1,7 +1,7 @@
 from PyQt6 import uic
 from PyQt6.QtWidgets import QMainWindow
 
-from Attività.Cliente import Cliente
+from Gestore.Gestore_cliente import Gestore_cliente
 from Path.Path_viste import PATH_PORTAFOGLIO
 
 
@@ -10,7 +10,7 @@ class Portafoglio(QMainWindow):
         super().__init__()
         uic.loadUi(PATH_PORTAFOGLIO, self)
         self.pagina_precedente = pagina_precedente
-        self.cliente = Cliente.get_account_connesso()
+        self.cliente = Gestore_cliente.get_account_connesso()
 
         self.refresh()
 

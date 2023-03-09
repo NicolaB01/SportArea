@@ -4,7 +4,7 @@ from PyQt6.QtWidgets import QMainWindow, QVBoxLayout
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 
-from Gestore.Statistiche import Statistiche
+from Gestore.Gestore_statistiche import Gestore_statistiche
 from Path.Path_viste import PATH_STATISTICHE_ETA
 
 
@@ -13,7 +13,7 @@ class Grafico_età_media(FigureCanvas):
         self.fig = Figure(figsize=(10, 3), dpi=90)
         super(Grafico_età_media, self).__init__(self.fig)
         self.axes = self.fig.add_subplot(111)
-        self.statistiche_età = Statistiche.stat_anagrafiche()
+        self.statistiche_età = Gestore_statistiche.stat_anagrafiche()
 
     def update_chart(self):
         self.fig.set_facecolor("#A5C9CA")
@@ -24,7 +24,7 @@ class Grafico_età_media(FigureCanvas):
         self.axes.clear()
 
         self.axes.hist(self.statistiche_età, range(0,100,5), label="Fasce d'età", color="royalblue")
-        self.axes.axvline(Statistiche.età_media(), color = "r", label="Età media")
+        self.axes.axvline(Gestore_statistiche.età_media(), color = "r", label="Età media")
         self.axes.legend(facecolor='#A5C9CA', framealpha=0)
         self.axes.set_xticks(np.arange(0, 100, 5))
 
@@ -38,7 +38,7 @@ class Statistiche_eta(QMainWindow):
         uic.loadUi(PATH_STATISTICHE_ETA, self)
         self.pagina_precedente = pagina_precedente
 
-        self.eta_media.setText(str(Statistiche.età_media()))
+        self.eta_media.setText(str(round(Gestore_statistiche.età_media(), 2)))
 
         self.grafico = Grafico_età_media()
         self.grafico.update_chart()

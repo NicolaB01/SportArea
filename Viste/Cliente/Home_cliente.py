@@ -4,8 +4,8 @@ from PyQt6.QtWidgets import QMainWindow
 from Path.Path_viste import PATH_HOME_CLIENTE
 from Viste.Cliente.Account.Account import Account
 from Viste.Cliente.Amici.Menu_amicizia import Menu_amicizia
-from Viste.Cliente.Prenota.Cerca_prenotazioni import Cerca_prenotazioni
 from Viste.Cliente.Portafoglio.Portafoglio import Portafoglio
+from Viste.Cliente.Prenota.Cerca_disponibilita import Cerca_disponibilita
 from Viste.Cliente.Prenotazioni.Visualizza_prenotazioni import Visualizza_prenotazioni
 
 
@@ -16,7 +16,7 @@ class Home_cliente(QMainWindow):
         self.pagina_precedente = pagina_precedente
 
         self.amici.clicked.connect(self.menu_amici)
-        self.prenota.clicked.connect(self.menu_prenotazioni)
+        self.prenota.clicked.connect(self.menu_disponibilita)
         self.prenotazioni.clicked.connect(self.visualizza_prenotazioni)
         self.portafoglio.clicked.connect(self.menu_portafoglio)
         self.account.clicked.connect(self.mostra_account)
@@ -27,9 +27,9 @@ class Home_cliente(QMainWindow):
         self.menu_amicizia.show()
         self.close()
 
-    def menu_prenotazioni(self):
-        self.menu_prenotazioni = Cerca_prenotazioni(self)
-        self.menu_prenotazioni.show()
+    def menu_disponibilita(self):
+        self.menu_disponibilita = Cerca_disponibilita(self)
+        self.menu_disponibilita.show()
         self.close()
 
     def visualizza_prenotazioni(self):

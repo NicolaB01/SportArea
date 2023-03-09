@@ -3,7 +3,7 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFont
 from PyQt6.QtWidgets import QMainWindow, QVBoxLayout, QCheckBox, QWidget, QLabel
 
-from Attività.Campo import Campo
+from Gestore.Gestore_campo import Gestore_campo
 from Gestore.Gestore_viste import Gestore_viste
 from Path.Path_viste import PATH_VISUALIZZA_CAMPI
 from Viste.Amministratore.Struttura.Crea_campo import Crea_campo
@@ -27,7 +27,7 @@ class Menu_campi(QMainWindow):
 
         vertical_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
 
-        campi = Campo.get_campi()
+        campi = Gestore_campo.get_campi()
         for campo in campi:
             vertical_layout.addWidget(self.crea_checkBox(campo))
 
@@ -40,7 +40,7 @@ class Menu_campi(QMainWindow):
         checkBox_richiesta = QCheckBox()
 
         checkBox_richiesta.setFont(QFont("Arial", 14, 50, False))
-        checkBox_richiesta.setObjectName(campo.nome)
+        checkBox_richiesta.setObjectName(campo.get_nome_campo())
         checkBox_richiesta.setStyleSheet("background-color:rgba(255, 255, 255, 0);\n"
                                          "padding:5px;\n"
                                          "border-radius:20px;\n"
@@ -55,7 +55,7 @@ class Menu_campi(QMainWindow):
         for widget in scroll_area_widget_contents.findChildren(QCheckBox):
             if widget.isChecked():
                 nome_campo = widget.objectName()
-                Campo.elimina_campo(Campo.cerca_campo(nome_campo))
+                Gestore_campo.cerca_campo(nome_campo).elimina_campo()
 
         self.refresh()
 

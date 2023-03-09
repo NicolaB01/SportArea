@@ -1,10 +1,8 @@
-import time
-
 from PyQt6 import uic
 from PyQt6.QtWidgets import QMainWindow, QMessageBox
 
-from Attività.Cliente import Cliente
-from Gestore.Eccezioni import *
+from Attivita.Cliente import Cliente
+from Utils.Eccezioni import *
 from Gestore.Gestore_cliente import Gestore_cliente
 from Path.Path_viste import PATH_MODIFICA_ACCOUNT
 
@@ -21,15 +19,15 @@ class Modifica_account(QMainWindow):
         self.back.clicked.connect(self.torna_indietro)
 
     def setUp(self):
-        cliente = Cliente.get_account_connesso()
+        cliente = Gestore_cliente.get_account_connesso()
 
-        self.lineEdit_nome.setText(cliente.nome)
-        self.lineEdit_cognome.setText(cliente.cognome)
-        self.lineEdit_pwd.setText(cliente.pwd)
-        self.lineEdit_confermapwd.setText(cliente.pwd)
-        self.lineEdit_CF.setText(cliente.codice_fiscale)
-        self.lineEdit_data.setText(cliente.data_nascita)
-        self.lineEdit_telefono.setText(cliente.numero_telefono)
+        self.lineEdit_nome.setText(cliente.get_nome())
+        self.lineEdit_cognome.setText(cliente.get_cognome())
+        self.lineEdit_pwd.setText(cliente.get_pwd())
+        self.lineEdit_confermapwd.setText(cliente.get_pwd())
+        self.lineEdit_CF.setText(cliente.get_CF())
+        self.lineEdit_data.setText(cliente.get_data_nascita())
+        self.lineEdit_telefono.setText(cliente.get_numero_telefono())
 
     def modifica_account(self):
         nuovo_nome = self.lineEdit_nome.text().capitalize().strip()
@@ -41,9 +39,18 @@ class Modifica_account(QMainWindow):
         nuova_password_conferma = self.lineEdit_confermapwd.text().strip()
 
         try:
-            Gestore_cliente.modifica_cliente(nuovo_nome, nuovo_cognome, nuovo_CF, nuovo_telefono, nuova_password, nuova_password_conferma, nuova_data_nascita)
+            Gestore_cliente.check_nome(nuovo_nome)
+            Gestore_cliente.check_congome(nuovo_cognome)
+            Gestore_cliente.check_CF(nuovo_CF)
+            Gestore_cliente.check_data_nascita(nuova_data_nascita)
+            Gestore_cliente.check_teleono(nuovo_telefono)
+            Gestore_cliente.check_pwd(nuova_password, nuova_password_conferma)
+
+            Cliente.modifica_account(nuovo_nome, nuovo_cognome, nuovo_CF, nuovo_telefono, nuova_password, nuova_data_nascita)
+
             self.pagina_precedente.refresh()
             self.torna_indietro()
+
         except ExceptionNomeFormat as e:
             QMessageBox.warning(self, "Attenzione", e.__str__())
         except ExceptionCognomeFormat as e:

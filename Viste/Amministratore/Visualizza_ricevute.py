@@ -5,8 +5,8 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFont
 from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QLabel
 
-from Attività.Prenotazione import Prenotazione
-from Attività.Ricevuta import Ricevuta
+from Gestore.Gestore_prenotazione import Gestore_prenotazione
+from Gestore.Gestore_ricevuta import Gestore_ricevuta
 from Gestore.Gestore_viste import Gestore_viste
 from Path.Path_viste import PATH_VISUALIZZA_RICEVUTE
 
@@ -22,14 +22,14 @@ class Visualizza_ricevute(QMainWindow):
         self.pushButton_back.clicked.connect(self.torna_indietro)
 
     def setUp(self):
-        self.nuovo_processo = multiprocessing.Process(target=Prenotazione.controlla_scadenza_prenotazioni)
+        self.nuovo_processo = multiprocessing.Process(target=Gestore_prenotazione.controlla_scadenza_prenotazioni)
         self.nuovo_processo.start()
 
         scroll_area_widget_contents = QWidget()
         vertical_layout = QVBoxLayout(scroll_area_widget_contents)
         vertical_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
 
-        for ricevuta in Ricevuta.get_ricevute():
+        for ricevuta in Gestore_ricevuta.get_ricevute():
             vertical_layout.addWidget(self.crea_label_ricevuta(ricevuta))
 
         if len(scroll_area_widget_contents.findChildren(QLabel)) == 0:

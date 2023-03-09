@@ -3,7 +3,7 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFont
 from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QLabel
 
-from Attività.Cliente import Cliente
+from Gestore.Gestore_cliente import Gestore_cliente
 from Gestore.Gestore_viste import Gestore_viste
 from Path.Path_viste import PATH_VISUALIZZA_CLIENTI
 
@@ -23,7 +23,7 @@ class Visualizza_clienti(QMainWindow):
         vertical_layout = QVBoxLayout(scroll_area_widget_contents)
         vertical_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
 
-        for cliente in Cliente.get_clienti():
+        for cliente in Gestore_cliente.get_clienti():
             vertical_layout.addWidget(self.crea_label_cliente(cliente))
 
         if len(scroll_area_widget_contents.findChildren(QLabel)) == 0:

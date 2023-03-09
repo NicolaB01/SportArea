@@ -3,7 +3,7 @@ import multiprocessing
 from PyQt6 import uic
 from PyQt6.QtWidgets import QMainWindow
 
-from Attività.Prenotazione import Prenotazione
+from Gestore.Gestore_prenotazione import Gestore_prenotazione
 from Path.Path_viste import PATH_VISUALIZZA_PRENOTAZIONI
 from Viste.Cliente.Prenotazioni.Prenotazioni_attive import Prenotazioni_attive
 from Viste.Cliente.Prenotazioni.Prenotazioni_passate import Prenotazioni_passate
@@ -22,7 +22,7 @@ class Visualizza_prenotazioni(QMainWindow):
         self.back.clicked.connect(self.torna_indietro)
 
     def refresh(self):
-        self.nuovo_processo = multiprocessing.Process(target=Prenotazione.controlla_scadenza_prenotazioni)
+        self.nuovo_processo = multiprocessing.Process(target=Gestore_prenotazione.controlla_scadenza_prenotazioni)
         self.nuovo_processo.start()
 
     def mostra_prenotazioni_attive(self):

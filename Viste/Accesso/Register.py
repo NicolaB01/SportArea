@@ -1,8 +1,8 @@
 from PyQt6 import uic
 from PyQt6.QtWidgets import QMainWindow, QMessageBox
 
-from Attività.Cliente import Cliente
-from Gestore.Eccezioni import *
+from Attivita.Cliente import Cliente
+from Utils.Eccezioni import *
 from Gestore.Gestore_cliente import Gestore_cliente
 from Path.Path_viste import PATH_REGISTER
 
@@ -26,7 +26,15 @@ class Register(QMainWindow):
         password = self.lineEdit_pwd.text().strip()
 
         try:
-            Gestore_cliente.registra_cliente(nome, cognome, CF, email, data_nascita, telefono, password)
+            Gestore_cliente.check_nome(nome)
+            Gestore_cliente.check_congome(cognome)
+            Gestore_cliente.check_CF(CF)
+            Gestore_cliente.check_email(email)
+            Gestore_cliente.check_data_nascita(data_nascita)
+            Gestore_cliente.check_teleono(telefono)
+            Gestore_cliente.check_pwd(password)
+
+            Cliente.crea(nome, cognome, CF, email, data_nascita, telefono, password)
             self.torna_indietro()
 
         except ExceptionNomeFormat as e:

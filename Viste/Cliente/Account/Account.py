@@ -1,7 +1,7 @@
 from PyQt6 import uic
 from PyQt6.QtWidgets import QMainWindow
 
-from Attività.Cliente import Cliente
+from Gestore.Gestore_cliente import Gestore_cliente
 from Path.Path_viste import PATH_ACCOUNT
 from Viste.Cliente.Account.Modifica_account import Modifica_account
 
@@ -18,15 +18,15 @@ class Account(QMainWindow):
         self.back.clicked.connect(self.torna_indietro)
 
     def refresh(self):
-        cliente = Cliente.get_account_connesso()
+        cliente = Gestore_cliente.get_account_connesso()
 
-        self.label_nome.setText(cliente.nome)
-        self.label_cognome.setText(cliente.cognome)
-        self.label_email.setText(cliente.email)
-        self.label_pwd.setText(cliente.pwd)
-        self.label_CF.setText(cliente.codice_fiscale)
-        self.label_data.setText(cliente.data_nascita)
-        self.label_telefono.setText(cliente.numero_telefono)
+        self.label_nome.setText(cliente.get_nome())
+        self.label_cognome.setText(cliente.get_cognome())
+        self.label_email.setText(cliente.get_email())
+        self.label_pwd.setText(cliente.get_pwd())
+        self.label_CF.setText(cliente.get_CF())
+        self.label_data.setText(cliente.get_data_nascita())
+        self.label_telefono.setText(cliente.get_numero_telefono())
 
     def menu_modifica_account(self):
         self.menu_modifica_account = Modifica_account(self)

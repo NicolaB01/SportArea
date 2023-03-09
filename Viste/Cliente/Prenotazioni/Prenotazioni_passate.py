@@ -3,8 +3,8 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFont
 from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QLabel
 
-from Attività.Campo import Campo
-from Attività.Prenotazione import Prenotazione
+from Gestore.Gestore_campo import Gestore_campo
+from Gestore.Gestore_prenotazione import Gestore_prenotazione
 from Gestore.Gestore_viste import Gestore_viste
 from Path.Path_viste import PATH_PRENOTAZIONI_PASSATE
 
@@ -24,10 +24,10 @@ class Prenotazioni_passate(QMainWindow):
         vertical_layout = QVBoxLayout(scroll_area_widget_contents)
         vertical_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
 
-        for nome_campo, prenotazioni_effettuate in Prenotazione.get_prenotazioni_cliente_connesso().items():
+        for nome_campo, prenotazioni_effettuate in Gestore_prenotazione.get_prenotazioni_cliente_connesso().items():
             for prenotazione in prenotazioni_effettuate:
                 if not prenotazione.attiva:
-                    vertical_layout.addWidget(self.crea_label_prenotazione_passata(nome_campo, prenotazione.data_attività))
+                    vertical_layout.addWidget(self.crea_label_prenotazione_passata(nome_campo, prenotazione.get_data_attività()))
 
         if len(scroll_area_widget_contents.findChildren(QLabel)) == 0:
             vertical_layout.addWidget(Gestore_viste.crea_label_comunicazione_cliente("Non ci sono prenotazioni Passate"))
@@ -35,7 +35,7 @@ class Prenotazioni_passate(QMainWindow):
         self.scrollArea_prenotazioniPassate.setWidget(scroll_area_widget_contents)
 
     def crea_label_prenotazione_passata(self, nome_campo, data_attività):
-        campo = Campo.cerca_campo(nome_campo)
+        campo = Gestore_campo.cerca_campo(nome_campo)
         prenotazione_passata = QLabel()
         prenotazione_passata.setFont(QFont("Arial", 14, 50, False))
         prenotazione_passata.setStyleSheet("background-color:rgba(255, 255, 255, 0);\n"
@@ -43,7 +43,7 @@ class Prenotazioni_passate(QMainWindow):
                                    "border-radius:20px;\n"
                                    "border:2px solid rgb(152, 222, 217);\n"
                                    "color:rgb(22, 29, 111);")
-        prenotazione_passata.setText(f"Attività: {campo.attività}\nCampo: {campo.nome}\nData: {data_attività.strftime('%x')}\nOra: {data_attività.strftime('%H')}:00\nPrezzo: {campo.prezzo}")
+        prenotazione_passata.setText(f"Attività: {campo.get_attività()}\nCampo: {campo.get_nome_campo()}\nData: {data_attività.strftime('%x')}\nOra: {data_attività.strftime('%H')}:00\nPrezzo: {campo.get_prezzo()}")
         return prenotazione_passata
 
     def torna_indietro(self):

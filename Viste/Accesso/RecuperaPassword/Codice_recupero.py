@@ -1,11 +1,7 @@
-import random
-
 from PyQt6 import uic
 from PyQt6.QtWidgets import QMainWindow, QMessageBox
 
-from Attività.Cliente import Cliente
-from Gestore.Eccezioni import ExceptionPassword, ExceptionTentativi, ExceptionCodiceRecupero
-from Gestore.Gestore_cliente import Gestore_cliente
+from Utils.Eccezioni import ExceptionPassword, ExceptionCodiceRecupero
 from Gestore.Gestore_email import Gestore_email
 from Path.Path_viste import PATH_CODICE_RECUPERO
 
@@ -32,7 +28,7 @@ class Codice_recupero(QMainWindow):
 
         except ExceptionPassword as e:
             QMessageBox.warning(self, "Attenzione", e.__str__())
-        except ExceptionCodiceRecupero as e:
+        except ExceptionCodiceRecupero:
             self.tenattivi -= 1
             self.check_tentativi()
 

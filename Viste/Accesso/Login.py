@@ -1,8 +1,8 @@
 from PyQt6 import uic
 from PyQt6.QtWidgets import QMainWindow, QMessageBox
 
-from Attività.Cliente import Cliente
-from Gestore.Eccezioni import ExceptionEmailSconosciuta, ExceptionPassword
+from Utils.Eccezioni import ExceptionEmailSconosciuta, ExceptionPassword
+from Gestore.Gestore_cliente import Gestore_cliente
 from Path.Path_viste import PATH_LOGIN
 from Viste.Amministratore.Amministratore import Amministratore
 from Viste.Accesso.RecuperaPassword.Email_recupero import Email_recupero
@@ -38,7 +38,7 @@ class Login(QMainWindow):
 
     def login_cliente(self, email, password):
         try:
-            Cliente.login_account(email, password)
+            Gestore_cliente.login_account(email, password)
             self.homepage = Home_cliente(self.pagina_precedente)
             self.homepage.show()
             self.close()

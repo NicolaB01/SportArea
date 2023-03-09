@@ -3,7 +3,8 @@ import time
 from PyQt6 import uic
 from PyQt6.QtWidgets import QMainWindow
 
-from Attività.Campo import Campo
+from Attivita.Campo import Campo
+from Gestore.Gestore_campo import Gestore_campo
 from Path.Path_viste import PATH_CREA_CAMPO
 
 
@@ -21,7 +22,6 @@ class Crea_campo(QMainWindow):
         numero_max_partecipanti = self.spinBox_partecipanti.value()
         prezzo =  self.doubleSpinBox_prezzo.value()
         attività = self.lineEdit_attivita.text().strip().capitalize()
-        #TODO metti dei controlli per non far creare dei campi senza parametri
 
         Campo.crea_campo(nome, numero_max_partecipanti, prezzo, attività)
 

@@ -6,7 +6,7 @@ from PyQt6.QtWidgets import QMainWindow, QVBoxLayout
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 
-from Gestore.Statistiche import Statistiche
+from Gestore.Gestore_statistiche import Gestore_statistiche
 from Path.Path_viste import PATH_STATISTICHE_ATTIVITA
 
 
@@ -15,7 +15,7 @@ class Grafico_attività(FigureCanvas):
         self.fig = Figure(figsize=(10, 3), dpi=90)
         super(Grafico_attività, self).__init__(self.fig)
         self.axes = self.fig.add_subplot(111)
-        self.statistiche_attività = Statistiche.stat_attività()
+        self.statistiche_attività = Gestore_statistiche.stat_attività()
         self.pie = None
 
     def update_chart(self, anno):
@@ -40,9 +40,9 @@ class Statistiche_attivita(QMainWindow):
         uic.loadUi(PATH_STATISTICHE_ATTIVITA, self)
         self.pagina_precedente = pagina_precedente
         self.anno.setText(str(datetime.datetime.now().year))
-        self.statistiche_prenotazioni = Statistiche.stat_attività()
+        self.statistiche_prenotazioni = Gestore_statistiche.stat_attività()
 
-        self.prenotazioni_tot.setText(str(Statistiche.prenotazioni_totali()))
+        self.prenotazioni_tot.setText(str(Gestore_statistiche.prenotazioni_totali()))
 
         self.grafico = Grafico_attività()
         self.grafico.update_chart(self.anno.text())
@@ -59,7 +59,7 @@ class Statistiche_attivita(QMainWindow):
         anno_ricerca = int(self.anno.text())
 
         if anno_ricerca in self.statistiche_prenotazioni.keys():
-            self.prenotazioni_annuali.setText(str(Statistiche.prenotazioni_annuali(anno_ricerca)))
+            self.prenotazioni_annuali.setText(str(Gestore_statistiche.prenotazioni_annuali(anno_ricerca)))
         else:
             self.prenotazioni_annuali.setText(str(0))
 
