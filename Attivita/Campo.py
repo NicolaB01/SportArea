@@ -10,7 +10,7 @@ class Campo:
         self.numero_max_partecipanti = numero_max_partecipanti
         self.prezzo = prezzo
         self.attività = attività
-        self.path_prenotazioni = os.path.join("DataBase", "Campi", f"camppo_{self.nome}.txt")
+        self.path_prenotazioni = os.path.join("DataBase", "Campi", f"campo_{self.nome}.txt")
 
     def __str__(self):
         return f"Nome:\t{self.nome}" \
