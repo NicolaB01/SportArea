@@ -34,7 +34,7 @@ class Gestore_prenotazione:
             lista_ore = list(range(data.hour, 22))
             prenotazioni_effetuate = cls.get_prenotazioni_campo(campo)
             for prenotazione in prenotazioni_effetuate:
-                if prenotazione.get_data_attività().strftime("%x") == data.strftime("%x") and prenotazione.get_data_attività().hour >= data.hour:
+                if prenotazione.get_data_attività().strftime("%x").__eq__(data.strftime("%x")) and prenotazione.get_data_attività().hour >= data.hour:
                     lista_ore.remove(prenotazione.get_data_attività().hour)
 
             prenotazioni_disponibili[campo.get_nome_campo()] = lista_ore

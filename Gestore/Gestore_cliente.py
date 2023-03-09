@@ -2,9 +2,10 @@ import os
 import pickle
 import re
 
+from Gestore.Gestore_email import Gestore_email
 from Utils.Eccezioni import ExceptionNomeFormat, ExceptionCognomeFormat, ExceptionCFFormat, ExceptionEmailFormat, \
     ExceptionDataNascitaFormat, ExceptionTelefonoFormat, ExceptionPassword, \
-    ExceptionEmailSconosciuta
+    ExceptionEmailSconosciuta, ExceptionCodiceRecupero
 from Path.Path_database import PATH_INFO_CLIENTI, PATH_ACCOUNT_CONNESSO
 
 
@@ -103,3 +104,14 @@ class Gestore_cliente:
             raise ExceptionPassword(
                 "La password deve essere di almeno 8 caratteri, maiuscole, minuscole, numeri e caratteri speciali")
 
+    @classmethod
+    def verifica_codice_recupero_password(cls, email, codice_da_verificare, nuova_pwd, conferma_nuova_pwd):
+        if Gestore_email.codice_di_verifica != codice_da_verificare:
+            raise ExceptionCodiceRecupero("Il codice di recupero non coincide")
+
+        Gestore_cliente.check_pwd(nuova_pwd, conferma_nuova_pwd)
+
+        cliente = Gestore_cliente.cerca_account(email)
+        cliente.pwd = nuova_pwd
+
+        Gestore_cliente.salva_modifiche_account(cliente)
