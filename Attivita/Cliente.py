@@ -50,7 +50,7 @@ class Cliente:
 
         account_connesso.set_nome(nuovo_nome)
         account_connesso.set_cognome(nuovo_cognome)
-        account_connesso.set_codice_fiscale(nuovo_CF)
+        account_connesso.set_CF(nuovo_CF)
         account_connesso.set_numero_telefono(nuovo_telefono)
         account_connesso.set_pwd(nuova_password)
         account_connesso.set_data_nascita(nuova_data_nascita)
