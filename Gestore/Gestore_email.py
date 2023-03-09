@@ -6,10 +6,18 @@ from email.mime.text import MIMEText
 from Utils.Eccezioni import ExceptionCodiceRecupero
 from Gestore.Gestore_cliente import Gestore_cliente
 
-
+#TODO fare una classe per la gestione delle email che puù essere tranquillamente questa
 class Gestore_email:
     def __int__(self):
         self.codice_di_verifica
+
+    @classmethod
+    def invia_email_prenotazione(cls, email_destinatario):
+        pass
+
+    @classmethod
+    def invia_email_richiesta_amicizia(cls, email_destinatario):
+        pass
 
     @classmethod
     def invia_email_recupero_pwd(cls, email_destinatario):
@@ -30,6 +38,20 @@ class Gestore_email:
             smtp.login(mittente, "nxnbnjutflbvvugv")
             smtp.send_message(msg)
 
+    @classmethod
+    def invia_email_modifica_account(cls, email_destinatario):
+        pass
+
+    @classmethod
+    def invia_email_crea_account(cls, email_destinatario):
+        pass
+
+    @classmethod
+    def invia_email_ricarica_portafoglio(cls, email_destinatario):
+        pass
+
+
+    #TODO questa la inserirei nella classe gestore cliente
     @classmethod
     def verifica_codice_recupero_password(cls, email, codice_da_verificare, nuova_pwd, conferma_nuova_pwd):
         if cls.codice_di_verifica != codice_da_verificare:
