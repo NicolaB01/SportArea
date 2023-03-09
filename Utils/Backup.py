@@ -22,7 +22,7 @@ class Backup:
             pickle.dump(self.ricevute, f)
 
     def backup_daily(self):
-        schedule.every().day.at("00:00").do(self.esegui_backup)
+        schedule.every().day.at("23:30").do(self.esegui_backup)
         while True:
             schedule.run_pending()
             time.sleep(1)
