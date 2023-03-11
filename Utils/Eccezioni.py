@@ -98,3 +98,9 @@ class ExceptionEmailUtilizzata(Exception):
     def __init__(self, msg):
         super().__init__(msg)
 
+class ExceptionNomeCampoUtilizzato(Exception):
+    def __init__(self, msg):
+        super().__init__(msg)
+
+
+

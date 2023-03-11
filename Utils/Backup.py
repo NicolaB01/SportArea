@@ -1,10 +1,11 @@
-import pickle
+import datetime
+import os
 import shutil
 
 from Gestore.Gestore_campo import Gestore_campo
 from Gestore.Gestore_cliente import Gestore_cliente
 from Gestore.Gestore_ricevuta import Gestore_ricevuta
-from Path.Path_database import PATH_BACKUP
+from Path.Path_database import PATH_BACKUP, PATH_DATI
 
 
 class Backup:
@@ -15,4 +16,6 @@ class Backup:
 
     @classmethod
     def esegui_backup(cls):
-        pass
+        file_name = datetime.datetime.now().strftime("%d_%b_%Y")
+        percorsoBackup = os.path.join(PATH_BACKUP, file_name)
+        shutil.copytree(PATH_DATI, percorsoBackup)
