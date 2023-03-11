@@ -52,7 +52,7 @@ class Cerca_disponibilita(QMainWindow):
             Gestore_prenotazione.is_ora_passata(data_attività)
             Gestore_prenotazione.is_data_festiva(data_attività)
 
-            self.prenotazioni_filtrate_diponibili = Gestore_prenotazione.filtra_prenotazione(attività, data_attività)
+            self.prenotazioni_filtrate_diponibili = Gestore_prenotazione.get_fasce_orarie_disponibili(attività, data_attività)
             self.riempi_scrollArea()
 
         except ExceptionDataPassata as e:
@@ -63,7 +63,7 @@ class Cerca_disponibilita(QMainWindow):
             vertical_layout.addWidget(self.crea_label_errore(e.__str__()))
             self.scrollArea_prenotazioni.setWidget(scroll_area_widget_contents)
         except ExceptionOra:
-            self.prenotazioni_filtrate_diponibili = Gestore_prenotazione.filtra_prenotazione(attività, datetime.datetime(datetime.datetime.now().year, datetime.datetime.now().month, datetime.datetime.now().day, datetime.datetime.now().hour + 1))
+            self.prenotazioni_filtrate_diponibili = Gestore_prenotazione.get_fasce_orarie_disponibili(attività, datetime.datetime(datetime.datetime.now().year, datetime.datetime.now().month, datetime.datetime.now().day, datetime.datetime.now().hour + 1))
             self.riempi_scrollArea()
 
     def riempi_scrollArea(self):

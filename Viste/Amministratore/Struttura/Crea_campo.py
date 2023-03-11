@@ -1,11 +1,12 @@
 import time
 
 from PyQt6 import uic
-from PyQt6.QtWidgets import QMainWindow
+from PyQt6.QtWidgets import QMainWindow, QMessageBox
 
 from Attivita.Campo import Campo
 from Gestore.Gestore_campo import Gestore_campo
 from Path.Path_viste import PATH_CREA_CAMPO
+from Utils.Eccezioni import ExceptionNomeCampoUtilizzato
 
 
 class Crea_campo(QMainWindow):
@@ -23,7 +24,10 @@ class Crea_campo(QMainWindow):
         prezzo =  self.doubleSpinBox_prezzo.value()
         attività = self.lineEdit_attivita.text().strip().capitalize()
 
-        Campo.crea_campo(nome, numero_max_partecipanti, prezzo, attività)
+        try:
+            Campo.crea_campo(nome, numero_max_partecipanti, prezzo, attività)
+        except ExceptionNomeCampoUtilizzato as e:
+            QMessageBox.warning(self, "Attenzione", e.__str__())
 
         self.torna_indietro()
 
