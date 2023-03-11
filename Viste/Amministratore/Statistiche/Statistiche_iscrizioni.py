@@ -29,17 +29,16 @@ class Grafico_iscrizioni(FigureCanvas):
         self.axes.set_ylabel("Numero di iscritti")
 
         self.axes.clear()
-        if anno in self.statistiche_iscrizioni.keys():
-            self.axes.bar(self.statistiche_iscrizioni[anno].keys(), self.statistiche_iscrizioni[anno].values(), label="Iscrizioni", color="royalblue")
-            self.axes.axhline(Gestore_statistiche.iscrizioni_medie_annuali(anno), color="r", label="Media")
-            self.axes.legend(facecolor='#A5C9CA', framealpha=0)
-            self.axes.margins(0.2, 0.2)
+        self.axes.bar(self.statistiche_iscrizioni[anno].keys(), self.statistiche_iscrizioni[anno].values(), label="Iscrizioni", color="royalblue")
+        self.axes.axhline(Gestore_statistiche.iscrizioni_medie_annuali(anno), color="r", label="Media")
+        self.axes.legend(facecolor='#A5C9CA', framealpha=0)
+        self.axes.margins(0.2, 0.2)
 
-            barre = self.axes.patches
-            for rect, label in zip(barre, self.statistiche_iscrizioni[anno].values()):
-                height = rect.get_height()
-                if label:
-                    self.axes.text(rect.get_x() + rect.get_width() / 2, height + 0.01, int(label), ha="center", va="bottom")
+        barre = self.axes.patches
+        for rect, label in zip(barre, self.statistiche_iscrizioni[anno].values()):
+            height = rect.get_height()
+            if label:
+                self.axes.text(rect.get_x() + rect.get_width() / 2, height + 0.01, int(label), ha="center", va="bottom")
 
         self.draw()
 

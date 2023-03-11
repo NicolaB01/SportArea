@@ -13,7 +13,7 @@ class Grafico_età_media(FigureCanvas):
         self.fig = Figure(figsize=(10, 3), dpi=90)
         super(Grafico_età_media, self).__init__(self.fig)
         self.axes = self.fig.add_subplot(111)
-        self.statistiche_età = Gestore_statistiche.stat_anagrafiche()
+        self.statistiche_età = Gestore_statistiche.get_statistiche_età()
 
     def update_chart(self):
         self.fig.set_facecolor("#A5C9CA")
@@ -27,7 +27,6 @@ class Grafico_età_media(FigureCanvas):
         self.axes.axvline(Gestore_statistiche.età_media(), color = "r", label="Età media")
         self.axes.legend(facecolor='#A5C9CA', framealpha=0)
         self.axes.set_xticks(np.arange(0, 100, 5))
-
 
         self.draw()
 

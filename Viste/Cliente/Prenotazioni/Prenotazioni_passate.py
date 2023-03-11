@@ -47,6 +47,5 @@ class Prenotazioni_passate(QMainWindow):
         return prenotazione_passata
 
     def torna_indietro(self):
-        self.pagina_precedente.refresh()
         self.pagina_precedente.show()
         self.close()

@@ -28,12 +28,11 @@ class Grafico_fatturato(FigureCanvas):
 
         self.axes.clear()
 
-        if anno in self.statistiche_fatturato.keys():
-            media = Gestore_statistiche.guadagno_medio_annuale(anno)
-            self.axes.plot(self.statistiche_fatturato[anno].keys(), self.statistiche_fatturato[anno].values(), label="Incassi", marker=".", color="royalblue")
-            self.axes.fill_between(self.statistiche_fatturato[anno].keys(), self.statistiche_fatturato[anno].values(), media, alpha=0.1, color="royalblue")
-            self.axes.axhline(media, color="r", label="Media")
-            self.axes.legend(facecolor='#A5C9CA', framealpha=0)
+        media = Gestore_statistiche.guadagno_medio_annuale(anno)
+        self.axes.plot(self.statistiche_fatturato[anno].keys(), self.statistiche_fatturato[anno].values(), label="Incassi", marker=".", color="royalblue")
+        self.axes.fill_between(self.statistiche_fatturato[anno].keys(), self.statistiche_fatturato[anno].values(), media, alpha=0.1, color="royalblue")
+        self.axes.axhline(media, color="r", label="Media")
+        self.axes.legend(facecolor='#A5C9CA', framealpha=0)
 
         self.draw()
 
@@ -46,10 +45,11 @@ class Statistiche_fatturato(QMainWindow):
         self.anno.setText(str(datetime.datetime.now().year))
         self.statistiche_fatturato = Gestore_statistiche.stat_bilancio()
 
-        self.grafico = Grafico_fatturato()
+        grafico = Grafico_fatturato()
         self.grafico.update_chart(self.anno.text())
         vertical_layout = QVBoxLayout(self.frame_grafico)
-        vertical_layout.addWidget(self.grafico)
+        vertical_layout.addWidget(grafico)
+
 
         self.refresh()
 
@@ -60,12 +60,8 @@ class Statistiche_fatturato(QMainWindow):
     def refresh(self):
         anno_ricerca = int(self.anno.text())
 
-        if anno_ricerca in self.statistiche_fatturato.keys():
-            self.fatturato_annuo.setText(str(Gestore_statistiche.guadagno_annuale(anno_ricerca)))
-            self.fatturato_medio.setText(str(round(Gestore_statistiche.guadagno_medio_annuale(anno_ricerca), 2)))
-        else:
-            self.fatturato_annuo.setText(str(0))
-            self.fatturato_medio.setText(str(0))
+        self.fatturato_annuo.setText(str(Gestore_statistiche.guadagno_annuale(anno_ricerca)))
+        self.fatturato_medio.setText(str(round(Gestore_statistiche.guadagno_medio_annuale(anno_ricerca), 2)))
 
         if anno_ricerca-1 in self.statistiche_fatturato.keys():
             self.pushButton_prima.setEnabled(True)

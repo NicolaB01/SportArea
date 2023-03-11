@@ -116,7 +116,7 @@ class Prenota(QMainWindow):
 
     def conferma_prenotazione(self):
         if self.aggiungi_partecipanti:
-            prenotazione = Gestore_prenotazione.filtra_prenotazione_data(self.campo, self.data)
+            prenotazione = Gestore_prenotazione.cerca_prenotazione(self.campo, self.data)
             prenotazione.partecipanti = self.partecipanti
             prenotazione.salva_prenotazione()
             self.torna_indietro()
@@ -124,7 +124,7 @@ class Prenota(QMainWindow):
             try:
                 Gestore_cliente.get_account_connesso().preleva(self.campo.get_prezzo())
                 Prenotazione.crea_prenotazione(self.campo, self.data, self.partecipanti)
-                threading.Thread(target=Gestore_email.invia_email_prenotazione, args=(Gestore_cliente.get_account_connesso(), Gestore_prenotazione.filtra_prenotazione_data(self.campo, self.data), self.campo.get_attività())).start()
+                threading.Thread(target=Gestore_email.invia_email_prenotazione, args=(Gestore_cliente.get_account_connesso(), Gestore_prenotazione.cerca_prenotazione(self.campo, self.data), self.campo.get_attività())).start()
                 self.home_cliente.show()
                 self.close()
             except ExceptionSaldoInsufficente as e:

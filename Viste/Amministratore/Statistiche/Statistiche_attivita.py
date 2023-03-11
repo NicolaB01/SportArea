@@ -28,8 +28,7 @@ class Grafico_attività(FigureCanvas):
         if self.pie:
             self.axes.clear()
 
-        if anno in self.statistiche_attività.keys():
-            self.pie = self.axes.pie(self.statistiche_attività[anno].values(), wedgeprops={"edgecolor": "black"}, labels=self.statistiche_attività[anno].keys(), autopct="%1.1f%%")
+        self.pie = self.axes.pie(self.statistiche_attività[anno].values(), wedgeprops={"edgecolor": "black"}, labels=self.statistiche_attività[anno].keys(), autopct="%1.1f%%")
 
         self.draw()
 

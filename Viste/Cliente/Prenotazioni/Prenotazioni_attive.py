@@ -1,5 +1,4 @@
 import datetime
-import multiprocessing
 
 from PyQt6 import uic
 from PyQt6.QtCore import Qt
@@ -20,8 +19,6 @@ class Prenotazioni_attive(QMainWindow):
         super().__init__()
         uic.loadUi(PATH_PRENOTAZIONI_ATTIVE, self)
         self.pagina_precedente = pagina_precedente
-        self.nuovo_processo = multiprocessing.Process(target=Gestore_prenotazione.controlla_scadenza_prenotazioni)
-        self.nuovo_processo.start()
 
         self.refresh()
 
@@ -81,7 +78,7 @@ class Prenotazioni_attive(QMainWindow):
                 data_prenotazione = datetime.datetime(int(anno), int(mese), int(giorno), int(ora))
                 try:
                     Gestore_prenotazione.is_modificabile(data_prenotazione)
-                    prenotazione = Gestore_prenotazione.filtra_prenotazione_data(Gestore_campo.cerca_campo(nome_campo), data_prenotazione)
+                    prenotazione = Gestore_prenotazione.cerca_prenotazione(Gestore_campo.cerca_campo(nome_campo), data_prenotazione)
                     prezzo = Gestore_campo.cerca_campo(prenotazione.nome_campo).prezzo
                     Gestore_cliente.get_account_connesso().deposito(prezzo)
                     prenotazione.elimina_prenotazione()
@@ -92,9 +89,6 @@ class Prenotazioni_attive(QMainWindow):
         self.refresh()
 
     def torna_indietro(self):
-        self.pagina_precedente.refresh()
         self.pagina_precedente.show()
         self.close()
 
-    def closeEvent(self, event):
-        self.nuovo_processo.terminate()

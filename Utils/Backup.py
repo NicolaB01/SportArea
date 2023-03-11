@@ -1,7 +1,5 @@
 import pickle
-import time
-
-import schedule as schedule
+import shutil
 
 from Gestore.Gestore_campo import Gestore_campo
 from Gestore.Gestore_cliente import Gestore_cliente
@@ -15,14 +13,6 @@ class Backup:
         self.campi = Gestore_campo.get_campi()
         self.ricevute = Gestore_ricevuta.get_ricevute()
 
-    def esegui_backup(self):
-        with open(PATH_BACKUP, "wb") as f:
-            pickle.dump(self.clienti, f)
-            pickle.dump(self.campi, f)
-            pickle.dump(self.ricevute, f)
-
-    def backup_daily(self):
-        schedule.every().day.at("00:00").do(self.esegui_backup)
-        while True:
-            schedule.run_pending()
-            time.sleep(1)
+    @classmethod
+    def esegui_backup(cls):
+        pass

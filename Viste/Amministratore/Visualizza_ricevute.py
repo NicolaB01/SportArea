@@ -1,11 +1,8 @@
-import multiprocessing
-
 from PyQt6 import uic
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFont
 from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QLabel
 
-from Gestore.Gestore_prenotazione import Gestore_prenotazione
 from Gestore.Gestore_ricevuta import Gestore_ricevuta
 from Gestore.Gestore_viste import Gestore_viste
 from Path.Path_viste import PATH_VISUALIZZA_RICEVUTE
@@ -21,11 +18,7 @@ class Visualizza_ricevute(QMainWindow):
 
         self.pushButton_back.clicked.connect(self.torna_indietro)
 
-    #todo sposta la ricerca nella home dell'amministratore
     def setUp(self):
-        self.nuovo_processo = multiprocessing.Process(target=Gestore_prenotazione.controlla_scadenza_prenotazioni)
-        self.nuovo_processo.start()
-
         scroll_area_widget_contents = QWidget()
         vertical_layout = QVBoxLayout(scroll_area_widget_contents)
         vertical_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
@@ -52,6 +45,3 @@ class Visualizza_ricevute(QMainWindow):
     def torna_indietro(self):
         self.pagina_precedente.show()
         self.close()
-
-    def closeEvent(self, event):
-        self.nuovo_processo.terminate()
