@@ -1,6 +1,7 @@
 import os.path
 
-from Utils.Eccezioni import ExceptionCampoInesistente
+from Utils.Controller_path import Controller_path
+from Utils.Eccezioni import ExceptionCampoInesistente, ExceptionNomeCampoUtilizzato
 from Gestore.Gestore_campo import Gestore_campo
 
 
@@ -27,11 +28,12 @@ class Campo:
         campi = Gestore_campo.get_campi()
         try:
             Gestore_campo.cerca_campo(nome)
+            raise ExceptionNomeCampoUtilizzato("Nome campo già presente")
         except ExceptionCampoInesistente:
             nuovo_campo = Campo(nome, numero_max_partecipanti, prezzo, attività)
             campi.append(nuovo_campo)
             Gestore_campo.set_campi(campi)
-            open(nuovo_campo.path_prenotazioni, "x")
+            Controller_path.genera_path(nuovo_campo.path_prenotazioni)
 
     def elimina_campo(self):
         campi = Gestore_campo.get_campi()

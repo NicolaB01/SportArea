@@ -1,6 +1,7 @@
 import os
 import pickle
 
+from Utils.Controller_path import Controller_path
 from Utils.Eccezioni import ExceptionCampoInesistente
 from Path.Path_database import PATH_INFO_CAMPI
 
@@ -16,6 +17,8 @@ class Gestore_campo:
 
     @classmethod
     def get_campi(cls):
+        Controller_path.genera_path(PATH_INFO_CAMPI)
+
         if os.path.getsize(PATH_INFO_CAMPI) != 0:
             with open(PATH_INFO_CAMPI, "rb") as f:
                 return pickle.load(f)
@@ -23,5 +26,7 @@ class Gestore_campo:
 
     @classmethod
     def set_campi(cls, campi):
+        Controller_path.genera_path(PATH_INFO_CAMPI)
+
         with open(PATH_INFO_CAMPI, "wb") as f:
             pickle.dump(campi, f, pickle.HIGHEST_PROTOCOL)

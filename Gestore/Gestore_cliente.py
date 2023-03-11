@@ -3,6 +3,7 @@ import pickle
 import re
 
 from Gestore.Gestore_email import Gestore_email
+from Utils.Controller_path import Controller_path
 from Utils.Eccezioni import ExceptionNomeFormat, ExceptionCognomeFormat, ExceptionCFFormat, ExceptionEmailFormat, \
     ExceptionDataNascitaFormat, ExceptionTelefonoFormat, ExceptionPassword, \
     ExceptionEmailSconosciuta, ExceptionCodiceRecupero
@@ -40,6 +41,8 @@ class Gestore_cliente:
 
     @classmethod
     def get_clienti(cls):
+        Controller_path.genera_path(PATH_INFO_CLIENTI)
+
         if os.path.getsize(PATH_INFO_CLIENTI) != 0:
             with open(PATH_INFO_CLIENTI, "rb") as f:
                 return pickle.load(f)
@@ -47,16 +50,22 @@ class Gestore_cliente:
 
     @classmethod
     def set_clienti(cls, clienti):
+        Controller_path.genera_path(PATH_INFO_CLIENTI)
+
         with open(PATH_INFO_CLIENTI, "wb") as f:
             pickle.dump(clienti, f, pickle.HIGHEST_PROTOCOL)
 
     @classmethod
     def get_account_connesso(cls):
+        Controller_path.genera_path(PATH_ACCOUNT_CONNESSO)
+
         with open(PATH_ACCOUNT_CONNESSO, "rb") as f:
             return pickle.load(f)
 
     @classmethod
     def set_cliente_connesso(cls, cliente):
+        Controller_path.genera_path(PATH_ACCOUNT_CONNESSO)
+
         with open(PATH_ACCOUNT_CONNESSO, "wb") as f:
             pickle.dump(cliente, f, pickle.HIGHEST_PROTOCOL)
 
