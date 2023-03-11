@@ -48,7 +48,7 @@ class Gestore_statistiche:
         return ricavo/cls.NUMERO_MESI
 
     @classmethod
-    def stat_anagrafiche(cls):
+    def get_statistiche_età(cls):
         clienti = Gestore_cliente.get_clienti()
         età_clienti = []
         for cliente in clienti:
@@ -58,7 +58,7 @@ class Gestore_statistiche:
 
     @classmethod
     def età_media(cls):
-        età_clienti = cls.stat_anagrafiche()
+        età_clienti = cls.get_statistiche_età()
         età_totale = 0
         for età in età_clienti:
             età_totale += età

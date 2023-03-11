@@ -10,24 +10,20 @@ from Gestore.Gestore_cliente import Gestore_cliente
 
 
 class Gestore_prenotazione:
-    #todo cerca prenotazione controlla le prenotazioni di un campo e ti da la prenotazione relativa ad un ora come la chiamiamo cerca_prenotazione o bo scirivi qua
+    # todo cambialo nel pdf coglione era filtra prenotazione data
     @classmethod
-    def filtra_prenotazione_data(cls, campo, data):
+    def cerca_prenotazione(cls, campo, data):
         prenotazioni = cls.get_prenotazioni_campo(campo)
         for prenotazione in prenotazioni:
-            if prenotazione.get_data_attività() == data:
+            if prenotazione.get_data_attività().__eq__(data):
                 return prenotazione
 
         raise ExceptionPrenotazioneInesistente()
 
-    #TODO cambia nome + dividi un 2 metodi se capisci che fa, questa da una lista con le fasce orarie disponibili
+   #todo cambialo nel pdf e pure qui coglione era filtra prenotazione, return {camp01:[9,10,12,20], campo2:[8,9,10,11], campo3:[]}
     @classmethod
     def filtra_prenotazione(cls, attività, data):
-        campi_idonei = []
-        campi = Gestore_campo.get_campi()
-        for campo in campi:
-            if campo.get_attività() == attività:
-                campi_idonei.append(campo)
+        campi_idonei = cls.campi_idonei_attività(attività)
 
         prenotazioni_disponibili = {}
         for campo in campi_idonei:
@@ -40,6 +36,16 @@ class Gestore_prenotazione:
             prenotazioni_disponibili[campo.get_nome_campo()] = lista_ore
 
         return prenotazioni_disponibili
+
+    @classmethod
+    def campi_idonei_attività(cls, attività):
+        campi_idonei = []
+        campi = Gestore_campo.get_campi()
+        for campo in campi:
+            if campo.get_attività() == attività:
+                campi_idonei.append(campo)
+
+        return campi_idonei
 
     @classmethod
     def get_prenotazioni_cliente_connesso(cls):
@@ -63,18 +69,11 @@ class Gestore_prenotazione:
         for campo in campi:
             prenotazioni = cls.get_prenotazioni_campo(campo)
             for prenotazione in prenotazioni:
-                if cls.scadenza_prenotazione(prenotazione):
+                if datetime.datetime.now() > prenotazione.get_data_attività():
+                    prenotazione.attiva = False
                     Ricevuta.crea(datetime.datetime.now(), campo.get_prezzo(), prenotazione)
 
             cls.set_prenotazioni_campo(campo, prenotazioni)
-
-    #todo non so come volevi dividerle tu i nomi so da cambia
-    @classmethod
-    def scadenza_prenotazione(cls, prenotazione):
-        if datetime.datetime.now() > prenotazione.get_data_attività():
-            prenotazione.attiva = False
-            return True
-        return False
 
     @classmethod
     def get_prenotazioni_campo(cls, campo):
@@ -112,7 +111,7 @@ class Gestore_prenotazione:
     @classmethod
     def imposta_partecipanti(cls, campo, data):
         try:
-            prenotazione = cls.filtra_prenotazione_data(campo, data)
+            prenotazione = cls.cerca_prenotazione(campo, data)
             return prenotazione.get_partecipanti()
         except ExceptionPrenotazioneInesistente:
             return []
