@@ -819,7 +819,7 @@ text-decoration: underline solid;
              </spacer>
             </item>
             <item>
-             <widget class="QPushButton" name="registrati">
+             <widget class="QPushButton" name="verifica">
               <property name="minimumSize">
                <size>
                 <width>130</width>
