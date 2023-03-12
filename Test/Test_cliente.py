@@ -10,17 +10,17 @@ from Utils.Eccezioni import ExceptionEmailSconosciuta, ExceptionPassword, Except
 
 class Test_cliente(unittest.TestCase):
     def test_registra_cliente(self):
-        Cliente.crea("nicola", "biagioli", "BBBBBBBBB", "nico@", "29/10/2001", 3334445556, "pwd123")
+        Cliente.crea_cliente("nicola", "biagioli", "BBBBBBBBB", "nico@", "29/10/2001", 3334445556, "pwd123")
         self.assertEqual(Gestore_cliente.cerca_account("nico@").get_nome(), "nicola")
         self.assertEqual(Gestore_cliente.cerca_account("nico@").get_saldo(), 0)
 
         with self.assertRaises(ExceptionEmailUtilizzata):
-            Cliente.crea("tommaso", "rossi", "MMMMMMMM", "nico@", "30/10/2008", 545654654, "123pwd")
+            Cliente.crea_cliente("tommaso", "rossi", "MMMMMMMM", "nico@", "30/10/2008", 545654654, "123pwd")
 
         shutil.rmtree(PATH_DATI, ignore_errors=True)
 
     def test_login_account(self):
-        Cliente.crea("nicola", "biagioli", "BBBBBBBBB", "nico@", "29/10/2001", 3334445556, "pwd123")
+        Cliente.crea_cliente("nicola", "biagioli", "BBBBBBBBB", "nico@", "29/10/2001", 3334445556, "pwd123")
         Gestore_cliente.login_account("nico@", "pwd123")
         self.assertEqual(Gestore_cliente.get_account_connesso().get_nome(), "nicola")
         self.assertEqual(Gestore_cliente.get_account_connesso().get_CF(), "BBBBBBBBB")
@@ -34,7 +34,7 @@ class Test_cliente(unittest.TestCase):
         shutil.rmtree(PATH_DATI, ignore_errors=True)
 
     def test_cerca_account(self):
-        Cliente.crea("nicola", "biagioli", "BBBBBBBBB", "nico@", "29/10/2001", 3334445556, "pwd123")
+        Cliente.crea_cliente("nicola", "biagioli", "BBBBBBBBB", "nico@", "29/10/2001", 3334445556, "pwd123")
         self.assertEqual(Gestore_cliente.cerca_account("nico@").get_nome(), "nicola")
 
         with self.assertRaises(ExceptionEmailSconosciuta):
@@ -43,7 +43,7 @@ class Test_cliente(unittest.TestCase):
         shutil.rmtree(PATH_DATI, ignore_errors=True)
 
     def test_modifica_account(self):
-        Cliente.crea("nicola", "biagioli", "BBBBBBBBB", "nico@", "29/10/2001", 3334445556, "pwd123")
+        Cliente.crea_cliente("nicola", "biagioli", "BBBBBBBBB", "nico@", "29/10/2001", 3334445556, "pwd123")
         Gestore_cliente.login_account("nico@", "pwd123")
         Cliente.modifica_account("tommaso", "rossi", "BBBBBBBBB", 3334445556, "pwd123", "10/12/2000")
         self.assertEqual(Gestore_cliente.cerca_account("nico@").get_nome(), "tommaso")
@@ -51,7 +51,7 @@ class Test_cliente(unittest.TestCase):
         shutil.rmtree(PATH_DATI, ignore_errors=True)
 
     def test_preleva(self):
-        Cliente.crea("nicola", "biagioli", "BBBBBBBBB", "nico@", "29/10/2001", 3334445556, "pwd123")
+        Cliente.crea_cliente("nicola", "biagioli", "BBBBBBBBB", "nico@", "29/10/2001", 3334445556, "pwd123")
         Gestore_cliente.login_account("nico@", "pwd123")
         cliente = Gestore_cliente.cerca_account("nico@")
         cliente.deposito(2000)
@@ -64,7 +64,7 @@ class Test_cliente(unittest.TestCase):
         shutil.rmtree(PATH_DATI, ignore_errors=True)
 
     def test_deposita(self):
-        Cliente.crea("nicola", "biagioli", "BBBBBBBBB", "nico@", "29/10/2001", 3334445556, "pwd123")
+        Cliente.crea_cliente("nicola", "biagioli", "BBBBBBBBB", "nico@", "29/10/2001", 3334445556, "pwd123")
         Gestore_cliente.login_account("nico@", "pwd123")
         cliente = Gestore_cliente.cerca_account("nico@")
         cliente.deposito(2000)
@@ -72,6 +72,6 @@ class Test_cliente(unittest.TestCase):
         shutil.rmtree(PATH_DATI, ignore_errors=True)
 
     def test_età_cliente(self):
-        Cliente.crea("nicola", "biagioli", "BBBBBBBBB", "nico@", "29/10/2001", 3334445556, "pwd123")
-        self.assertEqual(Gestore_cliente.cerca_account("nico@").età(), 21)
+        Cliente.crea_cliente("nicola", "biagioli", "BBBBBBBBB", "nico@", "29/10/2001", 3334445556, "pwd123")
+        self.assertEqual(Gestore_cliente.cerca_account("nico@").eta(), 21)
         shutil.rmtree(PATH_DATI, ignore_errors=True)

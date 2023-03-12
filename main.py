@@ -6,7 +6,7 @@ import schedule
 from PyQt6.QtWidgets import QApplication
 
 from Gestore.Gestore_prenotazione import Gestore_prenotazione
-from Utils.Backup import Backup
+from Gestore.Backup import Backup
 from Viste.Accesso.Home import Home
 
 schedule.every(5).seconds.do(Gestore_prenotazione.controlla_scadenza_prenotazioni)

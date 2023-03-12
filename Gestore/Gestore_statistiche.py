@@ -85,7 +85,7 @@ class Gestore_statistiche:
                 campo = Gestore_campo.cerca_campo(ricevuta.get_prenotazione().get_nome_campo())
 
                 attività.setdefault(anno_ricevute, attività_prenotazione)
-                if campo.get_attività() in attività[anno_ricevute].keys():
+                if campo.get_attivita() in attività[anno_ricevute].keys():
                     attività[anno_ricevute][campo.attività] += 1
 
                 attività[anno_ricevute].setdefault(campo.attività, 1)

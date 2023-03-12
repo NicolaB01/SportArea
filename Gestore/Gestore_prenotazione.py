@@ -44,7 +44,7 @@ class Gestore_prenotazione:
         campi_idonei = []
         campi = Gestore_campo.get_campi()
         for campo in campi:
-            if campo.get_attività() == attività:
+            if campo.get_attivita() == attività:
                 campi_idonei.append(campo)
 
         return campi_idonei
@@ -55,14 +55,14 @@ class Gestore_prenotazione:
         prenotazioni_per_campo = {}
         campi = Gestore_campo.get_campi()
         for campo in campi:
-            prenotazioni_effettuate = []
+            prenotazioni_effetuate = []
             prenotazioni = cls.get_prenotazioni_campo(campo)
             for prenotazione in prenotazioni:
                 if prenotazione.get_cliente().__eq__(Gestore_cliente.get_account_connesso()):
-                    prenotazioni_effettuate.append(prenotazione)
+                    prenotazioni_effetuate.append(prenotazione)
 
-            prenotazioni_effettuate.sort(key=lambda x: x.data_attività)
-            prenotazioni_per_campo[campo.get_nome_campo()] = prenotazioni_effettuate
+            prenotazioni_effetuate.sort(key=lambda x: x.data_attività)
+            prenotazioni_per_campo[campo.get_nome_campo()] = prenotazioni_effetuate
 
         return prenotazioni_per_campo
 
@@ -122,7 +122,7 @@ class Gestore_prenotazione:
         if data_attività.day == datetime.datetime.now().day and int(data_attività.strftime("%H")) - int(datetime.datetime.now().strftime("%H")) <= 5:
             raise ExceptionPreotazioneNonModificabile("La prenotazione non può essere modificata")
 
-    #Questo metodo ridà i partecipanti di una prenotazione
+    #Questo metodo ridà i partecipanti di una prenotzaione
     @classmethod
     def imposta_partecipanti(cls, campo, data):
         try:

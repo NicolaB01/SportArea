@@ -17,13 +17,13 @@ class Test_ricevuta(unittest.TestCase):
     def test_crea_ricevuta(self):
         Campo.crea_campo("messi", 22, 50, "calcio")
         campo = Gestore_campo.cerca_campo("messi")
-        Cliente.crea("nicola", "biagioli", "BBBBBBBBB", "nico@", "29/10/2001", 3334445556, "pwd123")
+        Cliente.crea_cliente("nicola", "biagioli", "BBBBBBBBB", "nico@", "29/10/2001", 3334445556, "pwd123")
         Gestore_cliente.login_account("nico@", "pwd123")
         Prenotazione.crea_prenotazione(campo, datetime.datetime(2023, 4, 15, 18, 00), None)
         prenotazione = Gestore_prenotazione.cerca_prenotazione(campo, datetime.datetime(2023, 4, 15, 18, 00))
 
-        Ricevuta.crea(datetime.datetime(2023, 2, 12, 18, 30), 100, prenotazione)
-        Ricevuta.crea(datetime.datetime(2023, 3, 12, 19, 30), 60, prenotazione)
+        Ricevuta.crea_ricevuta(datetime.datetime(2023, 2, 12, 18, 30), 100, prenotazione)
+        Ricevuta.crea_ricevuta(datetime.datetime(2023, 3, 12, 19, 30), 60, prenotazione)
 
         numero_ricevute = len(Gestore_ricevuta.get_ricevute())
 

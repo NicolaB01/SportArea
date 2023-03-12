@@ -13,7 +13,7 @@ from Path.Path_database import PATH_DATI
 
 class Test_prenotazione(unittest.TestCase):
     def test_crea_prenotazione(self):
-        Cliente.crea("nicola", "biagioli", "BBBBBBBBB", "nico@", "29/10/2001", 3334445556, "pwd123")
+        Cliente.crea_cliente("nicola", "biagioli", "BBBBBBBBB", "nico@", "29/10/2001", 3334445556, "pwd123")
         Gestore_cliente.login_account("nico@", "pwd123")
         Campo.crea_campo("messi", 22, 50, "calcio")
         campo = Gestore_campo.cerca_campo("messi")
@@ -24,7 +24,7 @@ class Test_prenotazione(unittest.TestCase):
         shutil.rmtree(PATH_DATI, ignore_errors=True)
 
     def test_cerca_prenotazione(self):
-        Cliente.crea("nicola", "biagioli", "BBBBBBBBB", "nico@", "29/10/2001", 3334445556, "pwd123")
+        Cliente.crea_cliente("nicola", "biagioli", "BBBBBBBBB", "nico@", "29/10/2001", 3334445556, "pwd123")
         Gestore_cliente.login_account("nico@", "pwd123")
         Campo.crea_campo("messi", 22, 50, "calcio")
         campo = Gestore_campo.cerca_campo("messi")
@@ -35,7 +35,7 @@ class Test_prenotazione(unittest.TestCase):
         shutil.rmtree(PATH_DATI, ignore_errors=True)
 
     def test_elimina_prenotazione(self):
-        Cliente.crea("nicola", "biagioli", "BBBBBBBBB", "nico@", "29/10/2001", 3334445556, "pwd123")
+        Cliente.crea_cliente("nicola", "biagioli", "BBBBBBBBB", "nico@", "29/10/2001", 3334445556, "pwd123")
         Gestore_cliente.login_account("nico@", "pwd123")
         Campo.crea_campo("messi", 22, 50, "calcio")
         campo = Gestore_campo.cerca_campo("messi")
@@ -50,7 +50,7 @@ class Test_prenotazione(unittest.TestCase):
         shutil.rmtree(PATH_DATI, ignore_errors=True)
 
     def test_get_fasce_orarie_disponibili(self):
-        Cliente.crea("nicola", "biagioli", "BBBBBBBBB", "nico@", "29/10/2001", 3334445556, "pwd123")
+        Cliente.crea_cliente("nicola", "biagioli", "BBBBBBBBB", "nico@", "29/10/2001", 3334445556, "pwd123")
         Gestore_cliente.login_account("nico@", "pwd123")
         Campo.crea_campo("messi", 22, 50, "calcio")
         campo = Gestore_campo.cerca_campo("messi")

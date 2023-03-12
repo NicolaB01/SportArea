@@ -17,18 +17,18 @@ class Test_statistiche(unittest.TestCase):
     def test_statistiche_fatturato(self):
         Campo.crea_campo("messi", 22, 50, "calcio")
         campo = Gestore_campo.cerca_campo("messi")
-        Cliente.crea("nicola", "biagioli", "BBBBBBBBB", "nico@", "29/10/2001", 3334445556, "pwd123")
+        Cliente.crea_cliente("nicola", "biagioli", "BBBBBBBBB", "nico@", "29/10/2001", 3334445556, "pwd123")
         Gestore_cliente.login_account("nico@", "pwd123")
         Prenotazione.crea_prenotazione(campo, datetime.datetime(2023, 4, 15, 18, 00), None)
         prenotazione_1 = Gestore_prenotazione.cerca_prenotazione(campo, datetime.datetime(2023, 4, 15, 18, 00))
 
-        Ricevuta.crea(datetime.datetime(2023, 2, 12, 18, 30), 100, prenotazione_1)
-        Ricevuta.crea(datetime.datetime(2023, 2, 12, 18, 30), 60, prenotazione_1)
+        Ricevuta.crea_ricevuta(datetime.datetime(2023, 2, 12, 18, 30), 100, prenotazione_1)
+        Ricevuta.crea_ricevuta(datetime.datetime(2023, 2, 12, 18, 30), 60, prenotazione_1)
 
         Prenotazione.crea_prenotazione(campo, datetime.datetime(2023, 10, 15, 18, 00), None)
         prenotazione_2 = Gestore_prenotazione.cerca_prenotazione(campo, datetime.datetime(2023, 10, 15, 18, 00))
 
-        Ricevuta.crea(datetime.datetime(2023, 3, 12, 19, 30), 200, prenotazione_2)
+        Ricevuta.crea_ricevuta(datetime.datetime(2023, 3, 12, 19, 30), 200, prenotazione_2)
 
         self.assertEqual(Gestore_statistiche.stat_bilancio(), {2023: {'Apr': 160,
                                                                         'Oct': 200,
@@ -48,38 +48,38 @@ class Test_statistiche(unittest.TestCase):
         shutil.rmtree(PATH_DATI, ignore_errors=True)
 
     def test_statistiche_età(self):
-        Cliente.crea("nicola", "biagioli", "BBBBBBBBB", "nico@", "29/10/2001", 3334445556, "pwd123")
-        Cliente.crea("tommaso", "rossi", "MMMMMMMM", "test@", "19/3/1998", 55566667778, "123pwd")
+        Cliente.crea_cliente("nicola", "biagioli", "BBBBBBBBB", "nico@", "29/10/2001", 3334445556, "pwd123")
+        Cliente.crea_cliente("tommaso", "rossi", "MMMMMMMM", "test@", "19/3/1998", 55566667778, "123pwd")
 
-        self.assertEqual(Gestore_statistiche.get_statistiche_età(), [21, 24])
+        self.assertEqual(Gestore_statistiche.get_statistiche_eta(), [21, 24])
         self.assertEqual(Gestore_statistiche.età_media(), 22.5)
         shutil.rmtree(PATH_DATI, ignore_errors=True)
 
     def test_statistiche_attività(self):
         Campo.crea_campo("messi", 22, 50, "calcio")
         campo_1 = Gestore_campo.cerca_campo("messi")
-        Cliente.crea("nicola", "biagioli", "BBBBBBBBB", "nico@", "29/10/2001", 3334445556, "pwd123")
+        Cliente.crea_cliente("nicola", "biagioli", "BBBBBBBBB", "nico@", "29/10/2001", 3334445556, "pwd123")
         Gestore_cliente.login_account("nico@", "pwd123")
         Prenotazione.crea_prenotazione(campo_1, datetime.datetime(2023, 4, 15, 18, 00), None)
         prenotazione_1 = Gestore_prenotazione.cerca_prenotazione(campo_1, datetime.datetime(2023, 4, 15, 18, 00))
 
-        Ricevuta.crea(datetime.datetime(2023, 2, 12, 18, 30), 100, prenotazione_1)
-        Ricevuta.crea(datetime.datetime(2023, 2, 12, 18, 30), 60, prenotazione_1)
+        Ricevuta.crea_ricevuta(datetime.datetime(2023, 2, 12, 18, 30), 100, prenotazione_1)
+        Ricevuta.crea_ricevuta(datetime.datetime(2023, 2, 12, 18, 30), 60, prenotazione_1)
 
         Campo.crea_campo("ronaldo", 2, 40, "padel")
         campo_2 = Gestore_campo.cerca_campo("ronaldo")
         Prenotazione.crea_prenotazione(campo_2, datetime.datetime(2023, 10, 15, 18, 00), None)
         prenotazione_2 = Gestore_prenotazione.cerca_prenotazione(campo_2, datetime.datetime(2023, 10, 15, 18, 00))
 
-        Ricevuta.crea(datetime.datetime(2023, 3, 12, 19, 30), 200, prenotazione_2)
+        Ricevuta.crea_ricevuta(datetime.datetime(2023, 3, 12, 19, 30), 200, prenotazione_2)
         self.assertEqual(Gestore_statistiche.stat_attività(), {2023: {'calcio': 2, 'padel': 1}})
         self.assertEqual(Gestore_statistiche.prenotazioni_totali(), 3)
         self.assertEqual(Gestore_statistiche.prenotazioni_annuali(2023), 3)
         shutil.rmtree(PATH_DATI, ignore_errors=True)
 
     def test_statistiche_iscrizioni(self):
-        Cliente.crea("nicola", "biagioli", "BBBBBBBBB", "nico@", "29/10/2001", 3334445556, "pwd123")
-        Cliente.crea("tommaso", "rossi", "MMMMMMMM", "test@", "19/3/1998", 55566667778, "123pwd")
+        Cliente.crea_cliente("nicola", "biagioli", "BBBBBBBBB", "nico@", "29/10/2001", 3334445556, "pwd123")
+        Cliente.crea_cliente("tommaso", "rossi", "MMMMMMMM", "test@", "19/3/1998", 55566667778, "123pwd")
 
         self.assertEqual(Gestore_statistiche.stat_iscrizioni(), {2023: {'Apr': 0,
                                                                         'Oct': 0,

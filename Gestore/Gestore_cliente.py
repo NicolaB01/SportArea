@@ -84,7 +84,7 @@ class Gestore_cliente:
 
     #Questo metodo controlla che il cognome passato sia almeno di 3 caratteri
     @classmethod
-    def check_congome(cls, cognome):
+    def check_cognome(cls, cognome):
         if len(cognome) < 3:
             raise ExceptionCognomeFormat("Il cognome è troppo corto")
 
