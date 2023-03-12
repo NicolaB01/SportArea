@@ -33,7 +33,7 @@ class Menu_statistiche(QMainWindow):
             QMessageBox.warning(self, "Attenzione!", "Non ci sono statistiche relative alle iscrizioni")
 
     def statistiche_eta(self):
-        if len(Gestore_statistiche.get_statistiche_età()):
+        if len(Gestore_statistiche.get_statistiche_eta()):
             self.stat2 = Statistiche_eta(self)
             self.stat2.show()
             self.close()

@@ -50,7 +50,7 @@ class Prenota(QMainWindow):
         vertical_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
 
         for amico in Gestore_cliente.get_account_connesso().get_amici_attivi():
-            vertical_layout.addWidget(self.crea_checkBox(amico.email, amico.nome, amico.cognome))
+            vertical_layout.addWidget(self.crea_checkBox(amico.get_email(), amico.get_nome(), amico.get_cognome()))
 
         if len(scroll_area_widget_contents.findChildren(QCheckBox)) == 0:
             vertical_layout.addWidget(Gestore_viste.crea_label_comunicazione_cliente("Nesun amico trovato"))
@@ -107,8 +107,8 @@ class Prenota(QMainWindow):
         try:
             if self.lineEdit_email.text():
                 account = Gestore_cliente.cerca_account(self.lineEdit_email.text())
-                if account.email not in self.partecipanti and not account.__eq__(Gestore_cliente.get_account_connesso()):
-                    self.partecipanti.append(account.email)
+                if account.get_email() not in self.partecipanti and not account.__eq__(Gestore_cliente.get_account_connesso()):
+                    self.partecipanti.append(account.get_email)
         except ExceptionEmailSconosciuta as e:
             QMessageBox.warning(self, "Attenzione", e.__str__())
 

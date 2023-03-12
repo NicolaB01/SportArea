@@ -38,7 +38,7 @@ class Gestione_amici_attesa(QMainWindow):
         checkBox_richiesta = QCheckBox()
 
         checkBox_richiesta.setFont(QFont("Arial", 14, 50, False))
-        checkBox_richiesta.setObjectName(amico_attesa.email)
+        checkBox_richiesta.setObjectName(amico_attesa.get_email)
         checkBox_richiesta.setStyleSheet("background-color:rgba(255, 255, 255, 0);\n"
                                          "padding:5px;\n"
                                          "border-radius:20px;\n"

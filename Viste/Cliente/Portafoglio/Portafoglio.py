@@ -26,7 +26,7 @@ class Portafoglio(QMainWindow):
     def ricarica(self):
         importo = self.doubleSpinBox_ricarica.value()
         self.cliente.deposito(importo)
-        threading.Thread(target=Gestore_email.invia_email_ricarica_portafoglio, args=(self.cliente.get_email(), importo)).start()
+        threading.Thread(target=Gestore_email.invia_email_ricarica_portafoglio, args=(self.cliente, importo)).start()
         self.doubleSpinBox_ricarica.setValue(0.0)
         self.refresh()
 

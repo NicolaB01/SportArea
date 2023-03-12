@@ -43,14 +43,14 @@ class Modifica_account(QMainWindow):
 
         try:
             Gestore_cliente.check_nome(nuovo_nome)
-            Gestore_cliente.check_congome(nuovo_cognome)
+            Gestore_cliente.check_cognome(nuovo_cognome)
             Gestore_cliente.check_CF(nuovo_CF)
             Gestore_cliente.check_data_nascita(nuova_data_nascita)
             Gestore_cliente.check_teleono(nuovo_telefono)
             Gestore_cliente.check_pwd(nuova_password, nuova_password_conferma)
 
             Cliente.modifica_account(nuovo_nome, nuovo_cognome, nuovo_CF, nuovo_telefono, nuova_password, nuova_data_nascita)
-            threading.Thread(target=Gestore_email.invia_email_modifica_account, args=(Gestore_cliente.get_account_connesso().get_email(),)).start()
+            threading.Thread(target=Gestore_email.invia_email_modifica_account, args=(Gestore_cliente.get_account_connesso(),)).start()
             self.pagina_precedente.refresh()
             self.torna_indietro()
 

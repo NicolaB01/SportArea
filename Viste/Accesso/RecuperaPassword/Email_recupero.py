@@ -25,7 +25,7 @@ class Email_recupero(QMainWindow):
         try:
             Gestore_cliente.cerca_account(email)
 
-            threading.Thread(target=Gestore_email.invia_email_recupero_pwd, args=(email,)).start()
+            threading.Thread(target=Gestore_email.invia_email_recupero_pwd, args=(Gestore_cliente.cerca_account(email),)).start()
             self.conferma_codice_recupero = Codice_recupero(self.pagina_precedente, email)
             self.conferma_codice_recupero.show()
             self.close()

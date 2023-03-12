@@ -27,7 +27,8 @@ class Prenotazioni_passate(QMainWindow):
         for nome_campo, prenotazioni_effettuate in Gestore_prenotazione.get_prenotazioni_cliente_connesso().items():
             for prenotazione in prenotazioni_effettuate:
                 if not prenotazione.attiva:
-                    vertical_layout.addWidget(self.crea_label_prenotazione_passata(nome_campo, prenotazione.get_data_attività()))
+                    vertical_layout.addWidget(self.crea_label_prenotazione_passata(nome_campo,
+                                                                                   prenotazione.get_data_attivita()))
 
         if len(scroll_area_widget_contents.findChildren(QLabel)) == 0:
             vertical_layout.addWidget(Gestore_viste.crea_label_comunicazione_cliente("Non ci sono prenotazioni Passate"))

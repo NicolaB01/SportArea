@@ -5,6 +5,7 @@ from Path.Path_database import PATH_DATI
 
 
 class Controller_path:
+    #Questo metodo crea le cartelle e i file atti alla memorizzazione dei dati
     @classmethod
     def genera_path(cls, path):
         if not os.path.isdir(PATH_DATI):

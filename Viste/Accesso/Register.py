@@ -30,14 +30,14 @@ class Register(QMainWindow):
 
         try:
             Gestore_cliente.check_nome(nome)
-            Gestore_cliente.check_congome(cognome)
+            Gestore_cliente.check_cognome(cognome)
             Gestore_cliente.check_CF(CF)
             Gestore_cliente.check_email(email)
             Gestore_cliente.check_data_nascita(data_nascita)
             Gestore_cliente.check_teleono(telefono)
             Gestore_cliente.check_pwd(password)
 
-            Cliente.crea(nome, cognome, CF, email, data_nascita, telefono, password)
+            Cliente.crea_cliente(nome, cognome, CF, email, data_nascita, telefono, password)
             threading.Thread(target=Gestore_email.invia_email_crea_account, args=(Gestore_cliente.cerca_account(email),)).start()
             self.torna_indietro()
 
