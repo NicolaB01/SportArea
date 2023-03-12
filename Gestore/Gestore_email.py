@@ -8,6 +8,7 @@ class Gestore_email:
     codice_di_verifica = None
     mittente = "nbiagioli01@gmail.com"
 
+    #Questo metodo permette l'invio di una email con i parametri forniti
     @classmethod
     def invia_mail(cls, email_destinatario, oggetto, soggetto):
         msg = MIMEMultipart()
@@ -25,17 +26,19 @@ class Gestore_email:
             except smtplib.SMTPRecipientsRefused:
                 pass
 
+    #Questo metodo invia una email relativa alla prenotazione effettuata
     @classmethod
     def invia_email_prenotazione(cls, destinatario, prenotazione, attività):
         soggetto = "Conferma prenotazione"
         oggetto = f"La tua prenotazione è stata effettuata correttamente.\n\n" \
                   f"Attività: {attività}\n" \
                   f"Nome campo: {prenotazione.get_nome_campo()}\n" \
-                  f"Data: {prenotazione.get_data_attività().strftime('%d/%m/%Y')}\n" \
-                  f"Ora: {prenotazione.get_data_attività().strftime('%H:%M')}\n" \
+                  f"Data: {prenotazione.get_data_attivita().strftime('%d/%m/%Y')}\n" \
+                  f"Ora: {prenotazione.get_data_attivita().strftime('%H:%M')}\n" \
 
         cls.invia_mail(destinatario.get_email(), oggetto, soggetto)
 
+    #Questo metodo invia una email al cliente che ha ricevuto una richiesta di amicizia
     @classmethod
     def invia_email_richiesta_amicizia(cls, destinatario):
         soggetto = "Richiesta amicizia"
@@ -43,6 +46,7 @@ class Gestore_email:
 
         cls.invia_mail(destinatario.get_email(), oggetto, soggetto)
 
+    #Questo metodo invia una email con il codice di recupero della password
     @classmethod
     def invia_email_recupero_pwd(cls, email_destinatario):
         cls.codice_di_verifica = " ".join([str(random.randint(0, 999)).zfill(3) for _ in range(2)])
@@ -52,6 +56,7 @@ class Gestore_email:
 
         cls.invia_mail(email_destinatario, oggetto, soggetto)
 
+    #Questo metodo invia una email relativa alla modifica dell'account
     @classmethod
     def invia_email_modifica_account(cls, email_destinatario):
         soggetto = "Modifica account"
@@ -59,6 +64,7 @@ class Gestore_email:
 
         cls.invia_mail(email_destinatario, oggetto, soggetto)
 
+    #Questo metodo invia una email al cliente appena effettua la registrazione
     @classmethod
     def invia_email_crea_account(cls, destinatario):
         soggetto = "Registraziona effettuata"
@@ -67,6 +73,7 @@ class Gestore_email:
 
         cls.invia_mail(destinatario.get_email(), oggetto, soggetto)
 
+    #Questo metodo invia una email ogni qualvolta si effettui una ricarica del saldo
     @classmethod
     def invia_email_ricarica_portafoglio(cls, email_destinatario, importo):
         soggetto = "Ricarica effettuata"

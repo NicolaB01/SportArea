@@ -7,6 +7,7 @@ class Gestore_amicizia:
         self.amico = Gestore_cliente.cerca_account(email_amico)
         self.account_connesso = Gestore_cliente.get_account_connesso()
 
+    #Questo metodo invia la richiesta di amicizia
     def invia_richiesta_amicizia(self):
         if self.amico.__eq__(self.account_connesso):
             raise ExceptionAmicizia("Non puoi mandare l'amicizia a te stesso")
@@ -20,6 +21,7 @@ class Gestore_amicizia:
         self.aggiungi_amico_attesa(self.amico, self.account_connesso)
         Gestore_cliente.salva_modifiche_account(self.amico)
 
+    #Questo metodo accetta l'amicizia inviata da un altro account
     def accetta_richiesta_amicizia(self):
         self.rimuovi_amico_attesa(self.account_connesso, self.amico)
         self.aggiungi_amico_attivi(self.account_connesso, self.amico)
@@ -28,11 +30,13 @@ class Gestore_amicizia:
         Gestore_cliente.salva_modifiche_account(self.account_connesso)
         Gestore_cliente.salva_modifiche_account(self.amico)
 
+    #Questo metodo rifiuta l'amicizia inviata da un altro account
     def rifiuta_richiesta_amicizia(self):
         self.rimuovi_amico_attesa(self.account_connesso, self.amico)
 
         Gestore_cliente.salva_modifiche_account(self.account_connesso)
 
+    #Questo metodo rimuove un account dalla lista degli amici attivi
     def rimuovi_amicizia(self):
         self.rimuovi_amico_attivi(self.account_connesso, self.amico)
         self.rimuovi_amico_attivi(self.amico, self.account_connesso)

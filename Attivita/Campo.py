@@ -23,6 +23,7 @@ class Campo:
         return isinstance(other,
                           Campo) and self.nome == other.nome and self.prezzo == other.prezzo and self.numero_max_partecipanti == other.numero_max_partecipanti and self.attività == other.attività
 
+    #Questo metodo permette la creazione di un campo con i parametri passati
     @classmethod
     def crea_campo(cls, nome, numero_max_partecipanti, prezzo, attività):
         campi = Gestore_campo.get_campi()
@@ -35,6 +36,7 @@ class Campo:
             Gestore_campo.set_campi(campi)
             Controller_path.genera_path(nuovo_campo.path_prenotazioni)
 
+    #Questo metodo permette la rimozione di un dato campo
     def elimina_campo(self):
         campi = Gestore_campo.get_campi()
         campi.remove(self)
@@ -59,8 +61,8 @@ class Campo:
     def set_prezzp(self, prezzo):
         self.prezzo = prezzo
 
-    def get_attività(self):
+    def get_attivita(self):
         return self.attività
 
-    def set_attività(self, attività):
+    def set_attivita(self, attività):
         self.attività = attività

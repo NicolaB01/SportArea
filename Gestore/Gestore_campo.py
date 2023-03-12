@@ -7,6 +7,7 @@ from Path.Path_database import PATH_INFO_CAMPI
 
 
 class Gestore_campo:
+    #Questo metodo permetta la ricerca di un campo attraverso il nome
     @classmethod
     def cerca_campo(cls, nome):
         campi = cls.get_campi()
@@ -15,6 +16,7 @@ class Gestore_campo:
                 return campo
         raise ExceptionCampoInesistente()
 
+    #Questo metodo restituisce tutti i campi salvati
     @classmethod
     def get_campi(cls):
         Controller_path.genera_path(PATH_INFO_CAMPI)
@@ -24,6 +26,7 @@ class Gestore_campo:
                 return pickle.load(f)
         return []
 
+    #Questo metodo permette il salvataggio dei campi su un file
     @classmethod
     def set_campi(cls, campi):
         Controller_path.genera_path(PATH_INFO_CAMPI)

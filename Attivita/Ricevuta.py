@@ -18,11 +18,13 @@ class Ricevuta():
         return isinstance(other,
                           Ricevuta) and self.prezzo == other.prezzo and self.prenotazione == other.prenotazione
 
+    #Questo metodo crea una ricevuta con i parametri forniti
     @classmethod
-    def crea(cls, data_emissione, prezzo, prenotazione):
+    def crea_ricevuta(cls, data_emissione, prezzo, prenotazione):
         ricevuta = Ricevuta(data_emissione, prezzo, prenotazione)
         ricevuta.salva_ricevuta()
 
+    #Questo metodo salva la ricevuta nel file
     def salva_ricevuta(self):
         ricevute = Gestore_ricevuta.get_ricevute()
 

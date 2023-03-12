@@ -31,8 +31,9 @@ class Cliente:
         return isinstance(other,
                           Cliente) and self.email == other.email
 
+    #Questo metodo crea un account con i parametri passati
     @classmethod
-    def crea(cls, nome, cognome, CF, email, data_nascita, telefono, pwd):
+    def crea_cliente(cls, nome, cognome, CF, email, data_nascita, telefono, pwd):
         try:
             Gestore_cliente.cerca_account(email)
             raise ExceptionEmailUtilizzata("Email già in uso")
@@ -42,6 +43,7 @@ class Cliente:
             clienti.append(nuovo_cliente)
             Gestore_cliente.set_clienti(clienti)
 
+    #Questo metodo modifica l'account connesso con i nuovo parametri
     @classmethod
     def modifica_account(cls, nuovo_nome, nuovo_cognome, nuovo_CF, nuovo_telefono, nuova_password, nuova_data_nascita):
         clienti = Gestore_cliente.get_clienti()
@@ -59,6 +61,7 @@ class Cliente:
 
         Gestore_cliente.salva_modifiche_account(account_connesso)
 
+    #Questo metodo effettua il prelievo di un importo dal saldo del cliente passato
     def preleva(self, prelievo):
         if prelievo > self.get_saldo():
             raise ExceptionSaldoInsufficente("Il tuo saldo è insufficente")
@@ -66,11 +69,13 @@ class Cliente:
         self.set_saldo(self.get_saldo() - prelievo)
         Gestore_cliente.salva_modifiche_account(self)
 
+    #Questo metodo effettua il deposito di un importo al saldo del cliente passato
     def deposito(self, deposito):
         self.set_saldo(self.get_saldo() + deposito)
         Gestore_cliente.salva_modifiche_account(self)
 
-    def età(self):
+    #Questo metodo ritorna l'eta del cliente
+    def eta(self):
         oggi = datetime.datetime.now()
         giorno, mese, anno = self.data_nascita.split('/')
         data_nascita = datetime.datetime(int(anno), int(mese), int(giorno))

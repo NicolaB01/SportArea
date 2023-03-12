@@ -23,6 +23,7 @@ class Prenotazione:
                self.data_attività == other.data_attività and \
                self.nome_campo == other.nome_campo
 
+    #Questo metodo crea una prenotazione con i parametri passati
     @classmethod
     def crea_prenotazione(cls, campo, data_attività, partecipanti):
         prenotazioni = Gestore_prenotazione.get_prenotazioni_campo(campo)
@@ -31,6 +32,7 @@ class Prenotazione:
 
         Gestore_prenotazione.set_prenotazioni_campo(campo, prenotazioni)
 
+    #Questo metodo elimina la prenotazione passata
     def elimina_prenotazione(self):
         campo = Gestore_campo.cerca_campo(self.get_nome_campo())
         prenotazioni = Gestore_prenotazione.get_prenotazioni_campo(campo)
@@ -38,6 +40,7 @@ class Prenotazione:
 
         Gestore_prenotazione.set_prenotazioni_campo(campo, prenotazioni)
 
+    #Questo metodo salava la prenotazione nel file
     def salva_prenotazione(self):
         campo = Gestore_campo.cerca_campo(self.get_nome_campo())
         prenotazioni = Gestore_prenotazione.get_prenotazioni_campo(campo)
@@ -51,10 +54,10 @@ class Prenotazione:
     def set_cliente(self, cliente):
         self.cliente = cliente
 
-    def get_data_attività(self):
+    def get_data_attivita(self):
         return self.data_attività
 
-    def set_data_attività(self, data_attività):
+    def set_data_attivita(self, data_attività):
         self.data_attività = data_attività
 
     def get_nome_campo(self):

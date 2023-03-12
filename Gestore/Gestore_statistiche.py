@@ -9,6 +9,7 @@ from Gestore.Gestore_ricevuta import Gestore_ricevuta
 class Gestore_statistiche:
     NUMERO_MESI = 12
 
+    #Questo metodo ridà il fatturato mensile di ogni anno di attività
     @classmethod
     def stat_bilancio(cls):
         ricevute = Gestore_ricevuta.get_ricevute()
@@ -31,6 +32,7 @@ class Gestore_statistiche:
 
         return entrate_annuali
 
+    #Questo metodo ridà il fatturato dell'anno passato come parametro
     @classmethod
     def guadagno_annuale(cls, anno):
         entrate_annuali = cls.stat_bilancio()
@@ -42,23 +44,26 @@ class Gestore_statistiche:
         else:
             raise ExceptionAnnoNonPresente
 
+    #Questo metodo ridà il fatturato medio dell'anno passato come parametro
     @classmethod
     def guadagno_medio_annuale(cls, anno):
         ricavo = cls.guadagno_annuale(anno)
         return ricavo/cls.NUMERO_MESI
 
+    #Questo metodo ridà la lista delle età di tutti i clienti salvati
     @classmethod
-    def get_statistiche_età(cls):
+    def get_statistiche_eta(cls):
         clienti = Gestore_cliente.get_clienti()
         età_clienti = []
         for cliente in clienti:
-            età_clienti.append(cliente.età())
+            età_clienti.append(cliente.eta())
 
         return età_clienti
 
+    #Questo metodo ridà l'età media di tutti i clienti salvati
     @classmethod
     def età_media(cls):
-        età_clienti = cls.get_statistiche_età()
+        età_clienti = cls.get_statistiche_eta()
         età_totale = 0
         for età in età_clienti:
             età_totale += età
@@ -67,13 +72,14 @@ class Gestore_statistiche:
             return età_totale/numero_clienti
         return numero_clienti
 
+    #Questo metodo ridà il numero di prenotazioni per attività, divise in anni
     @classmethod
     def stat_attività(cls):
         ricevute = Gestore_ricevuta.get_ricevute()
         attività = {}
 
         for ricevuta in ricevute:
-            anno_ricevute = int(ricevuta.get_prenotazione().get_data_attività().year)
+            anno_ricevute = int(ricevuta.get_prenotazione().get_data_attivita().year)
             attività_prenotazione = {}
             try:
                 campo = Gestore_campo.cerca_campo(ricevuta.get_prenotazione().get_nome_campo())
@@ -88,10 +94,12 @@ class Gestore_statistiche:
 
         return attività
 
+    #Questo metodo ridà il numero totale delle prenotazioni effettuate sull'applicazione
     @classmethod
     def prenotazioni_totali(cls):
         return len(Gestore_ricevuta.get_ricevute())
 
+    #Questo metodo ridà il numero totale delle prenotazioni nell'anno passato come parametro
     @classmethod
     def prenotazioni_annuali(cls, anno):
         prenotazioni = cls.stat_attività()
@@ -101,6 +109,7 @@ class Gestore_statistiche:
 
         return prenotazioni_annuali
 
+    #Questo metodo ridà le iscrizioni mensile di ogni anno di attività
     @classmethod
     def stat_iscrizioni(cls):
         clienti = Gestore_cliente.get_clienti()
@@ -122,6 +131,7 @@ class Gestore_statistiche:
 
         return iscrizioni_annuali
 
+    #Questo metodo il numero d'iscritti all'applicazione nell'anno passato come parametro
     @classmethod
     def iscrizioni_annuali(cls, anno):
         anno = int(anno)
@@ -135,6 +145,7 @@ class Gestore_statistiche:
         else:
             raise ExceptionAnnoNonPresente
 
+    #Questo metodo il numero medio d'iscritti all'applicazione nell'anno passato come parametro
     @classmethod
     def iscrizioni_medie_annuali(cls, anno):
         iscritti = cls.iscrizioni_annuali(anno)
