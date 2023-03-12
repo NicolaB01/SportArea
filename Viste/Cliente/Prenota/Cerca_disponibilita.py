@@ -35,6 +35,10 @@ class Cerca_disponibilita(QMainWindow):
 
         self.cerca_disponibilita()
 
+    #Quando il cliente cerca le fasce orarie disponibili per una certa attività, un certo giorno e da una
+    #determinata ora. Il sistema verifica che i parametri per la ricerca siano giusti, se è così allora comparirà a
+    #schermo una lista di prenotazioni disponibili relative alle fasce orarie disponibili. Altrimenti verrà
+    #visualizzata una finestra di errore.
     def cerca_disponibilita(self):
         self.giorno = int(self.calendarWidget.selectedDate().day())
         self.mese = int(self.calendarWidget.selectedDate().month())

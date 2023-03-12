@@ -14,9 +14,13 @@ class Codice_recupero(QMainWindow):
         self.email = email
         self.tenattivi = 3
 
-        self.registrati.clicked.connect(self.controlla_codice)
+        self.verifica.clicked.connect(self.controlla_codice)
         self.back.clicked.connect(self.torna_indietro)
 
+    #Il cliente immette il codice di recupero e la nuova password con la sua conferma, se tutto è corretto la
+    # password viene cambiata e si ritorna la login. Altrimenti se il codice è errato scalano i tentativi per poter
+    # reimpostare la password(massimo 3 tentativi). Le password se non rispettano i requisiti non comportano la
+    # diminuzione dei tentativi.
     def controlla_codice(self):
         nuova_pwd = self.pwd.text()
         conferma_nuova_pwd = self.conferma_pwd.text()

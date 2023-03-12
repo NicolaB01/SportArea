@@ -18,6 +18,7 @@ class Visualizza_clienti(QMainWindow):
 
         self.pushButton_back.clicked.connect(self.torna_indietro)
 
+    #
     def setup(self):
         scroll_area_widget_contents = QWidget()
         vertical_layout = QVBoxLayout(scroll_area_widget_contents)

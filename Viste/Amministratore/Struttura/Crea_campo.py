@@ -17,6 +17,8 @@ class Crea_campo(QMainWindow):
         self.pushButton_back.clicked.connect(self.torna_indietro)
         self.pushButton_conferma.clicked.connect(self.crea_campo)
 
+    #Quando l'amministratore vuole inserire un nuovo campo passando i parametri per la registrazione, se il nome
+    # del campo non è già in uso, il campo viene aggiungo ai campi disponibili.
     def crea_campo(self):
         nome = self.lineEdit_nomeCampo.text().strip().capitalize()
         numero_max_partecipanti = self.spinBox_partecipanti.value()

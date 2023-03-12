@@ -19,6 +19,7 @@ class Register(QMainWindow):
         self.pushButton_conferma.clicked.connect(self.registrati)
         self.back.clicked.connect(self.torna_indietro)
 
+    # Un cliente vuole creare un nuovo account e passa i nuovi dati, se giusti, l'account viene creato correttamente e si ritorna alla pagina di login
     def registrati(self):
         nome = self.lineEdit_nome.text().capitalize().strip()
         cognome = self.lineEdit_cognome.text().capitalize().strip()

@@ -54,6 +54,9 @@ class Prenotazioni_attive(QMainWindow):
         radio_button.setText(f"Attività: {campo.get_attività()}\nCampo: {campo.get_nome_campo()}\nData: {data_attività.strftime('%x')}\nOra: {data_attività.strftime('%H')}:00")
         return radio_button
 
+    #Quando il cliente vuole aggiungere un partecipante a una prenotazione attiva. Il sistema controlla che la
+    #prenotazione sia ancora modificabile, se è così apre un altra pagina per poter modificare i
+    #partecipanti alla prenotazione
     def aggiungi_partecipanti(self):
         scroll_area_widget_contents = self.scrollArea_ListaPrenotazioni.findChild(QWidget)
         for widget in scroll_area_widget_contents.findChildren(QRadioButton):
@@ -70,6 +73,9 @@ class Prenotazioni_attive(QMainWindow):
 
         self.refresh()
 
+    #Quando il cliente vuole eliinare una prenotazione attiva il sistema verifica che quest'ultima si ancora
+    #modificabile, se così è allora la prenotazioen viene rimossa con successo altrimenti comparirà a
+    # schermo una finestra di errore.
     def elimina_prenotazione(self):
         scroll_area_widget_contents = self.scrollArea_ListaPrenotazioni.findChild(QWidget)
         for widget in scroll_area_widget_contents.findChildren(QRadioButton):

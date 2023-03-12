@@ -33,6 +33,9 @@ class Menu_amicizia(QMainWindow):
         self.richieste_amicizia.show()
         self.close()
 
+    #Qaundo il cliente vuole mandare una richiesta di amicizia a un altro account. Il cliente inserisce la email
+    #dell'account a cui vuole mandare l'amicizia(se è corretta o non è presente già nella sua lista degli amici) la
+    #richiesta va a buon fine e il sistema manda una email al account che riceve la richiesta di amicizia.
     def manda_richiesta_amicizia(self):
         try:
             email = self.lineEdit_email.text()

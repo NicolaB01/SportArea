@@ -24,6 +24,9 @@ class Menu_statistiche(QMainWindow):
         self.fatturato.clicked.connect(self.statistiche_fatturato)
         self.back.clicked.connect(self.torna_indietro)
 
+    #Quando l'amministratore vuole vedere le statistiche relative alle iscrizioni e non ci sono dati disponibili il
+    # programma visualizza una finse tra di errore. Se i dati sono presenti si apre la pagina con il grafico delle
+    # statistiche
     def statistiche_iscrizioni(self):
         if datetime.datetime.now().year in Gestore_statistiche.stat_iscrizioni().keys():
             self.stat1 = Statistiche_iscrizioni(self)
@@ -32,6 +35,9 @@ class Menu_statistiche(QMainWindow):
         else:
             QMessageBox.warning(self, "Attenzione!", "Non ci sono statistiche relative alle iscrizioni")
 
+    # Quando l'amministratore vuole vedere le statistiche relative all'età dei clienti e non ci sono dati disponibili il
+    # programma visualizza una finse tra di errore. Se i dati sono presenti si apre la pagina con il grafico delle
+    # statistiche
     def statistiche_eta(self):
         if len(Gestore_statistiche.get_statistiche_eta()):
             self.stat2 = Statistiche_eta(self)
@@ -39,6 +45,10 @@ class Menu_statistiche(QMainWindow):
             self.close()
         else:
             QMessageBox.warning(self, "Attenzione!", "Non ci sono statistiche relative ai dati anagrafici")
+
+    # Quando l'amministratore vuole vedere le statistiche relative alle attività e non ci sono dati disponibili il
+    # programma visualizza una finse tra di errore. Se i dati sono presenti si apre la pagina con il grafico delle
+    # statistiche
     def statistiche_attivita(self):
         if datetime.datetime.now().year in Gestore_statistiche.stat_attività().keys():
             self.stat3 = Statistiche_attivita(self)
@@ -47,6 +57,9 @@ class Menu_statistiche(QMainWindow):
         else:
             QMessageBox.warning(self, "Attenzione!", "Non ci sono statistiche relative alle attività")
 
+    # Quando l'amministratore vuole vedere le statistiche relative al fatturato e non ci sono dati disponibili il
+    # programma visualizza una finse tra di errore. Se i dati sono presenti si apre la pagina con il grafico delle
+    # statistiche
     def statistiche_fatturato(self):
         if datetime.datetime.now().year in Gestore_statistiche.stat_bilancio().keys():
             self.stat4 = Statistiche_fatturato(self)

@@ -21,6 +21,10 @@ class Login(QMainWindow):
         self.recuperapwd.clicked.connect(self.recupera_pwd)
         self.back.clicked.connect(self.torna_indietro)
 
+    # si verificano due casi:
+    # se le credinziali inserite sono "admin" e "password", mostra il pannello di controllo amministratore
+    # se le credenziali inserite sono di un utente qualsiasi:
+    # controllo se esiste un cliente con tale credenziali, se esiste, mostro la homepage del cliente
     def login(self):
         email = self.email.text().strip()
         password = self.pwd.text()
@@ -35,6 +39,7 @@ class Login(QMainWindow):
             self.close()
             return True
         return False
+
 
     def login_cliente(self, email, password):
         try:

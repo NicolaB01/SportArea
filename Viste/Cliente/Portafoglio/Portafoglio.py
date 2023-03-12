@@ -23,6 +23,7 @@ class Portafoglio(QMainWindow):
     def refresh(self):
         self.label_saldo.setText(str(self.cliente.get_saldo()))
 
+    #Quando un cliente ricarica il proprio account il sistema invia una email con l'importo versato.
     def ricarica(self):
         importo = self.doubleSpinBox_ricarica.value()
         self.cliente.deposito(importo)

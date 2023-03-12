@@ -19,6 +19,8 @@ class Email_recupero(QMainWindow):
         self.registrati.clicked.connect(self.controlla_email)
         self.back.clicked.connect(self.torna_indietro)
 
+    # Qunado un cliente vuole cambiare password attraverso la email. Il programma controlla che esista un account con tale
+    # email, se esiste manda una mail con il codice di recupero della password. Fatto ciò apre una pagina per reimpostare la password.
     def controlla_email(self):
         email = self.email.text()
 

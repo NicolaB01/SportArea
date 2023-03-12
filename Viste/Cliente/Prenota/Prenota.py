@@ -114,6 +114,8 @@ class Prenota(QMainWindow):
 
         self.refresh()
 
+    #Quando il cliente conferma la prenotazione. Se il saldo è sufficente la prenotazione va a buon fine e il sistema
+    #invia una email al cliente con il resoconto della prenotazione. Altrimenti viene visualizzata una finestra di errore.
     def conferma_prenotazione(self):
         if self.aggiungi_partecipanti:
             prenotazione = Gestore_prenotazione.cerca_prenotazione(self.campo, self.data)

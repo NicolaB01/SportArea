@@ -32,6 +32,9 @@ class Modifica_account(QMainWindow):
         self.lineEdit_data.setText(cliente.get_data_nascita())
         self.lineEdit_telefono.setText(cliente.get_numero_telefono())
 
+    #Quando il cliente vuole modificare i dati del suo account. Inserisce i nuovi dati, che se corretti portano
+    #alla effettiva modifica dell'account, altrimenti verrà mostrata una finestra dfi errore. Dopo la modifica si
+    # ritorna alla finestra di visualizzazione dell'account.
     def modifica_account(self):
         nuovo_nome = self.lineEdit_nome.text().capitalize().strip()
         nuovo_cognome = self.lineEdit_cognome.text().capitalize().strip()
