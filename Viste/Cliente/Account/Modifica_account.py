@@ -16,12 +16,12 @@ class Modifica_account(QMainWindow):
         uic.loadUi(PATH_MODIFICA_ACCOUNT, self)
         self.pagina_precedente = pagina_precedente
 
-        self.setUp()
+        self.setup()
 
         self.pushButton_conferma.clicked.connect(self.modifica_account)
         self.back.clicked.connect(self.torna_indietro)
 
-    def setUp(self):
+    def setup(self):
         cliente = Gestore_cliente.get_account_connesso()
 
         self.lineEdit_nome.setText(cliente.get_nome())

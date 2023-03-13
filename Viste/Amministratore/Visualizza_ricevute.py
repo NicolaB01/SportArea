@@ -14,11 +14,11 @@ class Visualizza_ricevute(QMainWindow):
         uic.loadUi(PATH_VISUALIZZA_RICEVUTE, self)
         self.pagina_precedente = pagina_precedente
 
-        self.setUp()
+        self.setup()
 
         self.pushButton_back.clicked.connect(self.torna_indietro)
 
-    def setUp(self):
+    def setup(self):
         scroll_area_widget_contents = QWidget()
         vertical_layout = QVBoxLayout(scroll_area_widget_contents)
         vertical_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
