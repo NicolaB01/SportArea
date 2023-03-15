@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>780</width>
+    <height>500</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>780</width>
+    <height>500</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="minimumSize">
+    <size>
+     <width>780</width>
+     <height>500</height>
+    </size>
+   </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item row="0" column="0">
+     <widget class="QWidget" name="widget" native="true">
+      <property name="minimumSize">
+       <size>
+        <width>780</width>
+        <height>500</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(165, 201, 202);</string>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_6">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <spacer name="horizontalSpacer_5">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::MinimumExpanding</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>70</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_4">
+           <item>
+            <widget class="QLabel" name="title">
+             <property name="font">
+              <font>
+               <family>Arial</family>
+               <pointsize>50</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">
+color:rgb(44, 51, 51);</string>
+             </property>
+             <property name="text">
+              <string>SportArea</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="title2">
+             <property name="font">
+              <font>
+               <family>Arial</family>
+               <pointsize>30</pointsize>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">
+color:rgb(44, 51, 51);</string>
+             </property>
+             <property name="text">
+              <string>Campi</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignHCenter|Qt::AlignTop</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_10">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Expanding</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Minimum</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QWidget" name="widget_4" native="true">
+           <layout class="QVBoxLayout" name="verticalLayout_2">
+            <item>
+             <spacer name="verticalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Minimum</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>0</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QScrollArea" name="scrollArea_campi">
+              <property name="minimumSize">
+               <size>
+                <width>270</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <family>Arial</family>
+                <pointsize>16</pointsize>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="widgetResizable">
+               <bool>true</bool>
+              </property>
+              <widget class="QWidget" name="scrollAreaWidgetContents">
+               <property name="geometry">
+                <rect>
+                 <x>0</x>
+                 <y>0</y>
+                 <width>306</width>
+                 <height>236</height>
+                </rect>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout"/>
+              </widget>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_4">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Minimum</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_4">
+              <item>
+               <spacer name="horizontalSpacer_2">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_elimina">
+                <property name="minimumSize">
+                 <size>
+                  <width>110</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Arial</family>
+                  <pointsize>20</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QPushButton
+{
+
+background-color: rgba(255, 255, 255, 0);
+color:rgb(44, 51, 51);
+height:30px;
+width:55px;
+}
+QPushButton:hover
+{
+text-decoration: underline solid;
+background-color: rgba(255, 255, 255, 0);
+color: rgb(52, 119, 134);
+height:30px;
+width:55px;
+}
+QPushButton:pressed
+{
+
+color:rgb(44, 51, 51);
+height:30px;
+width:55px;
+}
+
+</string>
+                </property>
+                <property name="text">
+                 <string>Elimina </string>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>icons/bin.png</normaloff>icons/bin.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_4">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Minimum</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <spacer name="verticalSpacer">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Minimum</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout">
+              <item>
+               <spacer name="horizontalSpacer_9">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Expanding</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>15</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_back">
+                <property name="minimumSize">
+                 <size>
+                  <width>180</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Arial</family>
+                  <pointsize>20</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QPushButton
+{
+
+background-color: rgba(255, 255, 255, 0);
+color:rgb(44, 51, 51);
+height:30px;
+width:55px;
+}
+QPushButton:hover
+{
+text-decoration: underline solid;
+background-color: rgba(255, 255, 255, 0);
+color: rgb(52, 119, 134);
+height:30px;
+width:55px;
+}
+QPushButton:pressed
+{
+
+color:rgb(44, 51, 51);
+height:30px;
+width:55px;
+}
+
+</string>
+                </property>
+                <property name="text">
+                 <string>Torna indietro</string>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>icons/reply.png</normaloff>icons/reply.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_3">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_nuovo">
+                <property name="minimumSize">
+                 <size>
+                  <width>120</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Arial</family>
+                  <pointsize>20</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QPushButton
+{
+
+background-color: rgba(255, 255, 255, 0);
+color:rgb(44, 51, 51);
+height:30px;
+width:55px;
+}
+QPushButton:hover
+{
+text-decoration: underline solid;
+background-color: rgba(255, 255, 255, 0);
+color: rgb(52, 119, 134);
+height:30px;
+width:55px;
+}
+QPushButton:pressed
+{
+
+color:rgb(44, 51, 51);
+height:30px;
+width:55px;
+}
+
+</string>
+                </property>
+                <property name="text">
+                 <string>Nuovo</string>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>icons/plus.png</normaloff>icons/plus.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>22</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_3">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Minimum</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_6">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Minimum</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>17</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources>
+  <include location="test.qrc"/>
+ </resources>
+ <connections/>
+</ui>

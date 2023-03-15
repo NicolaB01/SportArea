@@ -1,0 +1,47 @@
+<RCC>
+  <qresource prefix="images">
+    <file>images/Screenshot 2022-12-31 alle 11.51.55_resized.png</file>
+  </qresource>
+  <qresource prefix="icons">
+    <file>icons/bin.png</file>
+    <file>icons/chat.png</file>
+    <file>icons/coin.png</file>
+    <file>icons/confirm.png</file>
+    <file>icons/delete-friend.png</file>
+    <file>icons/down-arrow.png</file>
+    <file>icons/dry-clean.png</file>
+    <file>icons/edit-button.png</file>
+    <file>icons/exit.png</file>
+    <file>icons/football-field.png</file>
+    <file>icons/football.png</file>
+    <file>icons/guideline.png</file>
+    <file>icons/happiness.png</file>
+    <file>icons/happy.png</file>
+    <file>icons/high-five.png</file>
+    <file>icons/hourglass.png</file>
+    <file>icons/information-sign.png</file>
+    <file>icons/information.png</file>
+    <file>icons/invoice.png</file>
+    <file>icons/key.png</file>
+    <file>icons/left-arrow.png</file>
+    <file>icons/log-in.png</file>
+    <file>icons/mail.png</file>
+    <file>icons/paddle.png</file>
+    <file>icons/piggybank.png</file>
+    <file>icons/plus.png</file>
+    <file>icons/reply.png</file>
+    <file>icons/right-arrow.png</file>
+    <file>icons/send.png</file>
+    <file>icons/statistics.png</file>
+    <file>icons/target.png</file>
+    <file>icons/teamwork.png</file>
+    <file>icons/telephone.png</file>
+    <file>icons/tennis.png</file>
+    <file>icons/to-do-list.png</file>
+    <file>icons/up-arrow (1).png</file>
+    <file>icons/up-arrow.png</file>
+    <file>icons/user.png</file>
+    <file>icons/verified.png</file>
+    <file>icons/write.png</file>
+  </qresource>
+</RCC>
