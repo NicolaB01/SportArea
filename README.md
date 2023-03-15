@@ -11,4 +11,4 @@ Per poter eseguire il software sul sistema operativo Mac OS occorre aver install
 * PyQt6
 * Mathplotlib
 
-> :warning: Se si desidera accedere sulla piattaforma come amministratore occorre inserire come **email** admin e come password **password**.
+> :warning: Se si desidera accedere sulla piattaforma come amministratore occorre inserire come email **admin** e come password **password**.
