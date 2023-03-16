@@ -45,10 +45,10 @@ class Statistiche_fatturato(QMainWindow):
         self.anno.setText(str(datetime.datetime.now().year))
         self.statistiche_fatturato = Gestore_statistiche.stat_bilancio()
 
-        grafico = Grafico_fatturato()
+        self.grafico = Grafico_fatturato()
         self.grafico.update_chart(self.anno.text())
         vertical_layout = QVBoxLayout(self.frame_grafico)
-        vertical_layout.addWidget(grafico)
+        vertical_layout.addWidget(self.grafico)
 
 
         self.refresh()
