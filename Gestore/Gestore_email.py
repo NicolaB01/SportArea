@@ -6,7 +6,7 @@ from email.mime.text import MIMEText
 
 class Gestore_email:
     codice_di_verifica = None
-    #va inserita la email del centro sportivo da cui partiranno le email
+    #va inserita l'email del centro sportivo da cui partiranno le comunicazioni
     mittente = ""
 
     #Questo metodo permette l'invio di una email con i parametri forniti
