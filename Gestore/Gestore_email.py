@@ -6,7 +6,8 @@ from email.mime.text import MIMEText
 
 class Gestore_email:
     codice_di_verifica = None
-    mittente = "nbiagioli01@gmail.com"
+    #va inserita la mail del centro sportivo da cui partiranno le email
+    mittente = ""
 
     #Questo metodo permette l'invio di una email con i parametri forniti
     @classmethod
@@ -20,11 +21,14 @@ class Gestore_email:
         with smtplib.SMTP("smtp.gmail.com", 587) as smtp:
             smtp.ehlo()
             smtp.starttls()
-            smtp.login(cls.mittente, "nxnbnjutflbvvugv")
             try:
+                #va inserita la password per le app della mail selezionata
+                smtp.login(cls.mittente, "")
                 smtp.send_message(msg)
+            except smtplib.SMTPAuthenticationError:
+                print("Inserire i dati di email e password del centro sportivo")
             except smtplib.SMTPRecipientsRefused:
-                pass
+                print("Invio fallito")
 
     #Questo metodo invia una email relativa alla prenotazione effettuata
     @classmethod
