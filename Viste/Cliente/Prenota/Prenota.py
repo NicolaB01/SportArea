@@ -36,8 +36,8 @@ class Prenota(QMainWindow):
     def refresh(self):
         self.label_attivita.setText(f"Attività: {self.campo.get_attivita()}")
         self.label_campo.setText(f"Campo: {self.campo.get_nome_campo()}")
-        self.label_ora.setText(f"Ora: {self.data.strftime('%H')}:00")
-        self.label_data.setText(f"Data: {self.data.strftime('%x')}")
+        self.label_ora.setText(f"Ora: {self.data.strftime('%H:00')}")
+        self.label_data.setText(f"Data: {self.data.strftime('%d/%m/%Y')}")
         self.label_Npartecipanti.setText(f"Numero partecipanti: {self.campo.get_numero_max_partecipanti()}")
         self.label_prezzo.setText(f"Prezzo: {self.campo.get_prezzo()}")
 

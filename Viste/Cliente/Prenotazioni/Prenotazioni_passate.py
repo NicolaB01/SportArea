@@ -44,7 +44,7 @@ class Prenotazioni_passate(QMainWindow):
                                    "border-radius:20px;\n"
                                    "border:2px solid rgb(152, 222, 217);\n"
                                    "color:rgb(22, 29, 111);")
-        prenotazione_passata.setText(f"Attività: {campo.get_attivita()}\nCampo: {campo.get_nome_campo()}\nData: {data_attivita.strftime('%x')}\nOra: {data_attivita.strftime('%H')}:00\nPrezzo: {campo.get_prezzo()} €")
+        prenotazione_passata.setText(f"Attività: {campo.get_attivita()}\nCampo: {campo.get_nome_campo()}\nData: {data_attivita.strftime('%d/%m/%Y')}\nOra: {data_attivita.strftime('%H:00')}\nPrezzo: {campo.get_prezzo()} €")
         return prenotazione_passata
 
     def torna_indietro(self):

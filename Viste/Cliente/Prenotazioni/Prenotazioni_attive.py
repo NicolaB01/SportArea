@@ -51,7 +51,7 @@ class Prenotazioni_attive(QMainWindow):
                                    "border-radius:20px;\n"
                                    "border:2px solid rgb(152, 222, 217);\n"
                                    "color:rgb(22, 29, 111);")
-        radio_button.setText(f"Attività: {campo.get_attivita()}\nCampo: {campo.get_nome_campo()}\nData: {data_attivita.strftime('%x')}\nOra: {data_attivita.strftime('%H')}:00")
+        radio_button.setText(f"Attività: {campo.get_attivita()}\nCampo: {campo.get_nome_campo()}\nData: {data_attivita.strftime('%d/%m/%Y')}\nOra: {data_attivita.strftime('%H:00')}")
         return radio_button
 
     #Quando il cliente vuole aggiungere un partecipante a una prenotazione attiva. Il sistema controlla che la

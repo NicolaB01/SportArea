@@ -52,7 +52,7 @@ class Cerca_disponibilita(QMainWindow):
         vertical_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
 
         try:
-            Gestore_prenotazione.is_data_passata(data_attivita)
+            #Gestore_prenotazione.is_data_passata(data_attivita)
             Gestore_prenotazione.is_ora_passata(data_attivita)
             Gestore_prenotazione.is_data_festiva(data_attivita)
 
