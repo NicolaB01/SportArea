@@ -330,14 +330,12 @@ QDoubleSpinBox:up-button
 width: 15px; 
 height: 15px;
 padding:5px;
-image: url(:/icons/icons/up-arrow.png);
 }
 QDoubleSpinBox:down-button
 {
 width: 15px; 
 height: 15px;
 padding:5px;
-image: url(:/icons/icons/down-arrow.png);
 }
 
 </string>
