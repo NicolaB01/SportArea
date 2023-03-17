@@ -11,7 +11,7 @@ class Gestore_statistiche:
 
     #Questo metodo ridà il fatturato mensile di ogni anno di attività
     @classmethod
-    def stat_bilancio(cls):
+    def get_statistiche_fatturato(cls):
         ricevute = Gestore_ricevuta.get_ricevute()
         entrate_annuali = {}
 
@@ -35,7 +35,7 @@ class Gestore_statistiche:
     #Questo metodo ridà il fatturato dell'anno passato come parametro
     @classmethod
     def guadagno_annuale(cls, anno):
-        entrate_annuali = cls.stat_bilancio()
+        entrate_annuali = cls.get_statistiche_fatturato()
         ricavo = 0
         if anno in entrate_annuali.keys():
             for incassi_mensili in entrate_annuali[anno].values():
@@ -74,7 +74,7 @@ class Gestore_statistiche:
 
     #Questo metodo ridà il numero di prenotazioni per attività, divise in anni
     @classmethod
-    def stat_attivita(cls):
+    def get_statistiche_attivita(cls):
         ricevute = Gestore_ricevuta.get_ricevute()
         attivita = {}
 
@@ -102,7 +102,7 @@ class Gestore_statistiche:
     #Questo metodo ridà il numero totale delle prenotazioni nell'anno passato come parametro
     @classmethod
     def prenotazioni_annuali(cls, anno):
-        prenotazioni = cls.stat_attivita()
+        prenotazioni = cls.get_statistiche_attivita()
         prenotazioni_annuali = 0
         for prenotazioni_mensili in prenotazioni[anno].values():
             prenotazioni_annuali += prenotazioni_mensili
@@ -111,7 +111,7 @@ class Gestore_statistiche:
 
     #Questo metodo ridà le iscrizioni mensile di ogni anno di attività
     @classmethod
-    def stat_iscrizioni(cls):
+    def get_statistiche_iscrizioni(cls):
         clienti = Gestore_cliente.get_clienti()
         iscrizioni_annuali = {}
         mesi = []
@@ -135,7 +135,7 @@ class Gestore_statistiche:
     @classmethod
     def iscrizioni_annuali(cls, anno):
         anno = int(anno)
-        iscrizioni_annuali = cls.stat_iscrizioni()
+        iscrizioni_annuali = cls.get_statistiche_iscrizioni()
         iscritti = 0
 
         if anno in iscrizioni_annuali.keys():
