@@ -11,11 +11,11 @@ from Path.Path_viste import PATH_STATISTICHE_ATTIVITA
 
 
 class Grafico_attivita(FigureCanvas):
-    def __init__(self):
+    def __init__(self,statistiche_prenotazioni):
         self.fig = Figure(figsize=(10, 3), dpi=90)
         super(Grafico_attivita, self).__init__(self.fig)
         self.axes = self.fig.add_subplot(111)
-        self.statistiche_attivita = Gestore_statistiche.stat_attivita()
+        self.statistiche_attivita = statistiche_prenotazioni
         self.pie = None
 
     def update_chart(self, anno):
@@ -39,11 +39,11 @@ class Statistiche_attivita(QMainWindow):
         uic.loadUi(PATH_STATISTICHE_ATTIVITA, self)
         self.pagina_precedente = pagina_precedente
         self.anno.setText(str(datetime.datetime.now().year))
-        self.statistiche_prenotazioni = Gestore_statistiche.stat_attivita()
+        self.statistiche_prenotazioni = Gestore_statistiche.get_statistiche_attivita()
 
         self.prenotazioni_tot.setText(str(Gestore_statistiche.prenotazioni_totali()))
 
-        self.grafico = Grafico_attivita()
+        self.grafico = Grafico_attivita(self.statistiche_prenotazioni)
         self.grafico.update_chart(self.anno.text())
         vertical_layout = QVBoxLayout(self.frame_grafico)
         vertical_layout.addWidget(self.grafico)

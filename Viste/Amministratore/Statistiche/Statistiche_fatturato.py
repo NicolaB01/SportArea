@@ -11,11 +11,11 @@ from Path.Path_viste import PATH_STATISTICHE_FATTURATO
 
 
 class Grafico_fatturato(FigureCanvas):
-    def __init__(self):
+    def __init__(self,statistiche_fatturato):
         self.fig = Figure(figsize=(10, 3), dpi=90)
         super(Grafico_fatturato, self).__init__(self.fig)
         self.axes = self.fig.add_subplot(111)
-        self.statistiche_fatturato = Gestore_statistiche.stat_bilancio()
+        self.statistiche_fatturato = statistiche_fatturato
 
     def update_chart(self, anno):
         anno = int(anno)
@@ -43,9 +43,9 @@ class Statistiche_fatturato(QMainWindow):
         uic.loadUi(PATH_STATISTICHE_FATTURATO, self)
         self.pagina_precedente = pagina_precedente
         self.anno.setText(str(datetime.datetime.now().year))
-        self.statistiche_fatturato = Gestore_statistiche.stat_bilancio()
+        self.statistiche_fatturato = Gestore_statistiche.get_statistiche_fatturato()
 
-        self.grafico = Grafico_fatturato()
+        self.grafico = Grafico_fatturato(self.statistiche_fatturato)
         self.grafico.update_chart(self.anno.text())
         vertical_layout = QVBoxLayout(self.frame_grafico)
         vertical_layout.addWidget(self.grafico)

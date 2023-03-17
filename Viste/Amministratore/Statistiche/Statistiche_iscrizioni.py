@@ -13,11 +13,11 @@ from Path.Path_viste import PATH_STATISTICHE_ISCRIZIONI
 
 
 class Grafico_iscrizioni(FigureCanvas):
-    def __init__(self):
+    def __init__(self,statistiche_iscrizioni):
         self.fig = Figure(figsize=(10, 3), dpi=90)
         super(Grafico_iscrizioni, self).__init__(self.fig)
         self.axes = self.fig.add_subplot(111)
-        self.statistiche_iscrizioni = Gestore_statistiche.stat_iscrizioni()
+        self.statistiche_iscrizioni = statistiche_iscrizioni
 
     def update_chart(self, anno):
         anno = int(anno)
@@ -49,9 +49,9 @@ class Statistiche_iscrizioni(QMainWindow):
         uic.loadUi(PATH_STATISTICHE_ISCRIZIONI, self)
         self.pagina_precedente = pagina_precedente
         self.anno.setText(str(datetime.datetime.now().year))
-        self.statistiche_iscrizioni = Gestore_statistiche.stat_iscrizioni()
+        self.statistiche_iscrizioni = Gestore_statistiche.get_statistiche_iscrizioni()
 
-        self.grafico = Grafico_iscrizioni()
+        self.grafico = Grafico_iscrizioni(self.statistiche_iscrizioni)
         self.grafico.update_chart(self.anno.text())
         vertical_layout = QVBoxLayout(self.frame_grafico)
         vertical_layout.addWidget(self.grafico)

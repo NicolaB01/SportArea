@@ -9,11 +9,11 @@ from Path.Path_viste import PATH_STATISTICHE_ETA
 
 
 class Grafico_eta_media(FigureCanvas):
-    def __init__(self):
+    def __init__(self,statistiche_eta):
         self.fig = Figure(figsize=(10, 3), dpi=90)
         super(Grafico_eta_media, self).__init__(self.fig)
         self.axes = self.fig.add_subplot(111)
-        self.statistiche_eta = Gestore_statistiche.get_statistiche_eta()
+        self.statistiche_eta = statistiche_eta
 
     def update_chart(self):
         self.fig.set_facecolor("#A5C9CA")
@@ -36,10 +36,10 @@ class Statistiche_eta(QMainWindow):
         super().__init__()
         uic.loadUi(PATH_STATISTICHE_ETA, self)
         self.pagina_precedente = pagina_precedente
-
+        self.statistiche_eta = Gestore_statistiche.get_statistiche_eta()
         self.eta_media.setText(str(round(Gestore_statistiche.eta_media(), 2)))
 
-        self.grafico = Grafico_eta_media()
+        self.grafico = Grafico_eta_media(self.statistiche_eta)
         self.grafico.update_chart()
         vertical_layout = QVBoxLayout(self.frame_grafico)
         vertical_layout.addWidget(self.grafico)

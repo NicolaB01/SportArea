@@ -28,7 +28,7 @@ class Menu_statistiche(QMainWindow):
     # programma visualizza una finse tra di errore. Se i dati sono presenti si apre la pagina con il grafico delle
     # statistiche
     def statistiche_iscrizioni(self):
-        if datetime.datetime.now().year in Gestore_statistiche.stat_iscrizioni().keys():
+        if datetime.datetime.now().year in Gestore_statistiche.get_statistiche_iscrizioni().keys():
             self.stat1 = Statistiche_iscrizioni(self)
             self.stat1.show()
             self.close()
@@ -50,7 +50,7 @@ class Menu_statistiche(QMainWindow):
     # programma visualizza una finse tra di errore. Se i dati sono presenti si apre la pagina con il grafico delle
     # statistiche
     def statistiche_attivita(self):
-        if datetime.datetime.now().year in Gestore_statistiche.stat_attivita().keys():
+        if datetime.datetime.now().year in Gestore_statistiche.get_statistiche_attivita().keys():
             self.stat3 = Statistiche_attivita(self)
             self.stat3.show()
             self.close()
@@ -61,7 +61,7 @@ class Menu_statistiche(QMainWindow):
     # programma visualizza una finse tra di errore. Se i dati sono presenti si apre la pagina con il grafico delle
     # statistiche
     def statistiche_fatturato(self):
-        if datetime.datetime.now().year in Gestore_statistiche.stat_bilancio().keys():
+        if datetime.datetime.now().year in Gestore_statistiche.get_statistiche_fatturato().keys():
             self.stat4 = Statistiche_fatturato(self)
             self.stat4.show()
             self.close()
