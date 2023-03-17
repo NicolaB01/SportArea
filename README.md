@@ -13,4 +13,4 @@ Per poter eseguire il software sul sistema operativo Mac OS occorre aver install
 
 > :warning: Se si desidera accedere sulla piattaforma come amministratore occorre inserire come email **'admin'** e come password **'password'**.
 
-> :warning: Se l'amministratore volesse attivare la funzionalità di invio automatico delle email, dovrà inserire manualmente nella classe Gestore_email **l'email** e la **password per le app** del gestionale.
+> :warning: Se l'amministratore volesse attivare la funzionalità di invio automatico delle email, dovrà inserire manualmente nella classe Gestore_email le **proprie credeniali**.
