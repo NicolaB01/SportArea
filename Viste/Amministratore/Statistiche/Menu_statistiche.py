@@ -66,7 +66,7 @@ class Menu_statistiche(QMainWindow):
             self.stat4.show()
             self.close()
         else:
-            QMessageBox.warning(self, "Attenzione!", "Non ci sono statistiche relative al fatturato, figa")
+            QMessageBox.warning(self, "Attenzione!", "Non ci sono statistiche relative al fatturato")
 
     def torna_indietro(self):
         self.pagina_precedente.show()
