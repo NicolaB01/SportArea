@@ -40,9 +40,9 @@ class Gestore_email:
 
     #Questo metodo invia una email al cliente che ha ricevuto una richiesta di amicizia
     @classmethod
-    def invia_email_richiesta_amicizia(cls, destinatario):
+    def invia_email_richiesta_amicizia(cls, destinatario, mittete):
         soggetto = "Richiesta amicizia"
-        oggetto = f"{destinatario.get_nome()} {destinatario.get_cognome()} vuole stringere amicizia con te."
+        oggetto = f"{mittete.get_nome()} {mittete.get_cognome()} vuole stringere amicizia con te."
 
         cls.invia_email(destinatario.get_email(), oggetto, soggetto)
 

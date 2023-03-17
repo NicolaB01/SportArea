@@ -16,8 +16,8 @@ class Campo:
     def __str__(self):
         return f"Nome:\t{self.nome}" \
                f"\nNumero partecipanti:{self.numero_max_partecipanti}" \
-               f"\nprezzo:\t{self.prezzo}" \
-               f"\nattivita:\t{self.attivita}"
+               f"\nPrezzo:\t{self.prezzo} €" \
+               f"\nAttivita:\t{self.attivita}"
 
     def __eq__(self, other):
         return isinstance(other,

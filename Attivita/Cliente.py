@@ -25,7 +25,7 @@ class Cliente:
                f"\nCodice fiscale:\t{self.codice_fiscale}" \
                f"\nTelefono:\t{self.numero_telefono}" \
                f"\nData di nascita:\t{self.data_nascita}" \
-               f"\nData di iscrizione:\t{self.data_iscrizione.day}/{self.data_iscrizione.month}/{self.data_iscrizione.year}"
+               f"\nData di iscrizione:\t{self.data_iscrizione.strftime('%d/%m/%Y')}"
 
     def __eq__(self, other):
         return isinstance(other,

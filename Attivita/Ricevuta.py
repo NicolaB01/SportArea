@@ -8,11 +8,11 @@ class Ricevuta():
         self.prenotazione = prenotazione
 
     def __str__(self):
-        return f"Data_emissione:\t{self.data_emissione.day}/{self.data_emissione.month}/{self.data_emissione.year} {self.data_emissione.strftime('%H')}:{self.data_emissione.strftime('%M')}" \
-               f"\nPrezzo:\t\t{self.prezzo}" \
+        return f"Data emissione:\t{self.data_emissione.strftime('%d/%m/%Y %H:%M')}" \
+               f"\nPrezzo:\t\t{self.prezzo} €" \
                f"\nCliente:\t\t{self.prenotazione.cliente.nome} {self.prenotazione.cliente.cognome}" \
                f"\nCampo:\t\t{self.prenotazione.nome_campo}" \
-               f"\nData attività:\t{self.prenotazione.data_attivita.day}/{self.prenotazione.data_attivita.month}/{self.prenotazione.data_attivita.year} {self.prenotazione.data_attivita.strftime('%H')}:{self.prenotazione.data_attivita.strftime('%M')}"
+               f"\nData attività:\t{self.prenotazione.data_attivita.strftime('%d/%m/%Y %H:%M')}"
 
     def __eq__(self, other):
         return isinstance(other,
