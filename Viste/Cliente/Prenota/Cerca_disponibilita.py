@@ -16,6 +16,7 @@ from Viste.Cliente.Prenota.Prenota import Prenota
 class Cerca_disponibilita(QMainWindow):
     def __init__(self, pagina_precedente):
         super().__init__()
+        self.prenotazioni_filtrate_disponibili = None
         uic.loadUi(PATH_CERCA_PRENOTAZIONI, self)
         self.pagina_precedente = pagina_precedente
         for orario in range(8, 22):
@@ -23,7 +24,7 @@ class Cerca_disponibilita(QMainWindow):
 
         self.refresh()
 
-        self.pushButton_ricerca.clicked.connect(self.cerca_disponibilita)
+        self.pushButton_ricerca.clicked.connect(self.visualizza_disponibilita)
         self.pushButton_back.clicked.connect(self.torna_indietro)
 
     def refresh(self):
@@ -33,13 +34,10 @@ class Cerca_disponibilita(QMainWindow):
             if campo.get_attivita() not in allItems:
                 self.comboBox_attivita.addItem(campo.get_attivita())
 
-        self.cerca_disponibilita()
+        self.visualizza_disponibilita()
 
-    #Quando il cliente cerca le fasce orarie disponibili per una certa attività, un certo giorno e da una
-    #determinata ora. Il sistema verifica che i parametri per la ricerca siano giusti, se è così allora comparirà a
-    #schermo una lista di prenotazioni disponibili relative alle fasce orarie disponibili. Altrimenti verrà
-    #visualizzata una finestra di errore.
-    def cerca_disponibilita(self):
+    # Questo metodo si occupa di visualizzare le fasce orarie in base ai parametri immessi dal cliente
+    def visualizza_disponibilita(self):
         self.giorno = int(self.calendarWidget.selectedDate().day())
         self.mese = int(self.calendarWidget.selectedDate().month())
         self.anno = int(self.calendarWidget.selectedDate().year())
@@ -47,30 +45,29 @@ class Cerca_disponibilita(QMainWindow):
         ora_inizio = int(self.comboBox_orario.currentText()[:self.comboBox_orario.currentText().index(":")])
         data_attivita = datetime.datetime(self.anno, self.mese, self.giorno, ora_inizio)
 
-        scroll_area_widget_contents = QWidget()
-        vertical_layout = QVBoxLayout(scroll_area_widget_contents)
-        vertical_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
-
         try:
-            #Gestore_prenotazione.is_data_passata(data_attivita)
-            Gestore_prenotazione.is_ora_passata(data_attivita)
-            Gestore_prenotazione.is_data_festiva(data_attivita)
-
-            self.prenotazioni_filtrate_diponibili = Gestore_prenotazione.get_fasce_orarie_disponibili(attivita, data_attivita)
-            self.riempi_scrollArea()
-
+            self.cerca_disponibilita(data_attivita, attivita)
+            self.visualizza()
         except ExceptionDataPassata as e:
             self.calendarWidget.setSelectedDate(datetime.datetime.now())
-            self.cerca_disponibilita()
             QMessageBox.warning(self, "Attenzione", e.__str__())
         except ExceptionGiornoFestivo as e:
-            vertical_layout.addWidget(self.crea_label_errore(e.__str__()))
-            self.scrollArea_prenotazioni.setWidget(scroll_area_widget_contents)
+            self.calendarWidget.setSelectedDate(datetime.datetime.now())
+            QMessageBox.warning(self, "Attenzione", e.__str__())
         except ExceptionOra:
-            self.prenotazioni_filtrate_diponibili = Gestore_prenotazione.get_fasce_orarie_disponibili(attivita, datetime.datetime(datetime.datetime.now().year, datetime.datetime.now().month, datetime.datetime.now().day, datetime.datetime.now().hour + 1))
-            self.riempi_scrollArea()
+            oggi = datetime.datetime.now()
+            self.prenotazioni_filtrate_disponibili = Gestore_prenotazione.get_fasce_orarie_disponibili(attivita, oggi.replace(hour=oggi.hour + 1))
+            self.visualizza()
 
-    def riempi_scrollArea(self):
+    # Questo metodo si occupa di ricercare le fasce orarie disponibili
+    def cerca_disponibilita(self, data_attivita, attivita):
+        Gestore_prenotazione.is_data_passata(data_attivita)
+        Gestore_prenotazione.is_ora_passata(data_attivita)
+        Gestore_prenotazione.is_data_festiva(data_attivita)
+
+        self.prenotazioni_filtrate_disponibili = Gestore_prenotazione.get_fasce_orarie_disponibili(attivita, data_attivita)
+
+    def visualizza(self):
         scroll_area_widget_contents = QWidget()
         vertical_layout = QVBoxLayout(scroll_area_widget_contents)
         vertical_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
@@ -88,7 +85,7 @@ class Cerca_disponibilita(QMainWindow):
 
     def get_ore_prenotabili(self):
         ore_prenotabili = {}
-        for nome_campo, orari_dionibili in self.prenotazioni_filtrate_diponibili.items():
+        for nome_campo, orari_dionibili in self.prenotazioni_filtrate_disponibili.items():
             for ora in orari_dionibili:
                 bottone_prenotazione = self.crea_bottoni_prenotazioni(nome_campo, ora)
                 bottone_prenotazione.clicked.connect((lambda n_campo=nome_campo,

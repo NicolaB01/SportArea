@@ -88,7 +88,7 @@ class Prenotazioni_attive(QMainWindow):
                     prezzo = Gestore_campo.cerca_campo(prenotazione.nome_campo).prezzo
                     Gestore_cliente.get_account_connesso().deposito(prezzo)
                     prenotazione.elimina_prenotazione()
-                    QMessageBox.about(self, "Comunicazione", f"La prenotazione è stata rimossa con successo, ti è stato riaccreditato: {prezzo}€")
+                    QMessageBox.about(self, "Comunicazione", f"La prenotazione è stata rimossa con successo, ti sono stati riaccreditati: {prezzo}€")
                 except ExceptionPreotazioneNonModificabile as e:
                     QMessageBox.warning(self, "Attenizione", e.__str__())
 
