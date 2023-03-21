@@ -7,7 +7,9 @@ from email.mime.text import MIMEText
 class Gestore_email:
     codice_di_verifica = None
     #va inserita l'email del centro sportivo da cui partiranno le comunicazioni
-    mittente = ""
+    mittente = None
+    #va inserita la password per le app della mail selezionata
+    password = None
 
     #Questo metodo permette l'invio di una email con i parametri forniti
     @classmethod
@@ -22,11 +24,9 @@ class Gestore_email:
             smtp.ehlo()
             smtp.starttls()
             try:
-                #va inserita la password per le app della mail selezionata
-                smtp.login(cls.mittente, "")
-                smtp.send_message(msg)
-            except smtplib.SMTPAuthenticationError:
-                print("Inserire i dati di email e password del centro sportivo")
+                if cls.password is not None or cls.mittente is not None:
+                    smtp.login(cls.mittente, cls.password)
+                    smtp.send_message(msg)
             except smtplib.SMTPRecipientsRefused:
                 print("Invio fallito")
 
